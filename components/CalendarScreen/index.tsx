@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import CalendarList from './CalendarList';
-import DetailsScreen from './DetailsScreen';
+import DetailsScreen from './Details';
 
 const RootStack = createStackNavigator(
   {

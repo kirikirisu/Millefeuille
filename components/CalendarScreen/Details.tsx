@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 
-const DetailsScreen: NavigationStackScreenComponent = () => (
+const Details: NavigationStackScreenComponent = () => (
   <View><Text>hello</Text></View>
 );
 
-DetailsScreen.navigationOptions = {
+Details.navigationOptions = {
   title: 'Details',
 };
 
-export default DetailsScreen;
+export default Details;

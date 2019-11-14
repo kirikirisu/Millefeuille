@@ -1,0 +1,72 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { View, StyleSheet } from 'react-native';
+import {
+  Button, Container, Icon, Text,
+} from 'native-base';
+import { Camera as ExpoCamera } from 'expo-camera';
+import * as Permissions from 'expo-permissions';
+
+const styles = StyleSheet.create({
+  button: {
+    position: 'absolute',
+    bottom: 100,
+    zIndex: 1,
+    alignSelf: 'center',
+    height: 80,
+    width: 80,
+    flex: 1,
+    justifyContent: 'center',
+  },
+  icon: {
+    fontSize: 50,
+  },
+  flexOne: {
+    flex: 1,
+  },
+});
+
+const Camera: React.FC = ({ navigation }) => {
+  const [cameraPermission, setCameraPermission] = useState(null);
+
+  const permission = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    const pms = (status === 'granted');
+    setCameraPermission(pms);
+  };
+  useEffect(() => {
+    permission();
+  }, []);
+
+  const cameraRef = useRef(null);
+
+  const renderCamera = () => {
+    console.log(cameraPermission);
+    if (cameraPermission === null) {
+      return <View />;
+    } if (cameraPermission === false) {
+      return <Text>No access to camera</Text>;
+    }
+    return (
+      <Container style={styles.flexOne}>
+        <ExpoCamera style={styles.flexOne} ref={cameraRef}>
+          <View style={styles.flexOne}>
+            <Button
+              rounded
+              icon
+              onPress={() => { navigation.navigate('Dummy'); }}
+              style={styles.button}
+            >
+              <Icon name="camera" style={styles.icon} />
+            </Button>
+          </View>
+        </ExpoCamera>
+      </Container>
+    );
+  };
+
+  return (
+    <>{renderCamera()}</>
+  );
+};
+
+export default Camera;
