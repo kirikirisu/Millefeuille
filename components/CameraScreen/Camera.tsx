@@ -5,6 +5,7 @@ import {
 } from 'native-base';
 import { Camera as ExpoCamera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
+import { upLoadImg } from '../../utils/upLoadImg';
 
 const styles = StyleSheet.create({
   button: {
@@ -25,8 +26,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const Camera: React.FC = ({ navigation }) => {
-  const [cameraPermission, setCameraPermission] = useState(null);
+const Camera: React.FC = () => {
+  const [cameraPermission, setCameraPermission] = useState<null|boolean>(null);
 
   const permission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -39,7 +40,18 @@ const Camera: React.FC = ({ navigation }) => {
 
   const cameraRef = useRef(null);
 
-  const renderCamera = () => {
+  const snap = async () => {
+    if (cameraRef) {
+      const { uri } = await cameraRef.current.takePictureAsync(); // uriはローカルイメージURIで一時的にローカルに保存される
+      const response = await fetch(uri);
+      const blob = await response.blob();
+      const imgName = blob.data.name;
+      // console.log(blob.data.name);
+      upLoadImg(imgName, blob);
+    }
+  };
+
+  const renderCamera = (): React.ReactElement => {
     console.log(cameraPermission);
     if (cameraPermission === null) {
       return <View />;
@@ -53,7 +65,7 @@ const Camera: React.FC = ({ navigation }) => {
             <Button
               rounded
               icon
-              onPress={() => { navigation.navigate('Dummy'); }}
+              onPress={() => snap()}
               style={styles.button}
             >
               <Icon name="camera" style={styles.icon} />
