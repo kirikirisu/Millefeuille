@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { NavigationBottomTabScreenComponent } from 'react-navigation-tabs';
 import { View, StyleSheet } from 'react-native';
 import {
   Button, Container, Icon, Text,
 } from 'native-base';
 import { Camera as ExpoCamera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
-import { upLoadImg } from '../../utils/upLoadImg';
+import { upLoadImg } from '../../../utils/upLoadImg';
 
 const styles = StyleSheet.create({
   button: {
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Camera: React.FC = () => {
+const Camera: NavigationBottomTabScreenComponent = () => {
   const [cameraPermission, setCameraPermission] = useState<null|boolean>(null);
 
   const permission = async (): Promise<void> => {

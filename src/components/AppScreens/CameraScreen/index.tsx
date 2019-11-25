@@ -18,5 +18,13 @@ const RootStack = createStackNavigator(
     headerMode: 'none',
   },
 );
+// https://reactnavigation.org/docs/en/navigation-options-resolution.html#a-tab-navigator-contains-a-stack-and-you-want-to-hide-the-tab-bar-on-specific-screens
+RootStack.navigationOptions = () => {
+  const tabBarVisible = false;
+
+  return {
+    tabBarVisible,
+  };
+};
 
 export default RootStack;
