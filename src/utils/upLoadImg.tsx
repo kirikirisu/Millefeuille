@@ -1,4 +1,4 @@
-import firebase from '../initializeFirebase';
+import firebase from './initializeFirebase';
 
 export const createRandomStrings = (): string => {
   const l = 15;
