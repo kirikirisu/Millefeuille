@@ -1,10 +1,10 @@
 import React from 'react';
 
-import RootScreen from './src/components/AppScreens/AppRoot';
+import NavigationContainer from './src/components/navigationContainer';
 
 
 const App: React.FC = () => (
-  <RootScreen />
+  <NavigationContainer />
 );
 
 export default App;

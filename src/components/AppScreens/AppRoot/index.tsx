@@ -1,5 +1,4 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { AntDesign } from '@expo/vector-icons';
 
@@ -36,4 +35,4 @@ const TabContainer = createBottomTabNavigator(
   },
 );
 
-export default createAppContainer(TabContainer);
+export default TabContainer;
