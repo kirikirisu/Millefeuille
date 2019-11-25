@@ -10,10 +10,16 @@ module.exports = {
       typescript: {},
     },
   },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true,
+    "jest": true,
+  },
   rules: {
-    "react/prop-types": [0],
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'import/no-extraneous-dependencies': [2, { devDependencies: ['**/test.tsx', '**/test.ts'] }],
     '@typescript-eslint/indent': [2, 2],
+    "react/prop-types": [0],
   },
 };

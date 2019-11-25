@@ -7,6 +7,8 @@ import CalendarScreen from '../CalendarScreen/index';
 import CameraScreen from '../CameraScreen/index';
 import ComparisonScreen from '../ComparisonScreen/index';
 
+let cameraNotForcus = true; // カメラ画面の時だけTabBarを消す
+
 const TabContainer = createBottomTabNavigator(
   {
     Calendar: { screen: CalendarScreen },
@@ -22,12 +24,14 @@ const TabContainer = createBottomTabNavigator(
           iconName = 'calendar';
         } else if (routeName === 'Camera') {
           iconName = `${focused ? 'camera' : 'camerao'}`;
+          cameraNotForcus = false;
         } else if (routeName === 'Comparison') {
           iconName = `${focused ? 'eye' : 'eyeo'}`;
         }
 
         return <AntDesign name={iconName} size={25} color={tintColor} />;
       },
+      tabBarVisible: cameraNotForcus,
     }),
     tabBarOptions: {
       activeTintColor: 'tomato',
