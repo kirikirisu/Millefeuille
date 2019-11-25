@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 const Camera: React.FC = () => {
   const [cameraPermission, setCameraPermission] = useState<null|boolean>(null);
 
-  const permission = async () => {
+  const permission = async (): Promise<void> => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     const pms = (status === 'granted');
     setCameraPermission(pms);
@@ -47,12 +47,12 @@ const Camera: React.FC = () => {
       const blob = await response.blob();
       const imgName = blob.data.name;
       // console.log(blob.data.name);
-      upLoadImg(imgName, blob);
+      upLoadImg(imgName, blob).then((url) => { console.log(url); });
     }
   };
 
   const renderCamera = (): React.ReactElement => {
-    console.log(cameraPermission);
+    // console.log(cameraPermission);
     if (cameraPermission === null) {
       return <View />;
     } if (cameraPermission === false) {
