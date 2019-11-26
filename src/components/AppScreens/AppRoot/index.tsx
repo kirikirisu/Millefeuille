@@ -5,12 +5,14 @@ import { AntDesign } from '@expo/vector-icons';
 import CalendarScreen from '../CalendarScreen/index';
 import CameraScreen from '../CameraScreen/index';
 import ComparisonScreen from '../ComparisonScreen/index';
+import SettingScreen from '../SettingScreen/index';
 
 const TabContainer = createBottomTabNavigator(
   {
     Calendar: { screen: CalendarScreen },
     Camera: { screen: CameraScreen },
     Comparison: { screen: ComparisonScreen },
+    Setting: { screen: SettingScreen },
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -23,6 +25,8 @@ const TabContainer = createBottomTabNavigator(
           iconName = `${focused ? 'camera' : 'camerao'}`;
         } else if (routeName === 'Comparison') {
           iconName = `${focused ? 'eye' : 'eyeo'}`;
+        } else if (routeName === 'Setting') {
+          iconName = 'setting';
         }
 
         return <AntDesign name={iconName} size={25} color={tintColor} />;

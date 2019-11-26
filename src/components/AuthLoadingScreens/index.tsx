@@ -3,6 +3,7 @@ import {
   ActivityIndicator, View, StyleSheet, StatusBar,
 } from 'react-native';
 import { NavigationSwitchScreenComponent, NavigationSwitchProp } from 'react-navigation';
+import firebase from '../../utils/initializeFirebase';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,13 +18,19 @@ interface Props {
 }
 
 const AuthLoadingScreen: NavigationSwitchScreenComponent<Props> = ({ navigation }) => {
-  console.log('hello');
+  console.log('loadingAuth!!');
 
-  const transition = () => {
-    navigation.navigate('App');
-  };
+  firebase.auth().onAuthStateChanged((user) => {
+    // console.log(user);
+    if (user != null) {
+      console.log('authenticated');
+      navigation.navigate('App');
+    } else {
+      console.log('need authenticat!');
+      navigation.navigate('Auth');
+    }
+  });
 
-  setTimeout(transition, 2000);
   return (
     <View style={styles.container}>
       <ActivityIndicator />
