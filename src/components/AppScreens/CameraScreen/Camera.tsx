@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavigationBottomTabScreenComponent } from 'react-navigation-tabs';
+import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { View, StyleSheet } from 'react-native';
 import {
   Button, Container, Icon, Text,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Camera: NavigationBottomTabScreenComponent = () => {
+const Camera: NavigationStackScreenComponent = () => {
   const [cameraPermission, setCameraPermission] = useState<null|boolean>(null);
 
   const permission = async (): Promise<void> => {
