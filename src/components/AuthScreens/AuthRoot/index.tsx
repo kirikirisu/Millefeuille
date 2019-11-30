@@ -1,13 +1,16 @@
-import React from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import FacebookLoginScreen from '../LoginScreen/FacebookLoginScreen';
+import LoginTopScreen from '../LoginScreen/LoginTopScreen';
+import RegisterScreen from '../LoginScreen/RegisterScreen';
 
 const RootStack = createStackNavigator(
   {
-    Home: {
-      screen: FacebookLoginScreen,
-    },
+    LoginTop: { screen: LoginTopScreen },
+    Register: { screen: RegisterScreen },
+  },
+  {
+    initialRouteName: 'LoginTop',
+    mode: 'modal',
   },
 );
 

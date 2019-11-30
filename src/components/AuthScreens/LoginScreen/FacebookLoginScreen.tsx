@@ -1,19 +1,11 @@
 import React from 'react';
 import {
   View,
-  StyleSheet,
 } from 'react-native';
+// import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import * as Facebook from 'expo-facebook';
 import { Button } from 'react-native-elements';
 import firebase from '../../../utils/initializeFirebase';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 const FacebookLoginScreen: React.FC = () => {
   const loginWithFaceBook = async () => {
@@ -44,7 +36,7 @@ const FacebookLoginScreen: React.FC = () => {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={{ width: 350 }}>
       <Button
         title="Login With Facebook"
         type="outline"
