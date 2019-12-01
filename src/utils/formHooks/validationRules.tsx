@@ -1,10 +1,11 @@
 interface ErrorMessage {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
 }
 
-const validate = (values): ErrorMessage => {
-  const errors = { email: null, password: null };
+const validate = (values) => {
+  // https://stackoverflow.com/questions/45339065/typescript-empty-object-for-a-typed-variable
+  const errors: ErrorMessage = {};
 
   if (!values.email) {
     errors.email = 'Email address is required';

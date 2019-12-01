@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View, Text, StyleSheet, Dimensions,
 } from 'react-native';
@@ -49,7 +49,7 @@ const EmailPasswordLoginScreen: React.FC = () => {
       <View style={styles.inputs}>
         <Input
           placeholder="e-mail"
-          onChangeText={(t) => handleChange(t, email)}
+          onChangeText={(t) => handleChange(email, t)}
           value={values.email}
         />
         {errors.email
@@ -57,7 +57,7 @@ const EmailPasswordLoginScreen: React.FC = () => {
           : null}
         <Input
           placeholder="password"
-          onChangeText={(t) => handleChange(t, password)}
+          onChangeText={(t) => handleChange(password, t)}
           value={values.password}
         />
         {errors.password

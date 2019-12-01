@@ -24,17 +24,6 @@ const FacebookLoginScreen: React.FC = () => {
     }
   };
 
-  // パブリックメソッド
-  // https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseAuth.AuthStateListener
-  firebase.auth().onAuthStateChanged((user) => {
-    console.log(user);
-    if (user != null) {
-      console.log('We are authenticated now!');
-    } else {
-      console.log('please login');
-    }
-  });
-
   return (
     <View style={{ width: 350 }}>
       <Button

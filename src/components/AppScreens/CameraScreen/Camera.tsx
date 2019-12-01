@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import {
   Button, Container, Icon, Text,
 } from 'native-base';
 import { Camera as ExpoCamera } from 'expo-camera';
-import * as Permissions from 'expo-permissions';
 import { upLoadImg } from '../../../utils/upLoadImg';
+import usePermission from '../../../utils/usePermission';
 
 const styles = StyleSheet.create({
   button: {
@@ -25,19 +25,16 @@ const styles = StyleSheet.create({
   flexOne: {
     flex: 1,
   },
+  activityIndicator: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 const Camera: NavigationStackScreenComponent = () => {
-  const [cameraPermission, setCameraPermission] = useState<null|boolean>(null);
-
-  const permission = async (): Promise<void> => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    const pms = (status === 'granted');
-    setCameraPermission(pms);
-  };
-  useEffect(() => {
-    permission();
-  }, []);
+  const { cameraPermission } = usePermission();
+  const [isLoading, setIsLoading] = useState(false);
 
   const cameraRef = useRef(null);
 
@@ -48,7 +45,13 @@ const Camera: NavigationStackScreenComponent = () => {
       const blob = await response.blob();
       const imgName = blob.data.name;
       // console.log(blob.data.name);
-      upLoadImg(imgName, blob).then((url) => { console.log(url); });
+      setIsLoading(true);
+      upLoadImg(imgName, blob)
+        .then((url) => {
+          console.log(url);
+          setIsLoading(false);
+        });
+      // .catch((error) => console.log(error));
     }
   };
 
@@ -77,8 +80,20 @@ const Camera: NavigationStackScreenComponent = () => {
     );
   };
 
+  const renderActivityIndicator = () => (
+    <View style={styles.activityIndicator}>
+      <ActivityIndicator />
+    </View>
+  );
+
   return (
-    <>{renderCamera()}</>
+    <>
+      {
+        isLoading
+          ? renderActivityIndicator()
+          : renderCamera()
+      }
+    </>
   );
 };
 

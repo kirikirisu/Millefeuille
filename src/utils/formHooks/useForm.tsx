@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
 const useForm = (callback, validate) => {
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
+  const [values, setValues] = useState<{ email?: string; password?: string }>({});
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -17,12 +17,12 @@ const useForm = (callback, validate) => {
     setIsSubmitting(true);
   };
 
-  const handleChange = (text, keyName) => {
+  const handleChange = (keyName, text) => {
     // https://ja.reactjs.org/docs/events.html#event-pooling
     // event.persist();
     // https://ja.reactjs.org/docs/hooks-reference.html#functional-updates
     setValues((prevState) => ({ ...prevState, [keyName]: text }));
-    console.log(values);
+    // console.log(values);
   };
 
   return {

@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
-import { NavigationStackScreenComponent } from 'react-navigation-stack';
-import { View, Text, StyleSheet } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import React from 'react';
+import {
+  View, Text, StyleSheet, Dimensions,
+} from 'react-native';
+import { Input, Button } from 'react-native-elements';
 import firebase from '../../../utils/initializeFirebase';
+import useForm from '../../../utils/formHooks/useForm';
+import validate from '../../../utils/formHooks/validationRules';
+
+const { height, width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  form: {
     width: 350,
   },
   validateText: {
@@ -17,81 +28,56 @@ const styles = StyleSheet.create({
   },
 });
 
-const RegisterScreen: NavigationStackScreenComponent = ({ navigation }) => {
-  const [email, setEmail] = useState <string>('');
-  const [password, setPassword] = useState<string>('');
-  const [validateEmail, setEmailError] = useState<{emailError: string}>({ emailError: '' });
-  const [validatePassword, setPasswordError] = useState<{passwordError: string}>({ passwordError: '' });
-
-  const validate = () => {
-    let errorMsgE;
-    let errorMsgP;
-
-    if (!email.includes('@')) {
-      errorMsgE = 'invalid email';
-    }
-    if (!password) {
-      errorMsgP = 'name can not be blank';
-    }
-
-    if (errorMsgE || errorMsgP) {
-      setEmailError({ emailError: errorMsgE });
-      setPasswordError({ passwordError: errorMsgP });
-      return false;
-    }
-    return true;
-  };
-
-  const createAccount = () => {
+const EmailPasswordLoginScreen: React.FC = () => {
+  const createUser = () => {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    const { email, password } = values;
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        navigation.goBack();
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .then((credentials) => { console.log('create user success'); })
+      .catch((error) => { console.log(error); });
   };
 
-  const hundleOnPress = (e) => {
-    e.preventDefault();
-    const isValid = validate();
-    if (isValid) {
-      setEmail('');
-      setPassword('');
-      setEmailError({ emailError: '' });
-      setPasswordError({ passwordError: '' });
-      createAccount();
-    }
-  };
 
+  const {
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+  } = useForm(createUser, validate);
+
+  // useFormのsetValuesで特定のkeyで入力値を保存したい
+  const email = 'email';
+  const password = 'password';
   return (
     <View style={styles.container}>
-      <View style={styles.inputs}>
-        <Input
-          placeholder="e-mail"
-          onChangeText={(text) => setEmail(text)}
-          value={email}
+      <View style={styles.form}>
+        <View style={styles.inputs}>
+          <Input
+            placeholder="e-mail"
+            onChangeText={(t) => handleChange(email, t)}
+            value={values.email}
+          />
+          {errors.email
+            ? <Text style={styles.validateText}>{errors.email}</Text>
+            : null}
+          <Input
+            placeholder="password"
+            onChangeText={(t) => handleChange(password, t)}
+            value={values.password}
+          />
+          {errors.password
+            ? <Text style={styles.validateText}>{errors.password}</Text>
+            : null}
+        </View>
+        <Button
+          title="Create Account"
+          type="outline"
+          raised
+          onPress={(e) => handleSubmit(e)}
         />
-        {validateEmail.emailError
-          ? <Text style={styles.validateText}>{validateEmail.emailError}</Text>
-          : null}
-        <Input
-          placeholder="password"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-        />
-        {validatePassword.passwordError
-          ? <Text style={styles.validateText}>{validatePassword.passwordError}</Text>
-          : null}
       </View>
-      <Button
-        title="submit"
-        type="outline"
-        raised
-        onPress={(e) => hundleOnPress(e)}
-      />
     </View>
   );
 };
 
-export default RegisterScreen;
+export default EmailPasswordLoginScreen;

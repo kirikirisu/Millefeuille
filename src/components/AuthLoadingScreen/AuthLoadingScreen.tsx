@@ -19,7 +19,8 @@ interface Props {
 
 const AuthLoadingScreen: NavigationSwitchScreenComponent<Props> = ({ navigation }) => {
   console.log('loadingAuth!!');
-
+  // パブリックメソッド
+  // https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseAuth.AuthStateListener
   firebase.auth().onAuthStateChanged((user) => {
     // console.log(user);
     if (user != null) {

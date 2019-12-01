@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { NavigationStackScreenComponent } from 'react-navigation-stack';
+import { NavigationStackScreenComponent, NavigationStackProp } from 'react-navigation-stack';
 import { Button } from 'react-native-elements';
 
 import EmailPasswordLoginScreen from './EmailPasswordLoginScreen';
@@ -18,18 +18,23 @@ const styles = StyleSheet.create({
   },
 });
 
+interface Props {
+  navigation: NavigationStackProp;
+}
 
-const LoginTopScreen: NavigationStackScreenComponent = ({ navigation }) => {
+
+const LoginTopScreen: NavigationStackScreenComponent<Props> = ({ navigation }) => {
   const renderRegisterButton = (): React.ReactElement => (
     <View>
       <Button
         style={styles.button}
-        title="Register"
+        title="Create Account"
         type="outline"
         onPress={() => navigation.navigate('Register')}
       />
     </View>
   );
+
   return (
     <View style={styles.container}>
       <EmailPasswordLoginScreen />
