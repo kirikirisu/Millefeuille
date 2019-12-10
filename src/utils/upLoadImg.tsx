@@ -15,6 +15,7 @@ export const createRandomStrings = (): string => {
 
 export const upLoadImg = (imgName, blob): Promise<string> => new Promise((resolve) => {
   const storageRef = firebase.storage().ref();
+  // const path = `images/user/`;
   const cloudStoragePath = storageRef.child(imgName);
   cloudStoragePath.put(blob).then((snapshot): void => { // firebaseに保存
     cloudStoragePath.getDownloadURL().then((url) => { // 保存したらその画像のurlを入手

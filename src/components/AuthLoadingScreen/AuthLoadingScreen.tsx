@@ -17,13 +17,14 @@ interface Props {
   navigation: NavigationSwitchProp;
 }
 
-const AuthLoadingScreen: NavigationSwitchScreenComponent<Props> = ({ navigation }) => {
+const AuthLoadingScreen: NavigationSwitchScreenComponent<Props> = ({ navigation, setUser }) => {
   console.log('loadingAuth!!');
   // パブリックメソッド
   // https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseAuth.AuthStateListener
   firebase.auth().onAuthStateChanged((user) => {
-    // console.log(user);
     if (user != null) {
+      // console.log(user.uid);
+      setUser(user);
       console.log('authenticated');
       navigation.navigate('App');
     } else {

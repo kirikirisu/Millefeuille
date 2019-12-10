@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Camera from './Camera';
+import Camera from '../../../containers/Camera';
 import Dummy from './HowToUpload';
 
 const RootStack = createStackNavigator(

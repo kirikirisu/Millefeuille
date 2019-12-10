@@ -5,6 +5,7 @@ import { Button } from 'react-native-elements';
 
 import EmailPasswordLoginScreen from './EmailPasswordLoginScreen';
 import FacebookLoginScreen from './FacebookLoginScreen';
+// import GoogleLoginScreen from './GoogleLoginScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,6 +16,9 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 350,
+  },
+  nomalLogin: {
+    marginBottom: 15,
   },
 });
 
@@ -37,7 +41,9 @@ const LoginTopScreen: NavigationStackScreenComponent<Props> = ({ navigation }) =
 
   return (
     <View style={styles.container}>
-      <EmailPasswordLoginScreen />
+      <View style={styles.nomalLogin}>
+        <EmailPasswordLoginScreen />
+      </View>
       <FacebookLoginScreen />
       {renderRegisterButton()}
     </View>
