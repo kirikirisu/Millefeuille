@@ -4,7 +4,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { logout } from '../../../utils/loginMethods';
+import { logout } from '../../../utils/methodFactory';
 
 const styles = StyleSheet.create({
   container: {

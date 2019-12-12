@@ -13,16 +13,11 @@ export const createRandomStrings = (): string => {
   return r;
 };
 
-export const upLoadImg = (imgName, blob): Promise<string> => new Promise((resolve) => {
+export const upLoadImg = (imgName, blob, uid): Promise<string> => new Promise((resolve) => {
   const storageRef = firebase.storage().ref();
-  // const path = `images/user/`;
-  const cloudStoragePath = storageRef.child(imgName);
+  const path = `images/users/${uid}/${imgName}`;
+  const cloudStoragePath = storageRef.child(path);
   cloudStoragePath.put(blob).then((snapshot): void => { // firebaseに保存
-    cloudStoragePath.getDownloadURL().then((url) => { // 保存したらその画像のurlを入手
-      console.log('ok');
-      resolve(url);
-    }).catch((error) => {
-      console.log(error);
-    });
+    resolve('store success');
   });
 });

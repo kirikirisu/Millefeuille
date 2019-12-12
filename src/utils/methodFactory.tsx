@@ -1,6 +1,5 @@
 import firebase from './initializeFirebase';
 
-
 export const logout = () => {
   firebase.auth().signOut().then(() => {
     console.log('ログアウトしました');

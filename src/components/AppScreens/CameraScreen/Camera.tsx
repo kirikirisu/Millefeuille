@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { NavigationStackScreenComponent } from 'react-navigation-stack';
+// import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import {
   Button, Container, Icon, Text,
@@ -32,7 +32,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const Camera: NavigationStackScreenComponent = () => {
+type Props = { uid: string };
+
+const Camera: React.FC<Props> = ({ uid }) => {
   const { cameraPermission } = usePermission();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -46,12 +48,15 @@ const Camera: NavigationStackScreenComponent = () => {
       const imgName = blob.data.name;
       // console.log(blob.data.name);
       setIsLoading(true);
-      upLoadImg(imgName, blob)
+      upLoadImg(imgName, blob, uid)
         .then((url) => {
           console.log(url);
           setIsLoading(false);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          console.log('store faild');
         });
-      // .catch((error) => console.log(error));
     }
   };
 
