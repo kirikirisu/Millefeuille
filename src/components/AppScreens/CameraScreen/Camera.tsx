@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
+// import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { View, StyleSheet } from 'react-native';
 import {
   Button, Container, Icon, Text,
 } from 'native-base';
+import * as Progress from 'react-native-progress';
 import { Camera as ExpoCamera } from 'expo-camera';
-import * as Permissions from 'expo-permissions';
-import { upLoadImg } from '../../utils/upLoadImg';
+import useTakePicuture from '../../../utils/useTakePicuture';
+import usePermission from '../../../utils/usePermission';
 
 const styles = StyleSheet.create({
   button: {
@@ -24,32 +26,28 @@ const styles = StyleSheet.create({
   flexOne: {
     flex: 1,
   },
+  activityIndicator: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  progress: {
+    margin: 10,
+  },
 });
 
-const Camera: React.FC = () => {
-  const [cameraPermission, setCameraPermission] = useState<null|boolean>(null);
+type Props = { uid: string };
 
-  const permission = async (): Promise<void> => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    const pms = (status === 'granted');
-    setCameraPermission(pms);
-  };
-  useEffect(() => {
-    permission();
-  }, []);
-
+const Camera: React.FC<Props> = ({ uid }) => {
+  const { cameraPermission } = usePermission();
   const cameraRef = useRef(null);
-
-  const snap = async () => {
-    if (cameraRef) {
-      const { uri } = await cameraRef.current.takePictureAsync(); // uriはローカルイメージURIで一時的にローカルに保存される
-      const response = await fetch(uri);
-      const blob = await response.blob();
-      const imgName = blob.data.name;
-      // console.log(blob.data.name);
-      upLoadImg(imgName, blob).then((url) => { console.log(url); });
-    }
-  };
+  const {
+    isLoading,
+    snap,
+    percentage,
+    imgUrl,
+    indeterminate,
+  } = useTakePicuture(uid, cameraRef);
 
   const renderCamera = (): React.ReactElement => {
     // console.log(cameraPermission);
@@ -75,9 +73,26 @@ const Camera: React.FC = () => {
       </Container>
     );
   };
+  const renderProgress = () => (
+    <View style={styles.activityIndicator}>
+      <Progress.Circle
+        style={styles.progress}
+        progress={percentage}
+        indeterminate={indeterminate}
+        size={120}
+        showsText
+      />
+    </View>
+  );
 
   return (
-    <>{renderCamera()}</>
+    <>
+      {
+        isLoading
+          ? renderProgress()
+          : renderCamera()
+      }
+    </>
   );
 };
 
