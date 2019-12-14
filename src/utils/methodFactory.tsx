@@ -1,6 +1,6 @@
 import firebase from './initializeFirebase';
 
-export const logout = () => {
+const logout = () => {
   firebase.auth().signOut().then(() => {
     console.log('ログアウトしました');
   })
@@ -9,6 +9,8 @@ export const logout = () => {
     });
 };
 
-export const hoge = () => {
+const hoge = () => {
   console.log('ログアウトしました');
 };
+
+export { logout, hoge };

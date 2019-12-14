@@ -1,11 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 // import { NavigationStackScreenComponent } from 'react-navigation-stack';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import {
   Button, Container, Icon, Text,
 } from 'native-base';
+import * as Progress from 'react-native-progress';
 import { Camera as ExpoCamera } from 'expo-camera';
-import { upLoadImg } from '../../../utils/upLoadImg';
+import useTakePicuture from '../../../utils/useTakePicuture';
 import usePermission from '../../../utils/usePermission';
 
 const styles = StyleSheet.create({
@@ -30,35 +31,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  progress: {
+    margin: 10,
+  },
 });
 
 type Props = { uid: string };
 
 const Camera: React.FC<Props> = ({ uid }) => {
   const { cameraPermission } = usePermission();
-  const [isLoading, setIsLoading] = useState(false);
-
   const cameraRef = useRef(null);
-
-  const snap = async () => {
-    if (cameraRef) {
-      const { uri } = await cameraRef.current.takePictureAsync(); // uriはローカルイメージURIで一時的にローカルに保存される
-      const response = await fetch(uri);
-      const blob = await response.blob();
-      const imgName = blob.data.name;
-      // console.log(blob.data.name);
-      setIsLoading(true);
-      upLoadImg(imgName, blob, uid)
-        .then((url) => {
-          console.log(url);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          setIsLoading(false);
-          console.log('store faild');
-        });
-    }
-  };
+  const {
+    isLoading,
+    snap,
+    percentage,
+    imgUrl,
+    indeterminate,
+  } = useTakePicuture(uid, cameraRef);
 
   const renderCamera = (): React.ReactElement => {
     // console.log(cameraPermission);
@@ -84,10 +73,15 @@ const Camera: React.FC<Props> = ({ uid }) => {
       </Container>
     );
   };
-
-  const renderActivityIndicator = () => (
+  const renderProgress = () => (
     <View style={styles.activityIndicator}>
-      <ActivityIndicator />
+      <Progress.Circle
+        style={styles.progress}
+        progress={percentage}
+        indeterminate={indeterminate}
+        size={120}
+        showsText
+      />
     </View>
   );
 
@@ -95,7 +89,7 @@ const Camera: React.FC<Props> = ({ uid }) => {
     <>
       {
         isLoading
-          ? renderActivityIndicator()
+          ? renderProgress()
           : renderCamera()
       }
     </>
