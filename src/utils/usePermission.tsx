@@ -5,7 +5,10 @@ const usePermission = () => {
   const [cameraPermission, setCameraPermission] = useState<null|boolean>(null);
 
   const permission = async (): Promise<void> => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    const { status } = await Permissions.askAsync(
+      Permissions.CAMERA,
+      Permissions.CAMERA_ROLL,
+    );
     const pms = (status === 'granted');
     setCameraPermission(pms);
   };

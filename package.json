@@ -35,7 +35,9 @@
     "react-navigation-stack": "^1.10.3",
     "react-navigation-tabs": "^2.5.6",
     "react-redux": "^5.1.1",
-    "redux": "^4.0.4"
+    "redux": "^4.0.4",
+    "expo-file-system": "~7.0.0",
+    "expo-media-library": "~7.0.0"
   },
   "devDependencies": {
     "@types/react": "^16.8.23",

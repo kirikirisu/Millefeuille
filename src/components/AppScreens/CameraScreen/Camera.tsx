@@ -1,13 +1,12 @@
 import React, { useRef } from 'react';
-// import { NavigationStackScreenComponent } from 'react-navigation-stack';
+import { NavigationStackProp } from 'react-navigation-stack';
 import { View, StyleSheet } from 'react-native';
 import {
   Button, Container, Icon, Text,
 } from 'native-base';
-import * as Progress from 'react-native-progress';
 import { Camera as ExpoCamera } from 'expo-camera';
-import useTakePicuture from '../../../utils/useTakePicuture';
 import usePermission from '../../../utils/usePermission';
+import { snap } from '../../../utils/methodFactory';
 
 const styles = StyleSheet.create({
   button: {
@@ -36,18 +35,14 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = { uid: string };
+type Props = {
+  setImgData: () => void;
+  navigation: NavigationStackProp;
+};
 
-const Camera: React.FC<Props> = ({ uid }) => {
+const Camera: React.FC<Props> = ({ setImgData, navigation }) => {
   const { cameraPermission } = usePermission();
   const cameraRef = useRef(null);
-  const {
-    isLoading,
-    snap,
-    percentage,
-    imgUrl,
-    indeterminate,
-  } = useTakePicuture(uid, cameraRef);
 
   const renderCamera = (): React.ReactElement => {
     // console.log(cameraPermission);
@@ -63,7 +58,7 @@ const Camera: React.FC<Props> = ({ uid }) => {
             <Button
               rounded
               icon
-              onPress={() => snap()}
+              onPress={() => snap(cameraRef, setImgData, navigation)}
               style={styles.button}
             >
               <Icon name="camera" style={styles.icon} />
@@ -73,25 +68,10 @@ const Camera: React.FC<Props> = ({ uid }) => {
       </Container>
     );
   };
-  const renderProgress = () => (
-    <View style={styles.activityIndicator}>
-      <Progress.Circle
-        style={styles.progress}
-        progress={percentage}
-        indeterminate={indeterminate}
-        size={120}
-        showsText
-      />
-    </View>
-  );
 
   return (
     <>
-      {
-        isLoading
-          ? renderProgress()
-          : renderCamera()
-      }
+      {renderCamera()}
     </>
   );
 };
