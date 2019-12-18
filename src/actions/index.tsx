@@ -5,7 +5,7 @@ export const setUser = (user) => ({
   user,
 });
 
-export const setImgData = (imgData) => ({
-  type: actionTypes.SET_IMG_DATA,
-  imgData,
+export const setBlob = (blob) => ({
+  type: actionTypes.SET_BLOB,
+  blob,
 });

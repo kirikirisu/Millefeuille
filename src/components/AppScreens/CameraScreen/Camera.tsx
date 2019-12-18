@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import {
   Button, Container, Icon, Text,
 } from 'native-base';
+import { AntDesign } from '@expo/vector-icons';
 import { Camera as ExpoCamera } from 'expo-camera';
 import usePermission from '../../../utils/usePermission';
 import { snap } from '../../../utils/methodFactory';
@@ -25,40 +26,43 @@ const styles = StyleSheet.create({
   flexOne: {
     flex: 1,
   },
-  activityIndicator: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  progress: {
-    margin: 10,
+  backIcon: {
+    marginTop: 35,
+    marginLeft: 30,
   },
 });
 
 type Props = {
-  setImgData: () => void;
+  setBlob: () => void;
   navigation: NavigationStackProp;
 };
 
-const Camera: React.FC<Props> = ({ setImgData, navigation }) => {
+const Camera: React.FC<Props> = ({ setBlob, navigation }) => {
   const { cameraPermission } = usePermission();
   const cameraRef = useRef(null);
 
   const renderCamera = (): React.ReactElement => {
-    // console.log(cameraPermission);
+    console.log(cameraPermission);
     if (cameraPermission === null) {
       return <View />;
-    } if (cameraPermission === false) {
-      return <Text>No access to camera</Text>;
+    } if (cameraPermission !== 'granted') {
+      navigation.navigate('Prompt');
     }
     return (
       <Container style={styles.flexOne}>
         <ExpoCamera style={styles.flexOne} ref={cameraRef}>
           <View style={styles.flexOne}>
+            <AntDesign
+              name="close"
+              size={40}
+              style={styles.backIcon}
+              onPress={() => { navigation.navigate('Home'); }}
+              color="white"
+            />
             <Button
               rounded
               icon
-              onPress={() => snap(cameraRef, setImgData, navigation)}
+              onPress={() => snap(cameraRef, setBlob, navigation)}
               style={styles.button}
             >
               <Icon name="camera" style={styles.icon} />

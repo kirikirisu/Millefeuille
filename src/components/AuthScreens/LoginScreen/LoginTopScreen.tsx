@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
+type Props = {
   navigation: NavigationStackProp;
 }
 

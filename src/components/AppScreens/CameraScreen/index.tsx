@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Camera from '../../../containers/Camera';
 import Edit from './EditScreen/index';
+import Prompt from './PromptPermission';
 
 const RootStack = createStackNavigator(
   {
@@ -11,8 +12,12 @@ const RootStack = createStackNavigator(
     Edit: {
       screen: Edit,
     },
+    Prompt: {
+      screen: Prompt,
+    },
   },
   {
+    initialRouteName: 'Camera',
     mode: 'modal',
     headerMode: 'none',
   },

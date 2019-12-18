@@ -1,12 +1,15 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 
-const Edit: React.FC = () => (
-  <View>
-    <Text>
-        hello
-    </Text>
-  </View>
-);
+type Props = {
+  blob: Blob;
+}
+
+const Edit: React.FC<Props> = ({ blob }) => {
+  console.log(blob);
+  return (
+    <View><Text>hello</Text></View>
+  );
+};
 
 export default Edit;
