@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setBlob } from '../actions';
+import { setUri } from '../actions';
 
 import Camera from '../components/AppScreens/CameraScreen/Camera';
 
@@ -8,8 +8,8 @@ const mapStateToProps = ({ user }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setBlob(blob) {
-    dispatch(setBlob(blob));
+  setUri(uri) {
+    dispatch(setUri(uri));
   },
 });
 

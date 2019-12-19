@@ -10,15 +10,26 @@ const logout = () => {
     });
 };
 
-const snap = async (cameraRef, setBlob, navigation) => {
+const snap = async (cameraRef, setUri, navigation) => {
   if (cameraRef) {
     const { uri } = await cameraRef.current.takePictureAsync(); // uriはローカルイメージURIで一時的にローカルに保存される
     CameraRoll.saveToCameraRoll(uri);
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    setBlob(blob);
+    setUri(uri);
     navigation.navigate('Edit');
   }
 };
+
+
+type Props = {
+  blob: {
+    _data: {
+      blobId: string;
+      name: string;
+      offset: number;
+      size: number;
+      type: boolean;
+    };
+  };
+}
 
 export { logout, snap };

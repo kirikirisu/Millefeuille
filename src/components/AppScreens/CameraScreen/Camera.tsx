@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { View, StyleSheet } from 'react-native';
 import {
-  Button, Container, Icon, Text,
+  Button, Container, Icon,
 } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 import { Camera as ExpoCamera } from 'expo-camera';
@@ -33,11 +33,11 @@ const styles = StyleSheet.create({
 });
 
 type Props = {
-  setBlob: () => void;
+  setUri: () => void;
   navigation: NavigationStackProp;
 };
 
-const Camera: React.FC<Props> = ({ setBlob, navigation }) => {
+const Camera: React.FC<Props> = ({ setUri, navigation }) => {
   const { cameraPermission } = usePermission();
   const cameraRef = useRef(null);
 
@@ -62,7 +62,7 @@ const Camera: React.FC<Props> = ({ setBlob, navigation }) => {
             <Button
               rounded
               icon
-              onPress={() => snap(cameraRef, setBlob, navigation)}
+              onPress={() => snap(cameraRef, setUri, navigation)}
               style={styles.button}
             >
               <Icon name="camera" style={styles.icon} />

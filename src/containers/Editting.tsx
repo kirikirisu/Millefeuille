@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 import Editting from '../components/AppScreens/CameraScreen/EditScreen/Editting';
 
-const mapStateToProps = ({ blob }) => ({
-  blob: blob.blob,
+const mapStateToProps = ({ uri }) => ({
+  uri: uri.uri,
 });
 
 /* const mapDispatchToProps = (dispatch) => ({

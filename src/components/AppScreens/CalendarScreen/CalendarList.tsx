@@ -3,7 +3,7 @@ import { CalendarList } from 'react-native-calendars';
 import { NavigationStackProp, NavigationStackScreenComponent } from 'react-navigation-stack';
 import { View } from 'react-native';
 
-interface Props {
+type Props = {
   navigation: NavigationStackProp;
 }
 

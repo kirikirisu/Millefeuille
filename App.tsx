@@ -8,7 +8,6 @@ import NavigationContainer from './src/components/navigationContainer';
 
 const store = createStore(
   rootReducer,
-  // eslint-disable-next-line no-underscore-dangle
   (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
 );
 

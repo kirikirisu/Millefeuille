@@ -21,6 +21,6 @@ module.exports = {
     'import/no-extraneous-dependencies': [2, { devDependencies: ['**/test.tsx', '**/test.ts'] }],
     '@typescript-eslint/indent': [2, 2],
     "react/prop-types": [0],
-    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "no-underscore-dangle": [0]
   },
 };

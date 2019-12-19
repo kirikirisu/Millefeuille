@@ -5,7 +5,7 @@ export const setUser = (user) => ({
   user,
 });
 
-export const setBlob = (blob) => ({
-  type: actionTypes.SET_BLOB,
-  blob,
+export const setUri = (uri) => ({
+  type: actionTypes.SET_URI,
+  uri,
 });
