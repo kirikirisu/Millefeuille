@@ -8,6 +8,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { Camera as ExpoCamera } from 'expo-camera';
 import usePermission from '../../../utils/usePermission';
 import { snap } from '../../../utils/methodFactory';
+import ImagePicker from './ImagePicker';
 
 const styles = StyleSheet.create({
   button: {
@@ -67,6 +68,7 @@ const Camera: React.FC<Props> = ({ setUri, navigation }) => {
             >
               <Icon name="camera" style={styles.icon} />
             </Button>
+            <ImagePicker setUri={setUri} />
           </View>
         </ExpoCamera>
       </Container>
