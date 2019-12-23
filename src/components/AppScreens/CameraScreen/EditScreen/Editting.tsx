@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View, Image, ImageSourcePropType, StyleSheet,
 } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
 
 type Props = {
   uri: ImageSourcePropType;

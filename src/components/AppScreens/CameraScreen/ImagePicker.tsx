@@ -1,8 +1,9 @@
 import React from 'react';
+import { withNavigation } from 'react-navigation';
 import { Button, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-const ImagePick = ({ setUri }): React.ReactElement => {
+const ImagePick = ({ setUri, navigation }): React.ReactElement => {
   const pickImage = async () => {
     const { cancelled, uri } = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -14,15 +15,18 @@ const ImagePick = ({ setUri }): React.ReactElement => {
 
     if (!cancelled) {
       setUri(uri);
+      navigation.navigate('Edit');
     }
   };
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View>
       <Button
-        title="Pick an image from camera roll"
+        title="Liblary"
+        color="white"
         onPress={() => pickImage()}
       />
     </View>
   );
 };
-export default ImagePick;
+
+export default withNavigation(ImagePick);
