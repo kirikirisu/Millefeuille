@@ -99,7 +99,6 @@ const Camera: React.FC<Props> = ({ setUri, navigation }) => {
       <View style={{ flex: 1 }}>
         <ExpoCamera
           ref={cameraRef}
-          flashMode="on"
           pictureSize="Photo"
           style={styles.camera}
         >

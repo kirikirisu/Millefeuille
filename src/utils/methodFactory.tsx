@@ -1,4 +1,4 @@
-import { CameraRoll } from 'react-native';
+import CameraRoll from '@react-native-community/cameraroll';
 import firebase from './initializeFirebase';
 
 const logout = () => {
