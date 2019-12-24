@@ -1,4 +1,5 @@
-import CameraRoll from '@react-native-community/cameraroll';
+import * as MediaLibrary from 'expo-media-library';
+import * as ImageManipulator from 'expo-image-manipulator';
 import firebase from './initializeFirebase';
 
 const logout = () => {
@@ -11,11 +12,26 @@ const logout = () => {
 };
 
 const snap = async (cameraRef, setUri, navigation) => {
+  const aspectRatio = 4 / 3; // iPhoneで写真撮った時と一緒
+  const origin = 0;
+
   if (cameraRef) {
-    const { uri } = await cameraRef.current.takePictureAsync(); // uriはローカルイメージURIで一時的にローカルに保存される
-    const size = await cameraRef.current.getAvailablePictureSizesAsync('4:3');
-    console.log(size);
-    CameraRoll.saveToCameraRoll(uri);
+    const {
+      uri, width: cropWidth,
+    } = await cameraRef.current.takePictureAsync(); // uriはローカルイメージURIで一時的にローカルに保存される
+    console.log(cropWidth);
+    const cropHeigh = cropWidth * aspectRatio;
+    const { uri: resized } = await ImageManipulator.manipulateAsync(
+      uri,
+      [{
+        crop: {
+          originX: origin, originY: origin, width: cropWidth, height: cropHeigh,
+        },
+      },
+      ],
+      { compress: 1 },
+    );
+    MediaLibrary.saveToLibraryAsync(resized);
     setUri(uri);
     navigation.navigate('Edit');
   }

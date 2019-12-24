@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import {
-  View, StyleSheet, TouchableOpacity,
+  View, StyleSheet, TouchableOpacity, Dimensions,
 } from 'react-native';
 import Constants from 'expo-constants';
 import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
@@ -9,6 +9,11 @@ import { Camera as ExpoCamera } from 'expo-camera';
 import usePermission from '../../../utils/usePermission';
 import { snap } from '../../../utils/methodFactory';
 import ImagePicker from './ImagePicker';
+
+const { height, width } = Dimensions.get('window');
+const aspectRatio = 4 / 3;
+const cameraHeight = width * aspectRatio;
+const barHeight = (height - cameraHeight) / 2;
 
 const styles = StyleSheet.create({
   container: {
@@ -20,8 +25,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   topBar: {
-    flex: 0.2,
-    backgroundColor: 'transparent',
+    height: barHeight,
+    backgroundColor: 'black',
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingTop: Constants.statusBarHeight / 2,
@@ -38,10 +43,9 @@ const styles = StyleSheet.create({
   },
   bottomBar: {
     paddingBottom: 5,
-    backgroundColor: 'transparent',
-    alignSelf: 'flex-end',
+    backgroundColor: 'black',
+    height: barHeight,
     justifyContent: 'space-between',
-    flex: 0.12,
     flexDirection: 'row',
   },
 });
@@ -58,18 +62,18 @@ const Camera: React.FC<Props> = ({ setUri, navigation }) => {
   const renderTopBar = () => (
     <View style={styles.topBar}>
       <TouchableOpacity style={styles.toggleButton}>
+        <MaterialIcons name="flash-on" size={32} color="white" />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.toggleButton}>
+        <Ionicons name="ios-reverse-camera" size={32} color="white" />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.toggleButton}>
         <AntDesign
           name="close"
           size={35}
           onPress={() => { navigation.navigate('Home'); }}
           color="white"
         />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.toggleButton}>
-        <MaterialIcons name="flash-on" size={32} color="white" />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.toggleButton}>
-        <Ionicons name="ios-reverse-camera" size={32} color="white" />
       </TouchableOpacity>
     </View>
   );
@@ -90,6 +94,8 @@ const Camera: React.FC<Props> = ({ setUri, navigation }) => {
 
   const renderCamera = (): React.ReactElement => {
     console.log(cameraPermission);
+    console.log(barHeight);
+
     if (cameraPermission === null) {
       return <View />;
     } if (cameraPermission !== 'granted') {
@@ -99,7 +105,6 @@ const Camera: React.FC<Props> = ({ setUri, navigation }) => {
       <View style={{ flex: 1 }}>
         <ExpoCamera
           ref={cameraRef}
-          pictureSize="Photo"
           style={styles.camera}
         >
           {renderTopBar()}
