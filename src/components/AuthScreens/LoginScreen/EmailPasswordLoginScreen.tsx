@@ -1,13 +1,11 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, Dimensions,
+  View, Text, StyleSheet,
 } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import firebase from '../../../utils/initializeFirebase';
 import useForm from '../../../utils/formHooks/useForm';
 import validate from '../../../utils/formHooks/validationRules';
-
-const { height, width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
