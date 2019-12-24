@@ -13,6 +13,8 @@ const logout = () => {
 const snap = async (cameraRef, setUri, navigation) => {
   if (cameraRef) {
     const { uri } = await cameraRef.current.takePictureAsync(); // uriはローカルイメージURIで一時的にローカルに保存される
+    const size = await cameraRef.current.getAvailablePictureSizesAsync('4:3');
+    console.log(size);
     CameraRoll.saveToCameraRoll(uri);
     setUri(uri);
     navigation.navigate('Edit');

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import {
-  View, StyleSheet, TouchableOpacity, Button, Text,
+  View, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import Constants from 'expo-constants';
 import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
@@ -97,7 +97,12 @@ const Camera: React.FC<Props> = ({ setUri, navigation }) => {
     }
     return (
       <View style={{ flex: 1 }}>
-        <ExpoCamera ref={cameraRef} style={styles.camera}>
+        <ExpoCamera
+          ref={cameraRef}
+          flashMode="on"
+          pictureSize="Photo"
+          style={styles.camera}
+        >
           {renderTopBar()}
           {renderBottomBar()}
         </ExpoCamera>
