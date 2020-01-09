@@ -1,6 +1,8 @@
 import * as MediaLibrary from 'expo-media-library';
 import * as ImageManipulator from 'expo-image-manipulator';
+import * as ImagePicker from 'expo-image-picker';
 import firebase from './initializeFirebase';
+import store from '../../store';
 
 const logout = () => {
   firebase.auth().signOut().then(() => {
@@ -23,11 +25,7 @@ const snap = async (cameraRef, setUri, navigation) => {
     const cropHeigh = cropWidth * aspectRatio;
     const { uri: resized } = await ImageManipulator.manipulateAsync(
       uri,
-      [{
-        crop: {
-          originX: origin, originY: origin, width: cropWidth, height: cropHeigh,
-        },
-      },
+      [
       ],
       { compress: 1 },
     );
@@ -37,6 +35,20 @@ const snap = async (cameraRef, setUri, navigation) => {
   }
 };
 
+const pickImage = async () => {
+  const { cancelled, uri } = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.All,
+    allowsEditing: true,
+    aspect: [4, 3],
+    quality: 1,
+  });
+  console.log(uri);
+
+  if (!cancelled) {
+    // setUri(uri);
+    // navigation.navigate('Edit');
+  }
+};
 
 type Props = {
   blob: {

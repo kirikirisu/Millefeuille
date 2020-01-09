@@ -1,15 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './src/reducers/index';
-
+import store from './store';
 
 import NavigationContainer from './src/components/navigationContainer';
-
-const store = createStore(
-  rootReducer,
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
-);
 
 const App: React.FC = () => (
   <Provider store={store}>
@@ -17,4 +10,4 @@ const App: React.FC = () => (
   </Provider>
 );
 
-export default App;
+export { store, App };

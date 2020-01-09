@@ -18,10 +18,20 @@ const RootStack = createStackNavigator(
   },
   {
     initialRouteName: 'Camera',
-    mode: 'modal',
-    headerMode: 'none',
+    /* The header config from HomeScreen is now here */
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: 'tomato',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontSize: 23,
+      },
+    },
   },
 );
+
+/*
 // https://reactnavigation.org/docs/en/navigation-options-resolution.html#a-tab-navigator-contains-a-stack-and-you-want-to-hide-the-tab-bar-on-specific-screens
 RootStack.navigationOptions = () => {
   const tabBarVisible = false;
@@ -29,5 +39,6 @@ RootStack.navigationOptions = () => {
     tabBarVisible,
   };
 };
+*/
 
 export default RootStack;
