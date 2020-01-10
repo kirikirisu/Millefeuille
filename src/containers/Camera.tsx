@@ -1,16 +1,10 @@
 import { connect } from 'react-redux';
-import { setUri } from '../actions';
 
 import Camera from '../components/AppScreens/CameraScreen/Camera';
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, uri }) => ({
   uid: user.user.uid,
+  uri: uri.uri,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setUri(uri) {
-    dispatch(setUri(uri));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Camera);
+export default connect(mapStateToProps, null)(Camera);

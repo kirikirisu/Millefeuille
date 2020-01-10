@@ -1,28 +1,60 @@
-import React, { useRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import {
+  View, Text, StyleSheet, Image, TouchableOpacity,
+} from 'react-native';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import { takePhoto, pickPhoto } from '../../../utils/methodFactory';
+import usePermission from '../../../utils/usePermission';
 
 const styles = StyleSheet.create({
-  container: {
+  iconButtonContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
   },
+  iconButton: {
+    padding: 5,
+    margin: 5,
+  },
+  photo: {
+    width: 300,
+    height: 300,
+  },
 });
 
-const renderPhoto = () => (
-  <View style={styles.container}>
-    <MaterialIcons name="photo-camera" size={40} color="#a9a9a9" />
-    <FontAwesome name="photo" size={40} color="#a9a9a9" />
+const renderPhotoicons = (cameraPermission): React.ReactElement => (
+  <View style={styles.iconButtonContainer}>
+    <TouchableOpacity style={styles.iconButton}>
+      <MaterialIcons onPress={(): Promise<void> => takePhoto(cameraPermission)} name="photo-camera" size={40} color="#a9a9a9" />
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.iconButton}>
+      <FontAwesome onPress={(): Promise<void> => pickPhoto(cameraPermission)} name="photo" size={40} color="#a9a9a9" />
+    </TouchableOpacity>
   </View>
 );
 
-const Record = () => {
-  console.log();
+const renderPhoto = (uri) => (
+  <View>
+    {
+      uri ? (
+        <Image
+          resizeMode="contain"
+          source={{ uri: `${uri}` }}
+          style={styles.photo}
+        />
+      )
+        : <View />
+    }
+  </View>
+);
+
+const Record = ({ uri }): React.ReactElement => {
+  const { cameraPermission } = usePermission();
   return (
     <View style={{ flex: 1 }}>
-      {renderPhoto()}
+      {renderPhotoicons(cameraPermission)}
+      {renderPhoto(uri)}
     </View>
   );
 };

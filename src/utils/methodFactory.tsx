@@ -1,8 +1,9 @@
 import * as MediaLibrary from 'expo-media-library';
-import * as ImageManipulator from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 import firebase from './initializeFirebase';
 import store from '../../store';
+import usePermission from './usePermission';
+import { setUri } from '../actions/index';
 
 const logout = () => {
   firebase.auth().signOut().then(() => {
@@ -13,40 +14,32 @@ const logout = () => {
     });
 };
 
-const snap = async (cameraRef, setUri, navigation) => {
-  const aspectRatio = 4 / 3; // iPhoneで写真撮った時と一緒
-  const origin = 0;
+const takePhoto = async (cameraPermission): Promise<void> => {
+  if (cameraPermission) {
+    const { cancelled, uri } = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      // aspect: [4,3]
+    });
 
-  if (cameraRef) {
-    const {
-      uri, width: cropWidth,
-    } = await cameraRef.current.takePictureAsync(); // uriはローカルイメージURIで一時的にローカルに保存される
-    console.log(cropWidth);
-    const cropHeigh = cropWidth * aspectRatio;
-    const { uri: resized } = await ImageManipulator.manipulateAsync(
-      uri,
-      [
-      ],
-      { compress: 1 },
-    );
-    MediaLibrary.saveToLibraryAsync(resized);
-    setUri(uri);
-    navigation.navigate('Edit');
+    if (!cancelled) {
+      store.dispatch(setUri(uri));
+    }
   }
 };
 
-const pickImage = async () => {
-  const { cancelled, uri } = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.All,
-    allowsEditing: true,
-    aspect: [4, 3],
-    quality: 1,
-  });
-  console.log(uri);
+const pickPhoto = async (cameraPermission): Promise<void> => {
+  if (cameraPermission) {
+    const { cancelled, uri } = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
-  if (!cancelled) {
-    // setUri(uri);
-    // navigation.navigate('Edit');
+    if (!cancelled) {
+      store.dispatch(setUri(uri));
+    }
   }
 };
 
@@ -62,4 +55,4 @@ type Props = {
   };
 }
 
-export { logout, snap };
+export { logout, takePhoto, pickPhoto };
