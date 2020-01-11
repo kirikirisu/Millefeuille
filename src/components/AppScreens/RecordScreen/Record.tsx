@@ -1,14 +1,17 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, Image, TouchableOpacity,
+  View, Text, StyleSheet, Image, TouchableOpacity, Dimensions,
 } from 'react-native';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { takePhoto, pickPhoto } from '../../../utils/methodFactory';
 import usePermission from '../../../utils/usePermission';
 
+const { height, width: screenWidth } = Dimensions.get('screen');
+// const photoHeight = height * 0.45;
+// console.log(height, photoHeight);
 const styles = StyleSheet.create({
   iconButtonContainer: {
-    flex: 1,
+    height: '15%',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
@@ -17,9 +20,14 @@ const styles = StyleSheet.create({
     padding: 5,
     margin: 5,
   },
+  photoContainer: {
+    height: '45%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   photo: {
-    width: 300,
-    height: 300,
+    width: screenWidth,
+    height: '100%',
   },
 });
 
@@ -35,16 +43,18 @@ const renderPhotoicons = (cameraPermission): React.ReactElement => (
 );
 
 const renderPhoto = (uri) => (
-  <View>
+  <View style={styles.photoContainer}>
     {
       uri ? (
-        <Image
-          resizeMode="contain"
-          source={{ uri: `${uri}` }}
-          style={styles.photo}
-        />
+        <View>
+          <Image
+            resizeMode="contain"
+            source={{ uri: `${uri}` }}
+            style={styles.photo}
+          />
+        </View>
       )
-        : <View />
+        : <Text>写真を選択してください</Text>
     }
   </View>
 );

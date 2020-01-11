@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 
-import Camera from '../components/AppScreens/CameraScreen/Camera';
+import Record from '../components/AppScreens/RecordScreen/Record';
 
-const mapStateToProps = ({ user, uri }) => ({
+const mapStateToProps = ({ user, record }) => ({
   uid: user.user.uid,
-  uri: uri.uri,
+  uri: record.uri,
 });
 
-export default connect(mapStateToProps, null)(Camera);
+export default connect(mapStateToProps, null)(Record);

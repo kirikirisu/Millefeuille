@@ -1,8 +1,7 @@
-
 import { connect } from 'react-redux';
 // import { setImgData } from '../actions';
 
-import Editting from '../components/AppScreens/CameraScreen/EditScreen/Editting';
+import Editting from '../components/AppScreens/RecordScreen/EditScreen/Editting';
 
 const mapStateToProps = ({ uri }) => ({
   uri: uri.uri,

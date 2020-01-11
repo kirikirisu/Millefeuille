@@ -4,7 +4,7 @@ const initialState = {
   uri: '',
 };
 
-const uriReducer = (state = initialState, action) => {
+const recordReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_URI:
       return {
@@ -16,4 +16,4 @@ const uriReducer = (state = initialState, action) => {
   }
 };
 
-export default uriReducer;
+export default recordReducer;
