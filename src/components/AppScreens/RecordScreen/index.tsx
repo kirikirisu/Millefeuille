@@ -1,13 +1,13 @@
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Camera from '../../../containers/Camera';
+import Record from '../../../containers/Record';
 import Edit from './EditScreen/index';
 import Prompt from './PromptPermission';
 
 const RootStack = createStackNavigator(
   {
-    Camera: {
-      screen: Camera,
+    Record: {
+      screen: Record,
     },
     Edit: {
       screen: Edit,
@@ -17,7 +17,7 @@ const RootStack = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Camera',
+    initialRouteName: 'Record',
     /* The header config from HomeScreen is now here */
     defaultNavigationOptions: {
       headerStyle: {

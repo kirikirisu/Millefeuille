@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, Image, TouchableOpacity, Dimensions,
+  View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, ScrollView,
 } from 'react-native';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { takePhoto, pickPhoto } from '../../../utils/methodFactory';
 import usePermission from '../../../utils/usePermission';
+import DatePicker from './datePicker';
 
-const { height, width: screenWidth } = Dimensions.get('screen');
+
+const { width: screenWidth } = Dimensions.get('screen');
 // const photoHeight = height * 0.45;
 // console.log(height, photoHeight);
+const photoWidth = screenWidth - 100;
+const photoHeight = photoWidth * (3 / 4);
+
 const styles = StyleSheet.create({
   iconButtonContainer: {
-    height: '15%',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
@@ -21,13 +26,23 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   photoContainer: {
-    height: '45%',
+    flex: 3,
+    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 40,
+    paddingBottom: 40,
   },
   photo: {
-    width: screenWidth,
-    height: '100%',
+    width: photoWidth,
+    height: photoHeight,
+  },
+  datePickerContainer: {
+    flex: 2,
+    backgroundColor: 'red',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'stretch',
   },
 });
 
@@ -59,13 +74,23 @@ const renderPhoto = (uri) => (
   </View>
 );
 
+const renderComentArea = () => {
+  console.log('hoge');
+};
+
 const Record = ({ uri }): React.ReactElement => {
   const { cameraPermission } = usePermission();
+
   return (
-    <View style={{ flex: 1 }}>
-      {renderPhotoicons(cameraPermission)}
-      {renderPhoto(uri)}
-    </View>
+    <ScrollView>
+      <View style={{ flex: 1 }}>
+        {renderPhoto(uri)}
+        {renderPhotoicons(cameraPermission)}
+        <View style={styles.datePickerContainer}>
+          <DatePicker />
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 
