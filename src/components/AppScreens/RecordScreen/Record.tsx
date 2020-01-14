@@ -78,7 +78,7 @@ const renderComentArea = () => {
   console.log('hoge');
 };
 
-const Record = ({ uri }): React.ReactElement => {
+const Record = ({ uri, date, setDate }): React.ReactElement => {
   const { cameraPermission } = usePermission();
 
   return (
@@ -87,7 +87,7 @@ const Record = ({ uri }): React.ReactElement => {
         {renderPhoto(uri)}
         {renderPhotoicons(cameraPermission)}
         <View style={styles.datePickerContainer}>
-          <DatePicker />
+          <DatePicker date={date} setDate={setDate} />
         </View>
       </View>
     </ScrollView>

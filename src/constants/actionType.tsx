@@ -1,2 +1,3 @@
 export const SET_USER = 'SET_USER';
 export const SET_URI = 'SET_URI';
+export const SET_DATE = 'SET_DATE';

@@ -1,7 +1,8 @@
-import { SET_URI } from '../constants/actionType';
+import { SET_URI, SET_DATE } from '../constants/actionType';
 
 const initialState = {
   uri: '',
+  date: new Date(),
 };
 
 const recordReducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const recordReducer = (state = initialState, action) => {
       return {
         ...state,
         uri: action.uri,
+      };
+    case SET_DATE:
+      return {
+        ...state,
+        date: action.date,
       };
     default:
       return state;

@@ -1,39 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-class IosDatePicker extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: new Date(),
-    };
-  }
-
-  setDate = (event, date) => {
-    const { date: stateDate } = this.state;
+const IosDatePicker = ({ date: stateDate, setDate: setDt }): React.ReactElement => {
+  const setDate = (event, date): void => {
     const finallydate = date || stateDate;
 
-    this.setState({
-      date: finallydate,
-    });
-  }
+    setDt(finallydate);
+  };
 
-  render(): React.ReactElement {
-    const { date } = this.state;
 
-    return (
-      <View>
-        <DateTimePicker
-          value={date}
-          mode="date"
-          is24Hour
-          display="default"
-          onChange={this.setDate}
-        />
-      </View>
-    );
-  }
-}
+  return (
+    <View>
+      <DateTimePicker
+        value={stateDate}
+        mode="date"
+        is24Hour
+        display="default"
+        onChange={(event, date): void => setDate(event, date)}
+      />
+    </View>
+  );
+};
 
 export default IosDatePicker;
