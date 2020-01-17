@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import user from './user';
-import uri from './uri';
+import record from './record';
 
 export default combineReducers({
   user,
-  uri,
+  record,
 });

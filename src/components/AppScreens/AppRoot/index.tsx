@@ -3,14 +3,14 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { AntDesign } from '@expo/vector-icons';
 
 import CalendarScreen from '../CalendarScreen/index';
-import CameraScreen from '../CameraScreen/index';
+import RecordScreen from '../RecordScreen/index';
 import ComparisonScreen from '../ComparisonScreen/index';
 import SettingScreen from '../SettingScreen/index';
 
 const TabContainer = createBottomTabNavigator(
   {
     Calendar: { screen: CalendarScreen },
-    Camera: { screen: CameraScreen },
+    Camera: { screen: RecordScreen },
     Comparison: { screen: ComparisonScreen },
     Setting: { screen: SettingScreen },
   },
