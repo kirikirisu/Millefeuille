@@ -13,15 +13,16 @@ import {
 } from 'react-native';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { Input } from 'react-native-elements';
-import { takePhoto, pickPhoto } from '../../../utils/methodFactory';
+import { takePhoto, pickPhoto, getPhotoDimentions } from '../../../utils/methodFactory';
 import usePermission from '../../../utils/usePermission';
 import DatePicker from './IosDatePicker';
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
-// const photoHeight = height * 0.45;
-// console.log(height, photoHeight);
-const photoWidth = screenWidth - 100;
-const photoHeight = photoWidth * (3 / 4);
+const {
+  screenWidth,
+  screenHeight,
+  photoHeight,
+  photoWidth,
+} = getPhotoDimentions();
 
 const styles = StyleSheet.create({
   iconButtonContainer: {
@@ -83,7 +84,7 @@ const renderPhotoicons = (cameraPermission): React.ReactElement => (
   </View>
 );
 
-const renderPhoto = (uri): React.ReactElement => (
+export const renderPhoto = (uri): React.ReactElement => (
   <View style={styles.photoContainer}>
     {
       uri ? (

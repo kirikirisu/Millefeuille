@@ -1,5 +1,6 @@
 import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker';
+import { Dimensions } from 'react-native';
 import firebase from './initializeFirebase';
 import store from '../../store';
 import usePermission from './usePermission';
@@ -44,6 +45,20 @@ const pickPhoto = async (cameraPermission): Promise<void> => {
   }
 };
 
+const getPhotoDimentions = () => {
+  const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
+  // const photoHeight = height * 0.45;
+  // console.log(height, photoHeight);
+  const photoWidth = screenWidth - 100;
+  const photoHeight = photoWidth * (3 / 4);
+  return {
+    screenWidth,
+    screenHeight,
+    photoHeight,
+    photoWidth,
+  };
+};
+
 type Props = {
   blob: {
     _data: {
@@ -57,5 +72,5 @@ type Props = {
 }
 
 export {
-  logout, takePhoto, pickPhoto,
+  logout, takePhoto, pickPhoto, getPhotoDimentions,
 };
