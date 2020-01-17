@@ -44,10 +44,6 @@ const pickPhoto = async (cameraPermission): Promise<void> => {
   }
 };
 
-const setDate = (setDt) => {
-  console.log();
-};
-
 type Props = {
   blob: {
     _data: {
@@ -61,5 +57,5 @@ type Props = {
 }
 
 export {
-  logout, takePhoto, pickPhoto, setDate,
+  logout, takePhoto, pickPhoto,
 };

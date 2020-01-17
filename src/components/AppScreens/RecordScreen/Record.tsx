@@ -15,7 +15,7 @@ import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { Input } from 'react-native-elements';
 import { takePhoto, pickPhoto } from '../../../utils/methodFactory';
 import usePermission from '../../../utils/usePermission';
-import DatePicker from './datePicker';
+import DatePicker from './IosDatePicker';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
 // const photoHeight = height * 0.45;
@@ -62,6 +62,14 @@ const styles = StyleSheet.create({
     borderColor: '#a9a9a9',
     height: screenHeight / 5,
   },
+  headerRight: {
+    marginRight: 25,
+  },
+  headerRightText: {
+    fontSize: 21,
+    color: '#fff',
+    fontWeight: '700',
+  },
 });
 
 const renderPhotoicons = (cameraPermission): React.ReactElement => (
@@ -75,7 +83,7 @@ const renderPhotoicons = (cameraPermission): React.ReactElement => (
   </View>
 );
 
-const renderPhoto = (uri) => (
+const renderPhoto = (uri): React.ReactElement => (
   <View style={styles.photoContainer}>
     {
       uri ? (
@@ -90,11 +98,12 @@ const renderPhoto = (uri) => (
   </View>
 );
 
-const renderComentArea = () => (
+const renderComentArea = (setText): React.ReactElement => (
   <View style={styles.comentContainer}>
     <Input
       inputContainerStyle={styles.input}
       placeholder="トレーニングメニューなど"
+      onChangeText={(text): void => setText(text)}
       editable
       maxLength={200}
       multiline
@@ -102,7 +111,15 @@ const renderComentArea = () => (
   </View>
 );
 
-const Record = ({ uri, date, setDate }): React.ReactElement => {
+const renderHeaderButton = (navigation): React.ReactElement => (
+  <TouchableOpacity style={styles.headerRight} onPress={() => navigation.navigate('Confirmation')}>
+    <Text style={styles.headerRightText}>完了</Text>
+  </TouchableOpacity>
+);
+
+const Record = ({
+  uri, date, setDate, setText,
+}): React.ReactElement => {
   const { cameraPermission } = usePermission();
 
   return (
@@ -116,7 +133,7 @@ const Record = ({ uri, date, setDate }): React.ReactElement => {
       <ScrollView>
         {renderPhoto(uri)}
         {renderPhotoicons(cameraPermission)}
-        {renderComentArea()}
+        {renderComentArea(setText)}
         <View style={styles.datePickerContainer}>
           <DatePicker date={date} setDate={setDate} />
         </View>
@@ -125,8 +142,9 @@ const Record = ({ uri, date, setDate }): React.ReactElement => {
   );
 };
 
-Record.navigationOptions = {
+Record.navigationOptions = ({ navigation }) => ({
   title: '記録',
-};
+  headerRight: (): React.ReactElement => (<>{ renderHeaderButton(navigation) }</>),
+});
 
 export default Record;

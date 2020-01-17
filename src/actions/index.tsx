@@ -14,3 +14,8 @@ export const setDate = (date) => ({
   type: actionTypes.SET_DATE,
   date,
 });
+
+export const setText = (text) => ({
+  type: actionTypes.SET_TEXT,
+  text,
+});

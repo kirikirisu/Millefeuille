@@ -1,10 +1,9 @@
 import { connect } from 'react-redux';
-import { setDate } from '../actions/index';
+import { setDate, setText } from '../actions/index';
 
 import Record from '../components/AppScreens/RecordScreen/Record';
 
-const mapStateToProps = ({ user, record }) => ({
-  uid: user.user.uid,
+const mapStateToProps = ({ record }) => ({
   uri: record.uri,
   date: record.date,
 });
@@ -12,6 +11,9 @@ const mapStateToProps = ({ user, record }) => ({
 const mapDispatchToProps = (dispatch) => ({
   setDate(date) {
     dispatch(setDate(date));
+  },
+  setText(text) {
+    dispatch(setText(text));
   },
 });
 

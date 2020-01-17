@@ -1,7 +1,7 @@
 import { createStackNavigator } from 'react-navigation-stack';
 
 import Record from '../../../containers/Record';
-import Edit from './EditScreen/index';
+import Confirmation from '../../../containers/Confirmation';
 import Prompt from './PromptPermission';
 
 const RootStack = createStackNavigator(
@@ -9,8 +9,8 @@ const RootStack = createStackNavigator(
     Record: {
       screen: Record,
     },
-    Edit: {
-      screen: Edit,
+    Confirmation: {
+      screen: Confirmation,
     },
     Prompt: {
       screen: Prompt,
@@ -18,6 +18,7 @@ const RootStack = createStackNavigator(
   },
   {
     initialRouteName: 'Record',
+    mode: 'modal',
     /* The header config from HomeScreen is now here */
     defaultNavigationOptions: {
       headerStyle: {
