@@ -5,10 +5,8 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Dimensions,
   ScrollView,
   KeyboardAvoidingView,
-  SafeAreaView,
   Platform,
 } from 'react-native';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
@@ -38,7 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 40,
-    paddingBottom: 40,
+    paddingBottom: 20,
   },
   photo: {
     width: photoWidth,
@@ -62,12 +60,13 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderColor: '#a9a9a9',
     height: screenHeight / 5,
+    padding: 5,
   },
   headerRight: {
     marginRight: 25,
   },
   headerRightText: {
-    fontSize: 21,
+    fontSize: 20,
     color: '#fff',
     fontWeight: '700',
   },
