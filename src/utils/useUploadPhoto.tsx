@@ -7,7 +7,7 @@ const useUploadPhoto = (uid, uri) => {
   const [imgUrl, setImgUrl] = useState(null);
   const [indeterminate, setIndeterminate] = useState(true);
 
-  const snap = async () => {
+  const done = async () => {
     setIsLoading(true);
     setIndeterminate(false);
     const response = await fetch(uri); // uriをblobに変換
@@ -48,7 +48,7 @@ const useUploadPhoto = (uid, uri) => {
 
   return {
     isLoading,
-    snap,
+    done,
     percentage,
     imgUrl,
     indeterminate,
