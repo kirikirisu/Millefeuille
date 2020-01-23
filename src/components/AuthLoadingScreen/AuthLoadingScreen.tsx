@@ -13,11 +13,12 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
+type Props = {
   navigation: NavigationSwitchProp;
+  setUser: (user) => void;
 }
 
-const AuthLoadingScreen: NavigationSwitchScreenComponent<Props> = ({ navigation, setUser }) => {
+const AuthLoadingScreen: React.FC<Props> = ({ navigation, setUser }) => {
   console.log('loadingAuth!!');
   // パブリックメソッド
   // https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseAuth.AuthStateListener

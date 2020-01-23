@@ -1,9 +1,17 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, ScrollView,
+  View, Text, StyleSheet, ScrollView, Image,
 } from 'react-native';
-import { renderPhoto } from './Record';
-import { formatDate } from '../../../utils/methodFactory';
+import { Card, Button } from 'react-native-elements';
+import { formatDate, getPhotoDimentions } from '../../../utils/methodFactory';
+import useUploadPhoto from '../../../utils/useUploadPhoto';
+
+const {
+  screenWidth,
+  screenHeight,
+  photoHeight,
+  photoWidth,
+} = getPhotoDimentions();
 
 type Props = {
   uid: string;
@@ -16,61 +24,67 @@ type Props = {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 0,
+    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    padding: 30,
+    marginBottom: 25,
+  },
+  photoContainer: {
+    alignSelf: 'center',
+  },
+  photo: {
+    width: photoWidth,
+    height: photoHeight,
   },
   comentContainer: {
-    paddingRight: 10,
-    paddingLeft: 10,
+    paddingTop: 15,
   },
   comentLabel: {
-    fontSize: 23,
     color: '#141823',
+    fontSize: 19,
   },
   coment: {
-    fontSize: 20,
+    fontSize: 18,
+    color: '#4E5665',
     marginLeft: 10,
-    color: '#4E5665',
   },
-  dateContainer: {
-    padding: 10,
+  buttonContainer: {
+    marginTop: 15,
   },
-  dateLabel: {
-    fontSize: 23,
-    color: '#141823',
-  },
-  date: {
-    fontSize: 22,
-    alignSelf: 'center',
-    color: '#4E5665',
+  button: {
+    width: screenWidth - 200,
   },
 });
 
-const renderTexts = (date, coment): React.ReactElement => (
-  <View style={styles.container}>
-    <View style={styles.comentContainer}>
-      <Text style={styles.comentLabel}>コメント:</Text>
-      <Text style={styles.coment}>{coment}</Text>
-    </View>
-    <View style={styles.dateContainer}>
-      <Text style={styles.dateLabel}>日付:</Text>
-      <Text style={styles.date}>{date}</Text>
-    </View>
-  </View>
-);
-
 const Confirmation: React.FC<Props> = ({ uid, record }) => {
-  const { uri, date, text } = record;
+  const { uri, date, text: coment } = record;
   const formatedDate = formatDate(date);
 
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView>
-        {renderPhoto(uri)}
-        {renderTexts(formatedDate, text)}
-      </ScrollView>
-    </View>
+    // https://stackoverflow.com/questions/32664397/react-native-vertical-centering-when-using-scrollview
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View style={styles.container}>
+        <Card title={formatedDate}>
+          <View style={styles.photoContainer}>
+            <Image
+              resizeMode="contain"
+              source={{ uri: `${uri}` }}
+              style={styles.photo}
+            />
+          </View>
+          <View style={styles.comentContainer}>
+            <Text style={styles.comentLabel}>コメント</Text>
+            <Text style={styles.coment}>{coment}</Text>
+          </View>
+        </Card>
+        <View style={styles.buttonContainer}>
+          <Button
+            style={styles.button}
+            title="保存する"
+          />
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 

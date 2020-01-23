@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import firebase from './initializeFirebase';
-/*
-const useTakePicuture = (uid, cameraRef) => {
+
+const useUploadPhoto = (uid, uri) => {
   const [isLoading, setIsLoading] = useState(false);
   const [percentage, setPercentage] = useState(0);
   const [imgUrl, setImgUrl] = useState(null);
@@ -10,6 +10,9 @@ const useTakePicuture = (uid, cameraRef) => {
   const snap = async () => {
     setIsLoading(true);
     setIndeterminate(false);
+    const response = await fetch(uri); // uriをblobに変換
+    const blob = await response.blob();
+    const imgName = blob.data.name;
     const path = `images/users/${uid}/${imgName}`; // strageの参照を作成
     const storageRef = firebase.storage().ref();
     const cloudStoragePath = storageRef.child(path);
@@ -52,5 +55,4 @@ const useTakePicuture = (uid, cameraRef) => {
   };
 };
 
-export default useTakePicuture;
-*/
+export default useUploadPhoto;

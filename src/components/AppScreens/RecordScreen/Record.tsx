@@ -106,6 +106,7 @@ const renderComentArea = (setText): React.ReactElement => (
       onChangeText={(text): void => setText(text)}
       editable
       maxLength={200}
+      returnKeyType="done"
       multiline
     />
   </View>
