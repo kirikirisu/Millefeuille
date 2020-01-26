@@ -1,7 +1,9 @@
-import React from 'react';
+/* eslint-disable global-require */
+import React, { useRef, useEffect } from 'react';
 import {
-  View, Text, StyleSheet, ScrollView, Image,
+  View, Text, StyleSheet, ScrollView, Image, Animated,
 } from 'react-native';
+import LottieView from 'lottie-react-native';
 import { Card, Button } from 'react-native-elements';
 import { formatDate, getPhotoDimentions } from '../../../utils/methodFactory';
 import useUploadPhoto from '../../../utils/useUploadPhoto';
@@ -53,17 +55,47 @@ const styles = StyleSheet.create({
   },
   button: {
     width: screenWidth - 200,
+    backgroundColor: '#00B2EC',
   },
   progressContainer: {
     flex: 1,
+    marginBottom: 25,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  circleLoader: {
+    height: screenWidth - 250,
+    width: screenWidth - 250,
+  },
+  progressBar: {
+    height: 10,
+    width: '90%',
+    backgroundColor: 'white',
+    borderColor: '#56423D',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 25,
+  },
 });
 
-const renderProgress = (percentage, indeterminate) => (
+const ProgressBar = ({ width }) => (
+  <View style={styles.progressBar}>
+    <Animated.View style={[StyleSheet.absoluteFill, {
+      backgroundColor: '#BEA6A0', width, borderRadius: 5,
+    }]}
+    />
+  </View>
+);
+
+const renderProgress = (width) => (
   <View style={styles.progressContainer}>
-    <View>hoge</View>
+    <LottieView
+      source={require('../../../../lotties/4383-circle-loader.json')}
+      style={styles.circleLoader}
+      autoPlay
+      loop
+    />
+    <ProgressBar width={width} />
   </View>
 );
 
@@ -86,7 +118,7 @@ const renderCard = (uri, formatedDate, coment, done) => (
       </Card>
       <View style={styles.buttonContainer}>
         <Button
-          style={styles.button}
+          buttonStyle={styles.button}
           title="保存する"
           onPress={() => done()}
         />
@@ -95,23 +127,34 @@ const renderCard = (uri, formatedDate, coment, done) => (
   </ScrollView>
 );
 
-
 const Confirmation: React.FC<Props> = ({ uid, record }) => {
   const { uri, date, text: coment } = record;
 
+  const animation = useRef(new Animated.Value(0));
   const {
     isLoading,
     done,
     percentage,
     imgUrl,
-    indeterminate,
   } = useUploadPhoto(uid, uri);
 
+  useEffect(() => {
+    Animated.timing(animation.current, {
+      toValue: percentage,
+      duration: 100,
+    }).start();
+  }, [percentage]);
+
+  const width = animation.current.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['0%', '100%'],
+    extrapolate: 'clamp',
+  });
   const formatedDate = formatDate(date);
 
   return (
     <View style={{ flex: 1 }}>
-      {isLoading ? renderProgress(percentage, indeterminate)
+      {!isLoading ? renderProgress(width)
         : renderCard(uri, formatedDate, coment, done)}
     </View>
   );
