@@ -1,8 +1,10 @@
+/* eslint-disable global-require */
 import React from 'react';
 import {
   ActivityIndicator, View, StyleSheet, StatusBar,
 } from 'react-native';
 import { NavigationSwitchScreenComponent, NavigationSwitchProp } from 'react-navigation';
+import LottieView from 'lottie-react-native';
 import firebase from '../../utils/initializeFirebase';
 
 const styles = StyleSheet.create({
@@ -13,11 +15,12 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
+type Props = {
   navigation: NavigationSwitchProp;
+  setUser: (user) => void;
 }
 
-const AuthLoadingScreen: NavigationSwitchScreenComponent<Props> = ({ navigation, setUser }) => {
+const AuthLoadingScreen: React.FC<Props> = ({ navigation, setUser }) => {
   console.log('loadingAuth!!');
   // パブリックメソッド
   // https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseAuth.AuthStateListener
@@ -35,7 +38,11 @@ const AuthLoadingScreen: NavigationSwitchScreenComponent<Props> = ({ navigation,
 
   return (
     <View style={styles.container}>
-      <ActivityIndicator />
+      <LottieView
+        source={require('../../../lotties/6288-dino-loading.json')}
+        autoPlay
+        loop
+      />
       <StatusBar barStyle="default" />
     </View>
   );

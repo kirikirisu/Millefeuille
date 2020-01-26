@@ -5,23 +5,22 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Dimensions,
   ScrollView,
   KeyboardAvoidingView,
-  SafeAreaView,
   Platform,
 } from 'react-native';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { Input } from 'react-native-elements';
-import { takePhoto, pickPhoto } from '../../../utils/methodFactory';
+import { takePhoto, pickPhoto, getPhotoDimentions } from '../../../utils/methodFactory';
 import usePermission from '../../../utils/usePermission';
 import DatePicker from './IosDatePicker';
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
-// const photoHeight = height * 0.45;
-// console.log(height, photoHeight);
-const photoWidth = screenWidth - 100;
-const photoHeight = photoWidth * (3 / 4);
+const {
+  screenWidth,
+  screenHeight,
+  photoHeight,
+  photoWidth,
+} = getPhotoDimentions();
 
 const styles = StyleSheet.create({
   iconButtonContainer: {
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 40,
-    paddingBottom: 40,
+    paddingBottom: 20,
   },
   photo: {
     width: photoWidth,
@@ -61,12 +60,13 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderColor: '#a9a9a9',
     height: screenHeight / 5,
+    padding: 5,
   },
   headerRight: {
     marginRight: 25,
   },
   headerRightText: {
-    fontSize: 21,
+    fontSize: 20,
     color: '#fff',
     fontWeight: '700',
   },
@@ -83,7 +83,7 @@ const renderPhotoicons = (cameraPermission): React.ReactElement => (
   </View>
 );
 
-const renderPhoto = (uri): React.ReactElement => (
+export const renderPhoto = (uri): React.ReactElement => (
   <View style={styles.photoContainer}>
     {
       uri ? (
@@ -106,6 +106,7 @@ const renderComentArea = (setText): React.ReactElement => (
       onChangeText={(text): void => setText(text)}
       editable
       maxLength={200}
+      returnKeyType="done"
       multiline
     />
   </View>

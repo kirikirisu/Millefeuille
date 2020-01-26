@@ -1,22 +1,24 @@
 import { useState } from 'react';
 import firebase from './initializeFirebase';
-/*
-const useTakePicuture = (uid, cameraRef) => {
+
+const useUploadPhoto = (uid, uri, date, coment) => {
   const [isLoading, setIsLoading] = useState(false);
   const [percentage, setPercentage] = useState(0);
-  const [imgUrl, setImgUrl] = useState(null);
-  const [indeterminate, setIndeterminate] = useState(true);
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
 
-  const snap = async () => {
+  const done = async () => {
     setIsLoading(true);
-    setIndeterminate(false);
+    setIsUploadingPhoto(true);
+    const response = await fetch(uri); // uriをblobに変換
+    const blob = await response.blob();
+    const imgName = blob.data.name;
     const path = `images/users/${uid}/${imgName}`; // strageの参照を作成
     const storageRef = firebase.storage().ref();
     const cloudStoragePath = storageRef.child(path);
     const uploadTask = cloudStoragePath.put(blob); // 参照にアップロード
     uploadTask.on('state_changed', (snapshot) => { // アップロード状態
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      if (progress === 100) setIndeterminate(true);
+      if (progress === 100) setIsUploadingPhoto(false);
       setPercentage(progress);
       // console.log(`Upload is ${progress}% done`);
       switch (snapshot.state) {
@@ -36,21 +38,25 @@ const useTakePicuture = (uid, cameraRef) => {
       // Handle successful uploads on complete
       // For instance, get the download URL: https://firebasestorage.googleapis.com/...
       uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-        setImgUrl(downloadURL);
-        setIsLoading(false);
         console.log('アップロード完了');
+
+        const recordThunk = {
+          url: downloadURL,
+          date,
+          coment,
+        };
+        firebase.database().ref(`users/${uid}/${date}`).set(recordThunk);
+        setIsLoading(false);
       });
     });
   };
 
   return {
     isLoading,
-    snap,
+    done,
     percentage,
-    imgUrl,
-    indeterminate,
+    isUploadingPhoto,
   };
 };
 
-export default useTakePicuture;
-*/
+export default useUploadPhoto;
