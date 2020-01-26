@@ -1,8 +1,10 @@
+/* eslint-disable global-require */
 import React from 'react';
 import {
   ActivityIndicator, View, StyleSheet, StatusBar,
 } from 'react-native';
 import { NavigationSwitchScreenComponent, NavigationSwitchProp } from 'react-navigation';
+import LottieView from 'lottie-react-native';
 import firebase from '../../utils/initializeFirebase';
 
 const styles = StyleSheet.create({
@@ -36,7 +38,11 @@ const AuthLoadingScreen: React.FC<Props> = ({ navigation, setUser }) => {
 
   return (
     <View style={styles.container}>
-      <ActivityIndicator />
+      <LottieView
+        source={require('../../../lotties/6288-dino-loading.json')}
+        autoPlay
+        loop
+      />
       <StatusBar barStyle="default" />
     </View>
   );

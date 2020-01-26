@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { Card, Button } from 'react-native-elements';
+import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { formatDate, getPhotoDimentions } from '../../../utils/methodFactory';
 import useUploadPhoto from '../../../utils/useUploadPhoto';
 
@@ -64,24 +65,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   circleLoader: {
-    height: screenWidth - 250,
-    width: screenWidth - 250,
+    height: screenWidth - 240,
+    width: screenWidth - 240,
   },
   progressBar: {
-    height: 10,
-    width: '90%',
+    height: 5,
+    width: '75%',
     backgroundColor: 'white',
-    borderColor: '#56423D',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginTop: 25,
+    marginTop: 45,
   },
 });
 
 const ProgressBar = ({ width }) => (
   <View style={styles.progressBar}>
     <Animated.View style={[StyleSheet.absoluteFill, {
-      backgroundColor: '#BEA6A0', width, borderRadius: 5,
+      backgroundColor: 'tomato', width,
     }]}
     />
   </View>
@@ -90,7 +88,7 @@ const ProgressBar = ({ width }) => (
 const renderProgress = (width) => (
   <View style={styles.progressContainer}>
     <LottieView
-      source={require('../../../../lotties/4383-circle-loader.json')}
+      source={require('../../../../lotties/197-glow-loading.json')}
       style={styles.circleLoader}
       autoPlay
       loop
@@ -127,21 +125,21 @@ const renderCard = (uri, formatedDate, coment, done) => (
   </ScrollView>
 );
 
-const Confirmation: React.FC<Props> = ({ uid, record }) => {
+const Confirmation: NavigationStackScreenComponent<Props> = ({ uid, record }) => {
   const { uri, date, text: coment } = record;
+  const formatedDate = formatDate(date);
 
   const animation = useRef(new Animated.Value(0));
   const {
     isLoading,
     done,
     percentage,
-    imgUrl,
-  } = useUploadPhoto(uid, uri);
+  } = useUploadPhoto(uid, uri, formatedDate, coment);
 
   useEffect(() => {
     Animated.timing(animation.current, {
       toValue: percentage,
-      duration: 100,
+      duration: 800,
     }).start();
   }, [percentage]);
 
@@ -150,7 +148,6 @@ const Confirmation: React.FC<Props> = ({ uid, record }) => {
     outputRange: ['0%', '100%'],
     extrapolate: 'clamp',
   });
-  const formatedDate = formatDate(date);
 
   return (
     <View style={{ flex: 1 }}>
@@ -158,6 +155,10 @@ const Confirmation: React.FC<Props> = ({ uid, record }) => {
         : renderCard(uri, formatedDate, coment, done)}
     </View>
   );
+};
+
+Confirmation.navigationOptions = {
+  header: null,
 };
 
 export default Confirmation;
