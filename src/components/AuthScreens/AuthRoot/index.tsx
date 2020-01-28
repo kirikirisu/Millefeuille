@@ -1,11 +1,11 @@
 import { createStackNavigator } from 'react-navigation-stack';
 
-import LoginTopScreen from '../LoginScreen/LoginTopScreen';
+import SwipeRouter from '../LoginScreen/SwipeRouter';
 import RegisterScreen from '../LoginScreen/RegisterScreen';
 
 const RootStack = createStackNavigator(
   {
-    LoginTop: { screen: LoginTopScreen },
+    LoginTop: { screen: SwipeRouter },
     Register: { screen: RegisterScreen },
   },
   {

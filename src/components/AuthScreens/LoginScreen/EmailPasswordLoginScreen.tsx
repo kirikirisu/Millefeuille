@@ -13,6 +13,7 @@ const { height, width } = Dimensions.get('screen');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'rgb(251,250,245)',
   },
   validateText: {
     color: 'red',

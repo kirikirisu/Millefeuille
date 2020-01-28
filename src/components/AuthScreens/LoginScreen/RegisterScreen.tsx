@@ -13,6 +13,7 @@ const { height, width } = Dimensions.get('screen');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'rgb(52, 55, 63)',
   },
   validateText: {
     color: 'red',
@@ -58,7 +59,6 @@ const styles = StyleSheet.create({
     borderRadius: 40,
   },
 });
-
 
 const RegisterScreen: React.FC = () => {
   const createUser = () => {
