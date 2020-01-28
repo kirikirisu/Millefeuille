@@ -7,6 +7,7 @@ const useUploadPhoto = (uid, uri, date, coment) => {
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
 
   const done = async () => {
+    console.log('done');
     setIsLoading(true);
     setIsUploadingPhoto(true);
     const response = await fetch(uri); // uriをblobに変換
@@ -17,6 +18,7 @@ const useUploadPhoto = (uid, uri, date, coment) => {
     const cloudStoragePath = storageRef.child(path);
     const uploadTask = cloudStoragePath.put(blob); // 参照にアップロード
     uploadTask.on('state_changed', (snapshot) => { // アップロード状態
+      console.log('second done');
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       if (progress === 100) setIsUploadingPhoto(false);
       setPercentage(progress);
@@ -27,7 +29,7 @@ const useUploadPhoto = (uid, uri, date, coment) => {
           setIsLoading(false);
           break;
         case firebase.storage.TaskState.RUNNING:
-          // console.log('アップロード中');
+          console.log('アップロード中');
           break;
         default:
       }

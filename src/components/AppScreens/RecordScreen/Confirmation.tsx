@@ -151,7 +151,7 @@ const Confirmation: NavigationStackScreenComponent<Props> = ({ uid, record }) =>
 
   return (
     <View style={{ flex: 1 }}>
-      {!isLoading ? renderProgress(width)
+      {isLoading ? renderProgress(width)
         : renderCard(uri, formatedDate, coment, done)}
     </View>
   );
