@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     height: height / 2,
-    paddingRight: 30,
-    paddingLeft: 30,
+    paddingRight: 35,
+    paddingLeft: 35,
     width,
   },
   title: {
@@ -69,7 +69,6 @@ const RegisterScreen: React.FC = () => {
       .catch((error) => { console.log(error); });
   };
 
-
   const {
     values,
     errors,
@@ -90,7 +89,9 @@ const RegisterScreen: React.FC = () => {
         <View>
           <Input
             containerStyle={styles.inputContainer}
+            inputStyle={{ color: 'rgb(251, 250, 245)' }}
             placeholder="e-mail"
+            placeholderTextColor="gray"
             onChangeText={(t) => handleChange(email, t)}
             value={values.email}
           />
@@ -100,6 +101,7 @@ const RegisterScreen: React.FC = () => {
           <Input
             containerStyle={{ ...styles.inputContainer, marginTop: 25 }}
             placeholder="password"
+            placeholderTextColor="gray"
             onChangeText={(t) => handleChange(password, t)}
             value={values.password}
           />

@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     height: height / 2,
-    paddingRight: 30,
-    paddingLeft: 30,
+    paddingRight: 35,
+    paddingLeft: 35,
     width,
   },
   title: {
@@ -111,7 +111,7 @@ const EmailPasswordLoginScreen: React.FC = () => {
         <View style={styles.formBottom}>
           <Text style={styles.bottomText}>Sign in</Text>
           <TouchableOpacity style={styles.button} onPress={(e) => handleSubmit(e)}>
-            <AntDesign name="arrowright" size={25} color="white" />
+            <AntDesign name="arrowright" size={25} color="rgb(250, 251, 245)" />
           </TouchableOpacity>
         </View>
       </View>
