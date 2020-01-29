@@ -42,18 +42,6 @@ type Props = {
   navigation: NavigationStackProp;
 }
 
-const renderRegisterButton = (navigation): React.ReactElement => (
-  <View>
-    <Button
-      style={styles.button}
-      title="Create Account"
-      type="outline"
-      onPress={() => navigation.navigate('Register')}
-    />
-  </View>
-);
-
-
 const SwipeRouter: NavigationStackScreenComponent<Props> = ({ navigation }) => {
   const ref = useRef(null);
   const swipe = (n) => {

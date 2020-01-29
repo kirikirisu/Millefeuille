@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, Dimensions,
+  View, Text, StyleSheet, TouchableOpacity, Dimensions, KeyboardAvoidingView,
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { SimpleLineIcons } from '@expo/vector-icons';
 import { Input, Button } from 'react-native-elements';
 import firebase from '../../../utils/initializeFirebase';
 import useForm from '../../../utils/formHooks/useForm';
@@ -83,41 +83,43 @@ const EmailPasswordLoginScreen: React.FC = () => {
   const email = 'email';
   const password = 'password';
   return (
-    <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={{ ...styles.title, paddingTop: height / 7 }}>Welcome</Text>
-        <Text style={{ ...styles.title }}>Back</Text>
-      </View>
-      <View style={styles.form}>
-        <View>
-          <Input
-            containerStyle={styles.inputContainer}
-            placeholder="e-mail"
-            onChangeText={(t) => handleChange(email, t)}
-            value={values.email}
-          />
-          {errors.email
-            ? <Text style={styles.validateText}>{errors.email}</Text>
-            : null}
-          <Input
-            containerStyle={{ ...styles.inputContainer, marginTop: 25 }}
-            placeholder="password"
-            onChangeText={(t) => handleChange(password, t)}
-            value={values.password}
-          />
-          {errors.password
-            ? <Text style={styles.validateText}>{errors.password}</Text>
-            : null}
+    <KeyboardAvoidingView style={{ flex: 1 }} enabled behavior="position" keyboardVerticalOffset={-height / 7}>
+      <View style={styles.container}>
+        <View style={styles.titleContainer}>
+          <Text style={{ ...styles.title, paddingTop: height / 7 }}>Welcome</Text>
+          <Text style={{ ...styles.title }}>Back</Text>
         </View>
-        <View style={styles.formBottom}>
-          <Text style={styles.bottomText}>Sign in</Text>
-          <TouchableOpacity style={styles.button} onPress={(e) => handleSubmit(e)}>
-            <AntDesign name="arrowright" size={25} color="rgb(250, 251, 245)" />
-          </TouchableOpacity>
+        <View style={styles.form}>
+          <View>
+            <Input
+              containerStyle={styles.inputContainer}
+              placeholder="e-mail"
+              onChangeText={(t) => handleChange(email, t)}
+              value={values.email}
+            />
+            {errors.email
+              ? <Text style={styles.validateText}>{errors.email}</Text>
+              : null}
+            <Input
+              containerStyle={{ ...styles.inputContainer, marginTop: 25 }}
+              placeholder="password"
+              onChangeText={(t) => handleChange(password, t)}
+              value={values.password}
+            />
+            {errors.password
+              ? <Text style={styles.validateText}>{errors.password}</Text>
+              : null}
+          </View>
+          <View style={styles.formBottom}>
+            <Text style={styles.bottomText}>Sign in</Text>
+            <TouchableOpacity style={styles.button} onPress={(e) => handleSubmit(e)}>
+              <SimpleLineIcons name="login" size={25} color="rgb(250, 251, 245)" />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
 
-    </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
