@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { Input } from 'react-native-elements';
@@ -16,7 +15,6 @@ import usePermission from '../../../utils/usePermission';
 import DatePicker from './IosDatePicker';
 
 const {
-  screenWidth,
   screenHeight,
   photoHeight,
   photoWidth,
@@ -114,7 +112,7 @@ const renderComentArea = (setText): React.ReactElement => (
 
 const renderHeaderButton = (navigation): React.ReactElement => (
   <TouchableOpacity style={styles.headerRight} onPress={() => navigation.navigate('Confirmation')}>
-    <Text style={styles.headerRightText}>完了</Text>
+    <MaterialIcons name="done" size={35} color="rgb(255, 255, 255)" />
   </TouchableOpacity>
 );
 
@@ -125,7 +123,7 @@ const Record = ({
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      style={{ flex: 1, backgroundColor: 'rgb(255, 255, 255)' }}
       behavior="position"
       // contentContainerStyle={{ flex: 1 }}
       enabled

@@ -14,7 +14,7 @@ const { height, width } = Dimensions.get('screen');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgb(52, 55, 63)',
+    backgroundColor: 'rgb(57, 62, 70)',
   },
   validateText: {
     color: 'red',
@@ -48,15 +48,15 @@ const styles = StyleSheet.create({
   bottomText: {
     fontWeight: 'bold',
     fontSize: 25,
-    color: 'rgb(251,250,245)',
+    color: 'rgb(255,255,255)',
   },
   button: {
     justifyContent: 'center',
     alignItems: 'center',
     height: 70,
     width: 70,
-    backgroundColor: 'rgb(251,250,245)',
-    borderColor: 'rgb(251,250,245)',
+    backgroundColor: 'rgb(255,255,255)',
+    borderColor: 'rgb(255,255,255)',
     borderRadius: 40,
   },
 });

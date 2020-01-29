@@ -11,7 +11,7 @@ const { height, width } = Dimensions.get('screen');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgb(251, 250, 245)',
+    backgroundColor: 'rgb(255, 255, 255)',
   },
   lottieContainer: {
     height: height / 1.5,
@@ -51,14 +51,14 @@ const LoginTopScreen: React.FC<Props> = ({ swipe }) => (
     <View style={styles.buttonContainer}>
       <TouchableOpacity
         style={{
-          ...styles.button, borderWidth: 1, borderColor: 'rgb(249, 66, 50)', backgroundColor: 'rgb(251, 250, 240)',
+          ...styles.button, borderWidth: 1, borderColor: 'rgb(249, 66, 50)', backgroundColor: 'rgb(255, 255, 255)',
         }}
         onPress={() => swipe(2)}
       >
         <Text style={{ ...styles.text, color: 'rgb(249, 66,50)' }}>Sign up</Text>
       </TouchableOpacity>
       <TouchableOpacity style={{ ...styles.button, backgroundColor: 'rgb(249, 66, 50)' }} onPress={() => swipe(1)}>
-        <Text style={{ ...styles.text, color: 'rgb(251, 250, 240)' }}>Sign in</Text>
+        <Text style={{ ...styles.text, color: 'rgb(255, 255, 255)' }}>Sign in</Text>
       </TouchableOpacity>
     </View>
   </View>

@@ -9,11 +9,10 @@ import useForm from '../../../utils/formHooks/useForm';
 import validate from '../../../utils/formHooks/validationRules';
 
 const { height, width } = Dimensions.get('screen');
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgb(251,250,245)',
+    backgroundColor: 'rgb(255,255,255)',
   },
   validateText: {
     color: 'red',
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
     width,
   },
   title: {
-    color: 'rgb(52,55,63)',
+    color: 'rgb(57,62,70)',
     fontSize: 40,
     fontWeight: 'bold',
   },
@@ -47,15 +46,15 @@ const styles = StyleSheet.create({
   bottomText: {
     fontWeight: 'bold',
     fontSize: 25,
-    color: 'rgb(52,55,63)',
+    color: 'rgb(57, 62, 70)',
   },
   button: {
     justifyContent: 'center',
     alignItems: 'center',
     height: 70,
     width: 70,
-    backgroundColor: 'rgb(52,55,63)',
-    borderColor: 'rgb(52,55,63)',
+    backgroundColor: 'rgb(57,62,70)',
+    borderColor: 'rgb(57, 62, 70)',
     borderRadius: 40,
   },
 });
