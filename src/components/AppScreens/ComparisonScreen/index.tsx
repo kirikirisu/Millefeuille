@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationBottomTabScreenComponent } from 'react-navigation-tabs';
 import {
-  Text, View, StyleSheet, ScrollView, SectionListData,
+  Text, View, StyleSheet, ScrollView,
 } from 'react-native';
-import recordThunkReducer from '../../../reducers/recordThunk';
 
 type Props = {
-  recordThunk: SectionListData<{
-    coment: string;
-    date: string;
-    url: string;
-  }>;
+  recordThunk: Record;
+};
+
+type Record = {
+  coment: string;
+  date: string;
+  url: string;
 };
 
 const styles = StyleSheet.create({
@@ -41,7 +42,8 @@ function Item({ data }) {
   );
 }
 
-const conversionForSection = (thunk) => new Promise((resolve) => {
+// eslint-disable-next-line max-len
+const conversionForSection = (thunk): Promise<{ title: string; data: Record }[]> => new Promise((resolve) => {
   const sectionData = [];
   Object.keys(thunk).forEach((key, index) => {
     sectionData.push({ title: key, data: thunk[key] });
@@ -54,7 +56,8 @@ const ComparisonScreen: React.FC<Props> = ({ recordThunk }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    conversionForSection(recordThunk).then((v) => { setData(v); });
+    conversionForSection(recordThunk)
+      .then((value: { title: string; data: Record }[]) => { setData(value); });
   }, []);
 
   return (
