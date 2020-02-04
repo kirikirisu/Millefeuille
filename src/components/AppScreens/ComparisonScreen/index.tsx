@@ -1,23 +1,30 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavigationBottomTabScreenComponent } from 'react-navigation-tabs';
-import { Text, View } from 'react-native';
-import firebase from '../../../utils/initializeFirebase';
+import {
+  Text, View, StyleSheet, SectionList,
+} from 'react-native';
 
 type Props = {
-  uid: string;
+  recordThunk: {
+    coment: string;
+    date: string;
+    url: string;
+  };
 };
 
-const ComparisonScreen: React.FC<Props> = ({ uid }) => {
-  useEffect(() => {
-    const recordRef = firebase.database().ref(`users/${uid}`);
-    recordRef.on('value', (snapshot) => {
-      console.log(snapshot.val());
-    });
-  });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
+const ComparisonScreen: React.FC<Props> = ({ recordThunk }) => {
+  console.log(typeof [recordThunk]);
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>ComparisonScreen</Text>
+    <View style={styles.container}>
+      <View />
     </View>
   );
 };
