@@ -80,29 +80,29 @@ const formatDate = (objDate): string => {
 
   switch (element[1]) {
     case 'Jan':
-      return `${element[YEAR]}-${1}-${element[DAY]}`;
+      return `${element[YEAR]}-01-${element[DAY]}`;
     case 'Feb':
-      return `${element[YEAR]}-${2}-${element[DAY]}`;
+      return `${element[YEAR]}-02-${element[DAY]}`;
     case 'Mar':
-      return `${element[YEAR]}-${3}-${element[DAY]}`;
+      return `${element[YEAR]}-03-${element[DAY]}`;
     case 'Apr':
-      return `${element[YEAR]}-${4}-${element[DAY]}`;
+      return `${element[YEAR]}-04-${element[DAY]}`;
     case 'May':
-      return `${element[YEAR]}-${5}-${element[DAY]}`;
+      return `${element[YEAR]}-05-${element[DAY]}`;
     case 'Jun':
-      return `${element[YEAR]}-${6}-${element[DAY]}`;
+      return `${element[YEAR]}-06-${element[DAY]}`;
     case 'Jul':
-      return `${element[YEAR]}-${7}-${element[DAY]}`;
+      return `${element[YEAR]}-07-${element[DAY]}`;
     case 'Aug':
-      return `${element[YEAR]}-${8}-${element[DAY]}`;
+      return `${element[YEAR]}-08-${element[DAY]}`;
     case 'Sep':
-      return `${element[YEAR]}-${9}-${element[DAY]}`;
+      return `${element[YEAR]}-09-${element[DAY]}`;
     case 'Oct':
-      return `${element[YEAR]}-${10}-${element[DAY]}`;
+      return `${element[YEAR]}-10-${element[DAY]}`;
     case 'Nov':
-      return `${element[YEAR]}-${11}-${element[DAY]}`;
+      return `${element[YEAR]}-11-${element[DAY]}`;
     case 'Dec':
-      return `${element[YEAR]}-${12}-${element[DAY]}`;
+      return `${element[YEAR]}-12-${element[DAY]}`;
     default:
   }
 };

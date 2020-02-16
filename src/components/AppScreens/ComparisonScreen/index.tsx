@@ -3,6 +3,7 @@ import { NavigationBottomTabScreenComponent } from 'react-navigation-tabs';
 import {
   Text, View, StyleSheet, ScrollView, Dimensions, ImageBackground, Platform,
 } from 'react-native';
+import Constants from 'expo-constants';
 
 const { height, width } = Dimensions.get('screen');
 
@@ -17,6 +18,10 @@ type Record = {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'rgb(255, 255, 255)',
+  },
   imgContainer: {
     width: width - 72,
     height: width * 0.6,
@@ -54,61 +59,73 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     paddingBottom: 5,
   },
+  headerContainer: {
+    marginTop: Constants.statusBarHeight,
+    height: 70,
+    justifyContent: 'center',
+    marginRight: 20,
+    marginLeft: 20,
+    borderBottomColor: '#a9a9a9',
+    borderBottomWidth: 1.5,
+  },
+  headerText: {
+    fontSize: 28,
+    fontWeight: '500',
+    marginLeft: 10,
+  },
 });
 
-const Item = ({ title, data }) => {
-  console.log(title, data);
-  return (
-    <View>
-      <ImageBackground
-        style={[styles.imgContainer, styles.shadow]}
-        imageStyle={{ borderRadius: 12 }}
-        source={{ uri: data.url }}
-      />
-      <View style={styles.infor}>
-        <ScrollView>
-          <Text style={styles.title}>
-            {data.date}
-          </Text>
-          <Text>
-            {data.coment}
-          </Text>
-        </ScrollView>
-      </View>
-    </View>
-  );
-};
+const renderHeader = () => (
+  <View style={styles.headerContainer}>
+    <Text style={styles.headerText}>一覧</Text>
+  </View>
+);
 
-const conversionForSection = (thunk): Promise<{ title: string; data: Record }[]> => new Promise(
-  (resolve) => {
-    const sectionData = [];
-    Object.keys(thunk).forEach((key, index) => {
-      sectionData.push({ title: key, data: thunk[key] });
-    });
-    resolve(sectionData);
-  },
+const Item = ({ date, coment, url }) => (
+  <View>
+    <ImageBackground
+      style={[styles.imgContainer, styles.shadow]}
+      imageStyle={{ borderRadius: 12 }}
+      source={{ uri: url }}
+    />
+    <View style={styles.infor}>
+      <ScrollView>
+        <Text style={styles.title}>
+          {date}
+        </Text>
+        <Text>
+          {coment}
+        </Text>
+      </ScrollView>
+    </View>
+  </View>
 );
 
 const ComparisonScreen: React.FC<Props> = ({ recordThunk }) => {
   console.log('mount');
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    conversionForSection(recordThunk)
-      .then((value: { title: string; data: Record }[]) => { setData(value); });
-  }, []);
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: 'rgb(255, 255, 255)' }}>
-      {
-        data.map((item, index) => {
-          const { title, data: recordData } = item;
-          return (
-            <Item key={title} title={title} data={recordData} />
-          );
-        })
-      }
-    </ScrollView>
+    <View style={{ flex: 1 }}>
+      {recordThunk
+        ? (
+          <View style={styles.container}>
+            <View>
+              {renderHeader()}
+            </View>
+            <ScrollView style={{ flex: 1, backgroundColor: 'rgb(255, 255, 255)' }}>
+              {
+                Object.keys(recordThunk).map((key, index) => {
+                  const { date, coment, url } = recordThunk[key];
+                  return (
+                    <Item key={date} date={date} coment={coment} url={url} />
+                  );
+                })
+              }
+            </ScrollView>
+          </View>
+        )
+        : <View />}
+    </View>
   );
 };
 export default ComparisonScreen;
