@@ -13,6 +13,8 @@ import { Input } from 'react-native-elements';
 import { takePhoto, pickPhoto, getPhotoDimentions } from '../../../utils/methodFactory';
 import usePermission from '../../../utils/usePermission';
 import DatePicker from './IosDatePicker';
+import { Header } from '../ComparisonScreen/index';
+import CheckIcon from './CheckIcon';
 
 const {
   screenHeight,
@@ -129,6 +131,7 @@ const Record = ({
       enabled
       // keyboardVerticalOffset={Platform.select({ ios: 20, android: 120 })}
     >
+      <Header title="記録" icon={<CheckIcon />} />
       <ScrollView>
         {renderPhoto(uri)}
         {renderPhotoicons(cameraPermission)}
@@ -142,8 +145,8 @@ const Record = ({
 };
 
 Record.navigationOptions = ({ navigation }) => ({
-  title: '記録',
-  headerRight: (): React.ReactElement => (<>{ renderHeaderButton(navigation) }</>),
+  header: null,
 });
+
 
 export default Record;

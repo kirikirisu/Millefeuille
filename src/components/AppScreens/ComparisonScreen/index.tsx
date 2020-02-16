@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationBottomTabScreenComponent } from 'react-navigation-tabs';
 import {
-  Text, View, StyleSheet, ScrollView, Dimensions, ImageBackground, Platform,
+  Text, View, StyleSheet, ScrollView, Dimensions, ImageBackground, Platform, Image,
 } from 'react-native';
 import Constants from 'expo-constants';
 
@@ -15,6 +15,11 @@ type Record = {
   coment: string;
   date: string;
   url: string;
+};
+
+type HeaderProps = {
+  title: string;
+  icon?: React.ReactElement;
 };
 
 const styles = StyleSheet.create({
@@ -62,22 +67,32 @@ const styles = StyleSheet.create({
   headerContainer: {
     marginTop: Constants.statusBarHeight,
     height: 70,
-    justifyContent: 'center',
     marginRight: 20,
     marginLeft: 20,
     borderBottomColor: '#a9a9a9',
     borderBottomWidth: 1.5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   headerText: {
     fontSize: 28,
     fontWeight: '500',
     marginLeft: 10,
   },
+  headerIcon: {
+    marginRight: 10,
+  },
 });
 
-const renderHeader = () => (
+export const Header: React.FC<HeaderProps> = ({ title, icon }) => (
   <View style={styles.headerContainer}>
-    <Text style={styles.headerText}>一覧</Text>
+    <Text style={styles.headerText}>{title}</Text>
+    {
+      icon && (
+        <View style={styles.headerIcon}>{icon}</View>
+      )
+    }
   </View>
 );
 
@@ -110,7 +125,7 @@ const ComparisonScreen: React.FC<Props> = ({ recordThunk }) => {
         ? (
           <View style={styles.container}>
             <View>
-              {renderHeader()}
+              <Header title="一覧" />
             </View>
             <ScrollView style={{ flex: 1, backgroundColor: 'rgb(255, 255, 255)' }}>
               {

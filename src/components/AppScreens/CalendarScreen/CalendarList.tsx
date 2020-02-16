@@ -1,4 +1,4 @@
-import React, { useState, useEffect, BlockquoteHTMLAttributes } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CalendarList } from 'react-native-calendars';
 import { NavigationStackProp, NavigationStackScreenComponent } from 'react-navigation-stack';
 import { View } from 'react-native';
