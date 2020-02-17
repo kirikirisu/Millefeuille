@@ -7,16 +7,16 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { Input } from 'react-native-elements';
 import { takePhoto, pickPhoto, getPhotoDimentions } from '../../../utils/methodFactory';
 import usePermission from '../../../utils/usePermission';
 import DatePicker from './IosDatePicker';
+import CheckIcon from './CheckIcon';
+import Header from '../Header';
 
 const {
-  screenWidth,
   screenHeight,
   photoHeight,
   photoWidth,
@@ -112,12 +112,6 @@ const renderComentArea = (setText): React.ReactElement => (
   </View>
 );
 
-const renderHeaderButton = (navigation): React.ReactElement => (
-  <TouchableOpacity style={styles.headerRight} onPress={() => navigation.navigate('Confirmation')}>
-    <Text style={styles.headerRightText}>完了</Text>
-  </TouchableOpacity>
-);
-
 const Record = ({
   uri, date, setDate, setText,
 }): React.ReactElement => {
@@ -125,12 +119,13 @@ const Record = ({
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      style={{ flex: 1, backgroundColor: 'rgb(255, 255, 255)' }}
       behavior="position"
       // contentContainerStyle={{ flex: 1 }}
       enabled
       // keyboardVerticalOffset={Platform.select({ ios: 20, android: 120 })}
     >
+      <Header title="記録" icon={<CheckIcon />} />
       <ScrollView>
         {renderPhoto(uri)}
         {renderPhotoicons(cameraPermission)}
@@ -144,8 +139,8 @@ const Record = ({
 };
 
 Record.navigationOptions = ({ navigation }) => ({
-  title: '記録',
-  headerRight: (): React.ReactElement => (<>{ renderHeaderButton(navigation) }</>),
+  header: null,
 });
+
 
 export default Record;

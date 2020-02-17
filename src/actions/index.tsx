@@ -19,3 +19,8 @@ export const setText = (text) => ({
   type: actionTypes.SET_TEXT,
   text,
 });
+
+export const setRecordThunk = (thunk) => ({
+  type: actionTypes.SET_RECORD_THUNK,
+  thunk,
+});

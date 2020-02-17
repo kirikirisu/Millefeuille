@@ -1,10 +1,11 @@
 /* eslint-disable global-require */
 import React, { useRef, useEffect } from 'react';
 import {
-  View, Text, StyleSheet, ScrollView, Image, Animated,
+  View, Text, StyleSheet, ScrollView, Image, Animated, TouchableOpacity,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { Card, Button } from 'react-native-elements';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { formatDate, getPhotoDimentions } from '../../../utils/methodFactory';
 import useUploadPhoto from '../../../utils/useUploadPhoto';
@@ -29,8 +30,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 25,
+    justifyContent: 'space-around',
+    backgroundColor: 'rgb(252, 251, 255)',
+  },
+  cardButtonContainer: {
+    marginBottom: 30,
   },
   photoContainer: {
     alignSelf: 'center',
@@ -52,17 +56,34 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   buttonContainer: {
-    marginTop: 15,
+    marginBottom: 25,
   },
   button: {
-    width: screenWidth - 200,
-    backgroundColor: '#00B2EC',
+    height: 50,
+    width: screenWidth * 0.75,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgb(79, 55, 256)',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
+  },
+  buttonText: {
+    fontSize: 20,
+    color: 'rgb(255, 255, 255)',
   },
   progressContainer: {
     flex: 1,
     marginBottom: 25,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgb(252, 251, 255)',
   },
   circleLoader: {
     height: screenWidth - 240,
@@ -72,7 +93,22 @@ const styles = StyleSheet.create({
     height: 5,
     width: '75%',
     backgroundColor: 'white',
-    marginTop: 45,
+    marginTop: screenHeight * 0.15,
+  },
+  backIconContainer: {
+    alignItems: 'flex-end',
+    width: screenWidth,
+    paddingRight: 30,
+  },
+  backIcon: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    width: 50,
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderWidth: 1,
+    borderRadius: 35,
   },
 });
 
@@ -97,35 +133,52 @@ const renderProgress = (width) => (
   </View>
 );
 
-const renderCard = (uri, formatedDate, coment, done) => (
+const renderConfirmation = (uri, formatedDate, coment, done, navigation) => (
   // https://stackoverflow.com/questions/32664397/react-native-vertical-centering-when-using-scrollview
   <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     <View style={styles.container}>
-      <Card title={formatedDate}>
-        <View style={styles.photoContainer}>
-          <Image
-            resizeMode="contain"
-            source={{ uri: `${uri}` }}
-            style={styles.photo}
-          />
-        </View>
-        <View style={styles.comentContainer}>
-          <Text style={styles.comentLabel}>コメント</Text>
-          <Text style={styles.coment}>{coment}</Text>
-        </View>
-      </Card>
+      <View style={styles.backIconContainer}>
+        <TouchableOpacity style={styles.backIcon} onPress={() => navigation.navigate('Record')}>
+          <AntDesign name="close" size={35} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.cardButtonContainer}>
+        <Card
+          title={formatedDate}
+          containerStyle={{
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 5,
+            },
+            shadowOpacity: 0.34,
+            shadowRadius: 6.27,
+            elevation: 10,
+          }}
+        >
+          <View style={styles.photoContainer}>
+            <Image
+              resizeMode="contain"
+              source={{ uri: `${uri}` }}
+              style={styles.photo}
+            />
+          </View>
+          <View style={styles.comentContainer}>
+            <Text style={styles.comentLabel}>コメント</Text>
+            <Text style={styles.coment}>{coment}</Text>
+          </View>
+        </Card>
+      </View>
       <View style={styles.buttonContainer}>
-        <Button
-          buttonStyle={styles.button}
-          title="保存する"
-          onPress={() => done()}
-        />
+        <TouchableOpacity style={styles.button} onPress={() => done()}>
+          <Text style={styles.buttonText}>Add</Text>
+        </TouchableOpacity>
       </View>
     </View>
   </ScrollView>
 );
 
-const Confirmation: NavigationStackScreenComponent<Props> = ({ uid, record }) => {
+const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({ uid, record, navigation }) => {
   const { uri, date, text: coment } = record;
   const formatedDate = formatDate(date);
 
@@ -151,14 +204,14 @@ const Confirmation: NavigationStackScreenComponent<Props> = ({ uid, record }) =>
 
   return (
     <View style={{ flex: 1 }}>
-      {!isLoading ? renderProgress(width)
-        : renderCard(uri, formatedDate, coment, done)}
+      {isLoading ? renderProgress(width)
+        : renderConfirmation(uri, formatedDate, coment, done, navigation)}
     </View>
   );
 };
 
-Confirmation.navigationOptions = {
+ConfirmationScreen.navigationOptions = {
   header: null,
 };
 
-export default Confirmation;
+export default ConfirmationScreen;

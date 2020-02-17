@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
 
-import CalendarList from './CalendarList';
+import CalendarList from '../../../containers/CalendarList';
 import DetailsScreen from './Details';
 
 const RootStack = createStackNavigator(

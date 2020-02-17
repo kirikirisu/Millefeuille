@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 import CalendarScreen from '../CalendarScreen/index';
 import RecordScreen from '../RecordScreen/index';
-import ComparisonScreen from '../ComparisonScreen/index';
+import ComparisonScreen from '../../../containers/Comparison';
 import SettingScreen from '../SettingScreen/index';
 
 const TabContainer = createBottomTabNavigator(
@@ -33,7 +33,7 @@ const TabContainer = createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'tomato',
+      activeTintColor: 'rgb(249, 101, 89)',
       inactiveTintColor: 'gray',
     },
   },

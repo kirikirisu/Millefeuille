@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setUser } from '../actions';
+import { setUser, setRecordThunk } from '../actions';
 
 import AuthLoadingScreen from '../components/AuthLoadingScreen/AuthLoadingScreen';
 
@@ -10,6 +10,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setUser(user) {
     dispatch(setUser(user));
+  },
+  setRecordThunk(thunk) {
+    dispatch(setRecordThunk(thunk));
   },
 });
 
