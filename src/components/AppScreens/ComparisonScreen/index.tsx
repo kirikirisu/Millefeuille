@@ -3,7 +3,7 @@ import { NavigationBottomTabScreenComponent } from 'react-navigation-tabs';
 import {
   Text, View, StyleSheet, ScrollView, Dimensions, ImageBackground, Platform, Image,
 } from 'react-native';
-import Constants from 'expo-constants';
+import Header from '../Header';
 
 const { height, width } = Dimensions.get('screen');
 
@@ -15,11 +15,6 @@ type Record = {
   coment: string;
   date: string;
   url: string;
-};
-
-type HeaderProps = {
-  title: string;
-  icon?: React.ReactElement;
 };
 
 const styles = StyleSheet.create({
@@ -64,37 +59,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     paddingBottom: 5,
   },
-  headerContainer: {
-    marginTop: Constants.statusBarHeight,
-    height: 70,
-    marginRight: 20,
-    marginLeft: 20,
-    borderBottomColor: '#a9a9a9',
-    borderBottomWidth: 1.5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  headerText: {
-    fontSize: 28,
-    fontWeight: '500',
-    marginLeft: 10,
-  },
-  headerIcon: {
-    marginRight: 10,
-  },
 });
-
-export const Header: React.FC<HeaderProps> = ({ title, icon }) => (
-  <View style={styles.headerContainer}>
-    <Text style={styles.headerText}>{title}</Text>
-    {
-      icon && (
-        <View style={styles.headerIcon}>{icon}</View>
-      )
-    }
-  </View>
-);
 
 const Item = ({ date, coment, url }) => (
   <View>

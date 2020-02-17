@@ -13,8 +13,8 @@ import { Input } from 'react-native-elements';
 import { takePhoto, pickPhoto, getPhotoDimentions } from '../../../utils/methodFactory';
 import usePermission from '../../../utils/usePermission';
 import DatePicker from './IosDatePicker';
-import { Header } from '../ComparisonScreen/index';
 import CheckIcon from './CheckIcon';
+import Header from '../Header';
 
 const {
   screenHeight,
@@ -110,12 +110,6 @@ const renderComentArea = (setText): React.ReactElement => (
       multiline
     />
   </View>
-);
-
-const renderHeaderButton = (navigation): React.ReactElement => (
-  <TouchableOpacity style={styles.headerRight} onPress={() => navigation.navigate('Confirmation')}>
-    <MaterialIcons name="done" size={35} color="rgb(255, 255, 255)" />
-  </TouchableOpacity>
 );
 
 const Record = ({
