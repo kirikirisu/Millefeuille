@@ -24,7 +24,7 @@
 - lint-staged と husky の導入
   - コードを綺麗に保ちたかったため
 - TypeScript
-  - インターンの募集などで載っていることが多く、少しでも慣れておきたかったため
+  - 少しでも慣れておきたかったため
   - [こんな感じ](https://employment.en-japan.com/engineerhub/entry/2019/04/16/103000)でゆるゆるでやりつつ、ts の良さを知っておきたい
 - vsCodeVim, vimium
   - 効率的なコーディングライフ手に入れるため
