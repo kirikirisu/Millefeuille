@@ -16,7 +16,6 @@ import usePermission from '../../../utils/usePermission';
 import IosDatePicker from './IosDatePicker';
 import AndroidDatePicker from './AndroidDatePicker';
 import CheckIcon from './CheckIcon';
-import Header from '../Header';
 
 const {
   screenHeight,
@@ -44,10 +43,15 @@ const styles = StyleSheet.create({
     width: photoWidth,
     height: photoHeight,
   },
+  textContainer: {
+    width: photoWidth,
+    height: photoHeight,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   text: {
     fontSize: 20,
     color: '#a9a9a9',
-    height: screenHeight / 10,
   },
   comentContainer: {
     padding: 20,
@@ -92,7 +96,7 @@ export const renderPhoto = (uri): React.ReactElement => (
           style={styles.photo}
         />
       )
-        : <Text style={styles.text}>写真を選択してください</Text>
+        : <View style={styles.textContainer}><Text style={styles.text}>写真を選択してください</Text></View>
     }
   </View>
 );
@@ -124,7 +128,6 @@ const Record = ({
       enabled
       // keyboardVerticalOffset={Platform.select({ ios: 20, android: 120 })}
     >
-      <Header title="記録" icon={<CheckIcon />} />
       <ScrollView>
         {renderPhoto(uri)}
         {renderPhotoicons(cameraPermission)}
@@ -138,8 +141,12 @@ const Record = ({
 };
 
 Record.navigationOptions = ({ navigation }) => ({
-  header: null,
+  headerTitle: '追加',
+  headerRight: () => (
+    <View style={{ paddingRight: 20 }}>
+      <CheckIcon navigation={navigation} />
+    </View>
+  ),
 });
-
 
 export default Record;
