@@ -11,7 +11,7 @@ const IosDatePicker = ({ date: stateDate, setDate: setDt }): React.ReactElement 
 
 
   return (
-    <View>
+    <View style={{ alignItems: 'stretch' }}>
       <DateTimePicker
         value={stateDate}
         mode="date"

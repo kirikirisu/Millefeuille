@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#a9a9a9',
     width: width - (36 * 4),
     height: (width * 0.6) * 0.35,
+    elevation: 10,
   },
   title: {
     fontSize: 14 * 1.25,
@@ -108,4 +109,5 @@ const ComparisonScreen: React.FC<Props> = ({ recordThunk }) => {
     </View>
   );
 };
+
 export default ComparisonScreen;
