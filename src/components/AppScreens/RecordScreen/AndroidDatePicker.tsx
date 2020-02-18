@@ -38,7 +38,22 @@ const AndroidDatePicker = ({ date: stateDate, setDate: setDt }) => {
   return (
     <View style={styles.container}>
       <View style={styles.button}>
-        <Button onPress={() => setShow(true)} title={`${displayDate}`} />
+        <Button
+          buttonStyle={{
+            backgroundColor: 'rgb(79, 55, 256)',
+            borderRadius: 5,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 5,
+            },
+            shadowOpacity: 0.34,
+            shadowRadius: 6.27,
+            elevation: 5,
+          }}
+          onPress={() => setShow(true)}
+          title={`${displayDate}`}
+        />
       </View>
       {show && (
         <DatePicker
