@@ -7,12 +7,14 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { Input } from 'react-native-elements';
 import { takePhoto, pickPhoto, getPhotoDimentions } from '../../../utils/methodFactory';
 import usePermission from '../../../utils/usePermission';
-import DatePicker from './IosDatePicker';
+import IosDatePicker from './IosDatePicker';
+import AndroidDatePicker from './AndroidDatePicker';
 import CheckIcon from './CheckIcon';
 import Header from '../Header';
 
@@ -46,9 +48,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#a9a9a9',
     height: screenHeight / 10,
-  },
-  datePickerContainer: {
-    alignItems: 'stretch',
   },
   comentContainer: {
     padding: 20,
@@ -130,9 +129,9 @@ const Record = ({
         {renderPhoto(uri)}
         {renderPhotoicons(cameraPermission)}
         {renderComentArea(setText)}
-        <View style={styles.datePickerContainer}>
-          <DatePicker date={date} setDate={setDate} />
-        </View>
+        {Platform.OS === 'ios'
+          ? <IosDatePicker date={date} setDate={setDate} />
+          : <AndroidDatePicker date={date} setDate={setDate} />}
       </ScrollView>
     </KeyboardAvoidingView>
   );
