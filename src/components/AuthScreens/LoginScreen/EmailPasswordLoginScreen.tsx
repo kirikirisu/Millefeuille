@@ -7,6 +7,7 @@ import { Input, Button } from 'react-native-elements';
 import firebase from '../../../utils/initializeFirebase';
 import useForm from '../../../utils/formHooks/useForm';
 import validate from '../../../utils/formHooks/validationRules';
+import FacebookLogin from './FacebookLoginScreen';
 
 const { height, width } = Dimensions.get('screen');
 const styles = StyleSheet.create({
@@ -19,9 +20,10 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   titleContainer: {
-    height: height / 2,
+    height: height / 1.8,
     paddingRight: 35,
     paddingLeft: 35,
+    paddingTop: 10,
     width,
   },
   title: {
@@ -56,6 +58,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(57,62,70)',
     borderColor: 'rgb(57, 62, 70)',
     borderRadius: 40,
+  },
+  facebook: {
+    paddingTop: 25,
+    alignItems: 'center',
   },
 });
 
@@ -116,7 +122,9 @@ const EmailPasswordLoginScreen: React.FC = () => {
             </TouchableOpacity>
           </View>
         </View>
-
+        <View style={styles.facebook}>
+          <FacebookLogin />
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
