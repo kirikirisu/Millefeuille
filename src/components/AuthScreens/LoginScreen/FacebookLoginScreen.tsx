@@ -37,7 +37,12 @@ const FacebookLoginScreen: React.FC = () => {
   return (
     <View>
       <TouchableOpacity onPress={() => loginWithFaceBook()}>
-        <Text style={{ color: 'rgb(57, 62, 70)' }}>Login Facebook</Text>
+        <Text style={{
+          color: 'rgb(57, 62, 70)', fontSize: 16, fontWeight: '600', textDecorationLine: 'underline',
+        }}
+        >
+Login With Facebook
+        </Text>
       </TouchableOpacity>
     </View>
   );

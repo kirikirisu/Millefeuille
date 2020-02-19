@@ -59,6 +59,10 @@ const styles = StyleSheet.create({
     borderColor: 'rgb(57, 62, 70)',
     borderRadius: 40,
   },
+  facebook: {
+    paddingTop: 25,
+    alignItems: 'center',
+  },
 });
 
 const EmailPasswordLoginScreen: React.FC = () => {
@@ -118,7 +122,9 @@ const EmailPasswordLoginScreen: React.FC = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <FacebookLogin />
+        <View style={styles.facebook}>
+          <FacebookLogin />
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
