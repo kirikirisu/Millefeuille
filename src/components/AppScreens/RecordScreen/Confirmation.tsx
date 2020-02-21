@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(252, 251, 255)',
   },
   cardButtonContainer: {
-    marginBottom: 30,
+    marginBottom: 0,
   },
   photoContainer: {
     alignSelf: 'center',
@@ -133,7 +133,37 @@ const renderProgress = (width) => (
   </View>
 );
 
-const renderConfirmation = (uri, formatedDate, coment, done, navigation) => (
+export const RecordCard = ({ confirmationThunk }) => (
+  <View style={styles.cardButtonContainer}>
+    <Card
+      title={confirmationThunk.date}
+      containerStyle={{
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
+      }}
+    >
+      <View style={styles.photoContainer}>
+        <Image
+          resizeMode="contain"
+          source={{ uri: `${confirmationThunk.url}` }}
+          style={styles.photo}
+        />
+      </View>
+      <View style={styles.comentContainer}>
+        <Text style={styles.comentLabel}>コメント</Text>
+        <Text style={styles.coment}>{confirmationThunk.coment}</Text>
+      </View>
+    </Card>
+  </View>
+);
+
+const renderConfirmation = (confirmationThunk, done, navigation) => (
   // https://stackoverflow.com/questions/32664397/react-native-vertical-centering-when-using-scrollview
   <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     <View style={styles.container}>
@@ -142,33 +172,7 @@ const renderConfirmation = (uri, formatedDate, coment, done, navigation) => (
           <AntDesign name="close" size={35} />
         </TouchableOpacity>
       </View>
-      <View style={styles.cardButtonContainer}>
-        <Card
-          title={formatedDate}
-          containerStyle={{
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 5,
-            },
-            shadowOpacity: 0.34,
-            shadowRadius: 6.27,
-            elevation: 10,
-          }}
-        >
-          <View style={styles.photoContainer}>
-            <Image
-              resizeMode="contain"
-              source={{ uri: `${uri}` }}
-              style={styles.photo}
-            />
-          </View>
-          <View style={styles.comentContainer}>
-            <Text style={styles.comentLabel}>コメント</Text>
-            <Text style={styles.coment}>{coment}</Text>
-          </View>
-        </Card>
-      </View>
+      <RecordCard confirmationThunk={confirmationThunk} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={() => done()}>
           <Text style={styles.buttonText}>Add</Text>
@@ -181,6 +185,10 @@ const renderConfirmation = (uri, formatedDate, coment, done, navigation) => (
 const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({ uid, record, navigation }) => {
   const { uri, date, text: coment } = record;
   const formatedDate = formatDate(date);
+  const confirmationThunk = {};
+  confirmationThunk.url = uri;
+  confirmationThunk.date = formatedDate;
+  confirmationThunk.coment = coment;
 
   const animation = useRef(new Animated.Value(0));
   const {
@@ -205,7 +213,7 @@ const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({ uid, record
   return (
     <View style={{ flex: 1 }}>
       {isLoading ? renderProgress(width)
-        : renderConfirmation(uri, formatedDate, coment, done, navigation)}
+        : renderConfirmation(confirmationThunk, done, navigation)}
     </View>
   );
 };

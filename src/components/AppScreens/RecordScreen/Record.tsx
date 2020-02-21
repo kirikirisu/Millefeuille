@@ -123,7 +123,7 @@ const Record = ({
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: 'rgb(255, 255, 255)' }}
+      style={{ flex: 1, backgroundColor: 'rgb(252, 251, 255)' }}
       behavior="position"
       // contentContainerStyle={{ flex: 1 }}
       enabled
