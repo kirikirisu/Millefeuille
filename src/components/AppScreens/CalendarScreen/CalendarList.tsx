@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CalendarList } from 'react-native-calendars';
 import { NavigationStackProp, NavigationStackScreenComponent } from 'react-navigation-stack';
 import { View } from 'react-native';
+import recordThunkReducer from '../../../reducers/recordThunk';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -31,12 +32,18 @@ const conversionForCalender = (thunk) => new Promise(
   },
 );
 
+
+const transitionDetails = (navigation, day) => {
+  // console.log(day);
+  navigation.navigate('Details', { pressedDay: day });
+};
+
 const Calendar: React.FC<Props> = ({ navigation, recordThunk }) => {
   const [data, setData] = useState({});
 
   useEffect(() => {
     conversionForCalender(recordThunk).then((shaping) => {
-      console.log(shaping);
+      // console.log(shaping);
       setData(shaping);
     });
   }, []);
@@ -44,7 +51,7 @@ const Calendar: React.FC<Props> = ({ navigation, recordThunk }) => {
   return (
     <View>
       <CalendarList
-        onDayPress={() => navigation.navigate('Details')}
+        onDayPress={(day) => transitionDetails(navigation, day)}
         markedDates={data}
       />
     </View>

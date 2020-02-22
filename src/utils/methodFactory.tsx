@@ -49,7 +49,7 @@ const getPhotoDimentions = () => {
   const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
   // const photoHeight = height * 0.45;
   // console.log(height, photoHeight);
-  const photoWidth = screenWidth - 100;
+  const photoWidth = screenWidth - 80;
   const photoHeight = photoWidth * (3 / 4); // アスペクト比４：３
   return {
     screenWidth,
