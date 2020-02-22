@@ -22,11 +22,13 @@ const Details: NavigationStackScreenComponent = ({ navigation, uid }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     const { dateString } = navigation.getParam('pressedDay');
     const ref = firebase.database().ref(`users/${uid}/${dateString}`);
     ref.on('value', (snapshot) => {
       if (snapshot.val()) {
         console.log(snapshot.val());
+        setIsLoading(false);
         setRecord(snapshot.val());
       } else {
         setRecord(null);
