@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 import CalendarScreen from '../CalendarScreen/index';
 import RecordScreen from '../RecordScreen/index';
-import ComparisonScreen from '../../../containers/Comparison';
+import ComparisonScreen from '../ComparisonScreen/index';
 import SettingScreen from '../SettingScreen/index';
 
 const TabContainer = createBottomTabNavigator(

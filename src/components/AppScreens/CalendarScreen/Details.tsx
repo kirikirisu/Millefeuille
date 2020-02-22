@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { NavigationStackScreenComponent, NavigationStackScreenProps } from 'react-navigation-stack';
 import firebase from '../../../utils/initializeFirebase';
 import { RecordCard } from '../RecordScreen/Confirmation';
@@ -9,10 +9,15 @@ type Props = {
   navigation: NavigationStackScreenProps;
 }
 
+const styles = StyleSheet.create({
+  CardContainer: {
+  },
+});
+
 const DetailScreen = ({ record, navigation }) => (
   <View>
     {record !== null
-      ? <RecordCard confirmationThunk={record} />
+      ? <View style={styles.CardContainer}><RecordCard confirmationThunk={record} /></View>
       : <View />}
   </View>
 );
@@ -36,7 +41,7 @@ const Details: NavigationStackScreenComponent = ({ navigation, uid }) => {
     });
   }, []);
   return (
-    <View>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       {isLoading
         ? <Text>now loading</Text>
         : <DetailScreen record={record} navigation={navigation} />}

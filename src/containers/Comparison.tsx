@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ComparisonScreen from '../components/AppScreens/ComparisonScreen/index';
+import ComparisonScreen from '../components/AppScreens/ComparisonScreen/Comparison';
 
 const mapStateToProps = ({ user, recordThunk }) => ({
   uid: user.user.uid,
