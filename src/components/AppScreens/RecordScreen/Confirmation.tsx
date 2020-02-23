@@ -182,20 +182,38 @@ const renderConfirmation = (confirmationThunk, done, navigation) => (
   </ScrollView>
 );
 
+type CardThunk = {
+  url?: string;
+  date?: string;
+  coment?: string;
+};
+
+type UpLoadThunk = {
+  uri?: string;
+  date?: string;
+  coment?: string;
+};
+
 const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({ uid, record, navigation }) => {
   const { uri, date, text: coment } = record;
   const formatedDate = formatDate(date);
-  const confirmationThunk = {};
+
+  const confirmationThunk: CardThunk = {};
   confirmationThunk.url = uri;
   confirmationThunk.date = formatedDate;
   confirmationThunk.coment = coment;
+
+  const upLoadThunk: UpLoadThunk = {};
+  upLoadThunk.uri = uri;
+  upLoadThunk.date = formatedDate;
+  upLoadThunk.coment = coment;
 
   const animation = useRef(new Animated.Value(0));
   const {
     isLoading,
     done,
     percentage,
-  } = useUploadPhoto(uid, uri, formatedDate, coment);
+  } = useUploadPhoto(uid, upLoadThunk);
 
   useEffect(() => {
     Animated.timing(animation.current, {

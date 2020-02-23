@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Record from '../../../containers/Record';
 import Confirmation from '../../../containers/Confirmation';
+import Done from './DoneScreen';
 import Prompt from './PromptPermission';
 
 const RootStack = createStackNavigator(
@@ -11,6 +12,9 @@ const RootStack = createStackNavigator(
     },
     Confirmation: {
       screen: Confirmation,
+    },
+    Done: {
+      screen: Done,
     },
     Prompt: {
       screen: Prompt,

@@ -3,7 +3,6 @@ import * as ImagePicker from 'expo-image-picker';
 import { Dimensions } from 'react-native';
 import firebase from './initializeFirebase';
 import store from '../../store';
-import usePermission from './usePermission';
 import { setUri } from '../actions/index';
 
 const logout = () => {

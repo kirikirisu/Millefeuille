@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import firebase from './initializeFirebase';
+import NavigationService from './NavigationService';
 
-const useUploadPhoto = (uid, uri, date, coment) => {
+const useUploadPhoto = (uid, upLoadThunk) => {
   const [isLoading, setIsLoading] = useState(false);
   const [percentage, setPercentage] = useState(0);
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
@@ -10,7 +11,7 @@ const useUploadPhoto = (uid, uri, date, coment) => {
     console.log('done');
     setIsLoading(true);
     setIsUploadingPhoto(true);
-    const response = await fetch(uri); // uriをblobに変換
+    const response = await fetch(upLoadThunk.uri); // uriをblobに変換
     const blob = await response.blob();
     const imgName = blob.data.name;
     const path = `images/users/${uid}/${imgName}`; // strageの参照を作成
@@ -44,10 +45,11 @@ const useUploadPhoto = (uid, uri, date, coment) => {
 
         const recordThunk = {
           url: downloadURL,
-          date,
-          coment,
+          date: upLoadThunk.date,
+          coment: upLoadThunk.coment,
         };
-        firebase.database().ref(`users/${uid}/${date}`).set(recordThunk);
+        firebase.database().ref(`users/${uid}/${upLoadThunk.date}`).set(recordThunk);
+        NavigationService.navigate('Done', {});
         setIsLoading(false);
       });
     });
