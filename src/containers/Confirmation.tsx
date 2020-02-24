@@ -5,7 +5,7 @@ import Confirmation from '../components/AppScreens/RecordScreen/Confirmation';
 
 const mapStateToProps = ({ record, user }) => ({
   uid: user.user.uid,
-  record,
+  recordState: record,
 });
 
 /* const mapDispatchToProps = (dispatch) => ({

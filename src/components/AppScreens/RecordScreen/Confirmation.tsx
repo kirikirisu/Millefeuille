@@ -133,37 +133,40 @@ const renderProgress = (width) => (
   </View>
 );
 
-export const RecordCard = ({ confirmationThunk }) => (
-  <View style={styles.cardButtonContainer}>
-    <Card
-      title={confirmationThunk.date}
-      containerStyle={{
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 5,
-        },
-        shadowOpacity: 0.34,
-        shadowRadius: 6.27,
-        elevation: 10,
-      }}
-    >
-      <View style={styles.photoContainer}>
-        <Image
-          resizeMode="contain"
-          source={{ uri: `${confirmationThunk.url}` }}
-          style={styles.photo}
-        />
-      </View>
-      <View style={styles.comentContainer}>
-        <Text style={styles.comentLabel}>コメント</Text>
-        <Text style={styles.coment}>{confirmationThunk.coment}</Text>
-      </View>
-    </Card>
-  </View>
-);
+export const RecordCard = ({ recordState }) => {
+  const { uri, date, text: coment } = recordState;
+  return (
+    <View style={styles.cardButtonContainer}>
+      <Card
+        title={date}
+        containerStyle={{
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 5,
+          },
+          shadowOpacity: 0.34,
+          shadowRadius: 6.27,
+          elevation: 10,
+        }}
+      >
+        <View style={styles.photoContainer}>
+          <Image
+            resizeMode="contain"
+            source={{ uri: `${uri}` }}
+            style={styles.photo}
+          />
+        </View>
+        <View style={styles.comentContainer}>
+          <Text style={styles.comentLabel}>コメント</Text>
+          <Text style={styles.coment}>{coment}</Text>
+        </View>
+      </Card>
+    </View>
+  );
+};
 
-const renderConfirmation = (confirmationThunk, done, navigation) => (
+const renderConfirmation = (recordState, done, navigation) => (
   // https://stackoverflow.com/questions/32664397/react-native-vertical-centering-when-using-scrollview
   <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     <View style={styles.container}>
@@ -172,7 +175,7 @@ const renderConfirmation = (confirmationThunk, done, navigation) => (
           <AntDesign name="close" size={35} />
         </TouchableOpacity>
       </View>
-      <RecordCard confirmationThunk={confirmationThunk} />
+      <RecordCard recordState={recordState} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={() => done()}>
           <Text style={styles.buttonText}>Add</Text>
@@ -182,38 +185,28 @@ const renderConfirmation = (confirmationThunk, done, navigation) => (
   </ScrollView>
 );
 
-type CardThunk = {
-  url?: string;
-  date?: string;
-  coment?: string;
-};
-
-type UpLoadThunk = {
+type FormatedState = {
   uri?: string;
   date?: string;
-  coment?: string;
+  text?: string;
 };
 
-const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({ uid, record, navigation }) => {
-  const { uri, date, text: coment } = record;
+const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({
+  uid,
+  recordState,
+  navigation,
+}) => {
+  const { uri, date, text } = recordState;
   const formatedDate = formatDate(date);
 
-  const confirmationThunk: CardThunk = {};
-  confirmationThunk.url = uri;
-  confirmationThunk.date = formatedDate;
-  confirmationThunk.coment = coment;
-
-  const upLoadThunk: UpLoadThunk = {};
-  upLoadThunk.uri = uri;
-  upLoadThunk.date = formatedDate;
-  upLoadThunk.coment = coment;
+  const formatedState: FormatedState = { ...recordState, date: formatedDate };
 
   const animation = useRef(new Animated.Value(0));
   const {
     isLoading,
     done,
     percentage,
-  } = useUploadPhoto(uid, upLoadThunk);
+  } = useUploadPhoto(uid, formatedState);
 
   useEffect(() => {
     Animated.timing(animation.current, {
@@ -231,7 +224,7 @@ const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({ uid, record
   return (
     <View style={{ flex: 1 }}>
       {isLoading ? renderProgress(width)
-        : renderConfirmation(confirmationThunk, done, navigation)}
+        : renderConfirmation(formatedState, done, navigation)}
     </View>
   );
 };

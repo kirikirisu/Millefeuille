@@ -16,7 +16,6 @@ const DoneScreen = () => (
       // eslint-disable-next-line global-require
       source={require('../../../../lotties/7155-confetti.json')}
       autoPlay
-      loop
     />
   </View>
 );

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import firebase from './initializeFirebase';
 import NavigationService from './NavigationService';
+import store from '../../store';
+import { initializeRecord } from '../actions/index';
 
 const useUploadPhoto = (uid, upLoadThunk) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -46,9 +48,10 @@ const useUploadPhoto = (uid, upLoadThunk) => {
         const recordThunk = {
           url: downloadURL,
           date: upLoadThunk.date,
-          coment: upLoadThunk.coment,
+          coment: upLoadThunk.text,
         };
         firebase.database().ref(`users/${uid}/${upLoadThunk.date}`).set(recordThunk);
+        store.dispatch(initializeRecord());
         NavigationService.navigate('Done', {});
         setIsLoading(false);
       });
