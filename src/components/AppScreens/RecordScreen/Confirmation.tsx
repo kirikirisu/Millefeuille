@@ -4,11 +4,12 @@ import {
   View, Text, StyleSheet, ScrollView, Image, Animated, TouchableOpacity,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
-import { Card, Button } from 'react-native-elements';
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { Card } from 'react-native-elements';
+import { AntDesign } from '@expo/vector-icons';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { formatDate, getPhotoDimentions } from '../../../utils/methodFactory';
 import useUploadPhoto from '../../../utils/useUploadPhoto';
+import NavigationService from '../../../utils/NavigationService';
 
 const {
   screenWidth,
@@ -166,12 +167,12 @@ export const RecordCard = ({ recordState }) => {
   );
 };
 
-const renderConfirmation = (recordState, done, navigation) => (
+const renderConfirmation = (recordState, done) => (
   // https://stackoverflow.com/questions/32664397/react-native-vertical-centering-when-using-scrollview
   <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     <View style={styles.container}>
       <View style={styles.backIconContainer}>
-        <TouchableOpacity style={styles.backIcon} onPress={() => navigation.navigate('Record')}>
+        <TouchableOpacity style={styles.backIcon} onPress={() => NavigationService.navigate('Record', {})}>
           <AntDesign name="close" size={35} />
         </TouchableOpacity>
       </View>
@@ -194,7 +195,6 @@ type FormatedState = {
 const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({
   uid,
   recordState,
-  navigation,
 }) => {
   const { uri, date, text } = recordState;
   const formatedDate = formatDate(date);
@@ -224,7 +224,7 @@ const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({
   return (
     <View style={{ flex: 1 }}>
       {isLoading ? renderProgress(width)
-        : renderConfirmation(formatedState, done, navigation)}
+        : renderConfirmation(formatedState, done)}
     </View>
   );
 };
