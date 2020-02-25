@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { NavigationStackScreenComponent, NavigationStackScreenProps } from 'react-navigation-stack';
 import firebase from '../../../utils/initializeFirebase';
 import { RecordCard } from '../RecordScreen/Confirmation';
+import Empty from './Empty';
 
 type Props = {
   uid: string;
@@ -32,7 +33,7 @@ const DetailScreen = ({ record, navigation }) => {
     <View>
       {record !== null
         ? <View><RecordCard recordState={urlToUri} /></View>
-        : <View />}
+        : <Empty />}
     </View>
   );
 };
@@ -51,6 +52,7 @@ const Details: NavigationStackScreenComponent = ({ navigation, uid }) => {
         setIsLoading(false);
         setRecord(snapshot.val());
       } else {
+        setIsLoading(false);
         setRecord(null);
       }
     });
