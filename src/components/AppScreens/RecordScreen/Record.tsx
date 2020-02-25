@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderRightWidth: 1,
     borderColor: '#a9a9a9',
-    height: screenHeight / 5,
+    height: screenHeight / 5.5,
     padding: 5,
   },
   headerRight: {
@@ -131,7 +131,7 @@ const Record = ({
       enabled
       // keyboardVerticalOffset={Platform.select({ ios: 20, android: 120 })}
     >
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         {renderPhoto(uri)}
         {renderPhotoicons(cameraPermission)}
         {renderComentArea(setText, text)}

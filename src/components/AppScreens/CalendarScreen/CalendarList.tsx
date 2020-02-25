@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { CalendarList } from 'react-native-calendars';
 import { NavigationStackProp, NavigationStackScreenComponent } from 'react-navigation-stack';
 import { View } from 'react-native';
-import recordThunkReducer from '../../../reducers/recordThunk';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -59,7 +58,7 @@ const Calendar: React.FC<Props> = ({ navigation, recordThunk }) => {
 };
 
 Calendar.navigationOptions = {
-  title: 'Home',
+  title: 'ホーム',
 };
 
 export default Calendar;
