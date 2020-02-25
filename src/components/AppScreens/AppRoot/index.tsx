@@ -22,7 +22,7 @@ const TabContainer = createBottomTabNavigator(
         if (routeName === 'Calendar') {
           iconName = 'calendar';
         } else if (routeName === 'Camera') {
-          iconName = `${focused ? 'camera' : 'camerao'}`;
+          iconName = 'addfile';
         } else if (routeName === 'Comparison') {
           iconName = `${focused ? 'eye' : 'eyeo'}`;
         } else if (routeName === 'Setting') {
