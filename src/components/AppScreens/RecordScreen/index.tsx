@@ -42,6 +42,9 @@ RootStack.navigationOptions = ({ navigation }) => {
   if (navigation.state.index === 1) {
     tabBarVisible = false;
   }
+  if (navigation.state.index === 2) {
+    tabBarVisible = false;
+  }
   return {
     tabBarVisible,
   };
