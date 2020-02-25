@@ -24,3 +24,7 @@ export const setRecordThunk = (thunk) => ({
   type: actionTypes.SET_RECORD_THUNK,
   thunk,
 });
+
+export const initializeRecord = () => ({
+  type: actionTypes.INITIALIZE_RECORD,
+});

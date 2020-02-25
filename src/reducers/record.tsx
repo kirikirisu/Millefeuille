@@ -1,4 +1,6 @@
-import { SET_URI, SET_DATE, SET_TEXT } from '../constants/actionType';
+import {
+  SET_URI, SET_DATE, SET_TEXT, INITIALIZE_RECORD,
+} from '../constants/actionType';
 
 const initialState = {
   uri: '',
@@ -23,6 +25,8 @@ const recordReducer = (state = initialState, action) => {
         ...state,
         text: action.text,
       };
+    case INITIALIZE_RECORD:
+      return initialState;
     default:
       return state;
   }

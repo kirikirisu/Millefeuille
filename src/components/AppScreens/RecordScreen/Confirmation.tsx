@@ -4,11 +4,12 @@ import {
   View, Text, StyleSheet, ScrollView, Image, Animated, TouchableOpacity,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
-import { Card, Button } from 'react-native-elements';
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { Card } from 'react-native-elements';
+import { AntDesign } from '@expo/vector-icons';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { formatDate, getPhotoDimentions } from '../../../utils/methodFactory';
 import useUploadPhoto from '../../../utils/useUploadPhoto';
+import NavigationService from '../../../utils/NavigationService';
 
 const {
   screenWidth,
@@ -133,46 +134,49 @@ const renderProgress = (width) => (
   </View>
 );
 
-export const RecordCard = ({ confirmationThunk }) => (
-  <View style={styles.cardButtonContainer}>
-    <Card
-      title={confirmationThunk.date}
-      containerStyle={{
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 5,
-        },
-        shadowOpacity: 0.34,
-        shadowRadius: 6.27,
-        elevation: 10,
-      }}
-    >
-      <View style={styles.photoContainer}>
-        <Image
-          resizeMode="contain"
-          source={{ uri: `${confirmationThunk.url}` }}
-          style={styles.photo}
-        />
-      </View>
-      <View style={styles.comentContainer}>
-        <Text style={styles.comentLabel}>コメント</Text>
-        <Text style={styles.coment}>{confirmationThunk.coment}</Text>
-      </View>
-    </Card>
-  </View>
-);
+export const RecordCard = ({ recordState }) => {
+  const { uri, date, text: coment } = recordState;
+  return (
+    <View style={styles.cardButtonContainer}>
+      <Card
+        title={date}
+        containerStyle={{
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 5,
+          },
+          shadowOpacity: 0.34,
+          shadowRadius: 6.27,
+          elevation: 10,
+        }}
+      >
+        <View style={styles.photoContainer}>
+          <Image
+            resizeMode="contain"
+            source={{ uri: `${uri}` }}
+            style={styles.photo}
+          />
+        </View>
+        <View style={styles.comentContainer}>
+          <Text style={styles.comentLabel}>コメント</Text>
+          <Text style={styles.coment}>{coment}</Text>
+        </View>
+      </Card>
+    </View>
+  );
+};
 
-const renderConfirmation = (confirmationThunk, done, navigation) => (
+const renderConfirmation = (recordState, done) => (
   // https://stackoverflow.com/questions/32664397/react-native-vertical-centering-when-using-scrollview
   <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     <View style={styles.container}>
       <View style={styles.backIconContainer}>
-        <TouchableOpacity style={styles.backIcon} onPress={() => navigation.navigate('Record')}>
+        <TouchableOpacity style={styles.backIcon} onPress={() => NavigationService.navigate('Record', {})}>
           <AntDesign name="close" size={35} />
         </TouchableOpacity>
       </View>
-      <RecordCard confirmationThunk={confirmationThunk} />
+      <RecordCard recordState={recordState} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={() => done()}>
           <Text style={styles.buttonText}>Add</Text>
@@ -182,20 +186,27 @@ const renderConfirmation = (confirmationThunk, done, navigation) => (
   </ScrollView>
 );
 
-const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({ uid, record, navigation }) => {
-  const { uri, date, text: coment } = record;
+type FormatedState = {
+  uri?: string;
+  date?: string;
+  text?: string;
+};
+
+const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({
+  uid,
+  recordState,
+}) => {
+  const { uri, date, text } = recordState;
   const formatedDate = formatDate(date);
-  const confirmationThunk = {};
-  confirmationThunk.url = uri;
-  confirmationThunk.date = formatedDate;
-  confirmationThunk.coment = coment;
+
+  const formatedState: FormatedState = { ...recordState, date: formatedDate };
 
   const animation = useRef(new Animated.Value(0));
   const {
     isLoading,
     done,
     percentage,
-  } = useUploadPhoto(uid, uri, formatedDate, coment);
+  } = useUploadPhoto(uid, formatedState);
 
   useEffect(() => {
     Animated.timing(animation.current, {
@@ -213,7 +224,7 @@ const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({ uid, record
   return (
     <View style={{ flex: 1 }}>
       {isLoading ? renderProgress(width)
-        : renderConfirmation(confirmationThunk, done, navigation)}
+        : renderConfirmation(formatedState, done)}
     </View>
   );
 };

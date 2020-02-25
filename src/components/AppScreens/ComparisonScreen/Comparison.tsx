@@ -90,7 +90,7 @@ const ComparisonScreen: React.FC<Props> = ({ recordThunk }) => {
       {recordThunk
         ? (
           <View style={styles.container}>
-            <ScrollView style={{ flex: 1, backgroundColor: 'rgb(255, 255, 255)' }}>
+            <ScrollView style={{ flex: 1, backgroundColor: 'rgb(252, 251, 255)' }}>
               {
                 Object.keys(recordThunk).map((key, index) => {
                   const { date, coment, url } = recordThunk[key];

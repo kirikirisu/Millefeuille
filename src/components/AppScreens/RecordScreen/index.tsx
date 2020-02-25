@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Record from '../../../containers/Record';
 import Confirmation from '../../../containers/Confirmation';
+import Done from './DoneScreen';
 import Prompt from './PromptPermission';
 
 const RootStack = createStackNavigator(
@@ -11,6 +12,9 @@ const RootStack = createStackNavigator(
     },
     Confirmation: {
       screen: Confirmation,
+    },
+    Done: {
+      screen: Done,
     },
     Prompt: {
       screen: Prompt,
@@ -36,6 +40,9 @@ const RootStack = createStackNavigator(
 RootStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
   if (navigation.state.index === 1) {
+    tabBarVisible = false;
+  }
+  if (navigation.state.index === 2) {
     tabBarVisible = false;
   }
   return {

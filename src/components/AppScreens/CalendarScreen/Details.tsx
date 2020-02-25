@@ -14,13 +14,28 @@ const styles = StyleSheet.create({
   },
 });
 
-const DetailScreen = ({ record, navigation }) => (
-  <View>
-    {record !== null
-      ? <View style={styles.CardContainer}><RecordCard confirmationThunk={record} /></View>
-      : <View />}
-  </View>
-);
+type UrlToUri = {
+  uri?: string;
+  date?: string;
+  text?: string;
+};
+
+const DetailScreen = ({ record, navigation }) => {
+  const urlToUri: UrlToUri = {};
+  if (record !== null) {
+    const { date, coment, url } = record;
+    urlToUri.uri = url;
+    urlToUri.date = date;
+    urlToUri.text = coment;
+  }
+  return (
+    <View>
+      {record !== null
+        ? <View><RecordCard recordState={urlToUri} /></View>
+        : <View />}
+    </View>
+  );
+};
 
 const Details: NavigationStackScreenComponent = ({ navigation, uid }) => {
   const [record, setRecord] = useState(null);
@@ -41,7 +56,10 @@ const Details: NavigationStackScreenComponent = ({ navigation, uid }) => {
     });
   }, []);
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{
+      flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(252, 251, 255)',
+    }}
+    >
       {isLoading
         ? <Text>now loading</Text>
         : <DetailScreen record={record} navigation={navigation} />}
