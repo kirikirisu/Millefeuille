@@ -70,7 +70,7 @@ const Details: NavigationStackScreenComponent = ({ navigation, uid }) => {
 };
 
 Details.navigationOptions = {
-  title: 'Details',
+  title: '詳細',
 };
 
 export default Details;
