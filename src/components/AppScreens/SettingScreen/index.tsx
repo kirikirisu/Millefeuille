@@ -5,6 +5,7 @@ import {
   View,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
+import Setting from './SettingList';
 import { logout } from '../../../utils/methodFactory';
 
 const styles = StyleSheet.create({
@@ -33,7 +34,7 @@ const LogoutScreen: React.FC = () => {
             onAnimationFinish={() => { toggleScreen(); }}
           />
         )
-        : <View /> }
+        : <Setting /> }
     </View>
   );
 };
