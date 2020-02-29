@@ -1,42 +1,23 @@
-import React, { useState } from 'react';
-import { Button } from 'react-native-elements';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
-import LottieView from 'lottie-react-native';
-import Setting from './SettingList';
-import { logout } from '../../../utils/methodFactory';
+import { createStackNavigator } from 'react-navigation-stack';
+import Option from './Setting';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+const SettingRoute = createStackNavigator(
+  {
+    Options: { screen: Option },
   },
-  lottie: {
-    ...StyleSheet.absoluteFillObject,
+  {
+    initialRouteName: 'Options',
+    defaultNavigationOptions: {
+      title: '設定',
+      headerStyle: {
+        backgroundColor: 'white',
+      },
+      headerTintColor: 'rgb(57, 62, 70)',
+      headerTitleStyle: {
+        fontSize: 23,
+      },
+    },
   },
-});
+);
 
-const LogoutScreen: React.FC = () => {
-  const [lottieScreen, setScreen] = useState(true);
-  const toggleScreen = () => setScreen(!lottieScreen);
-  return (
-    <View style={styles.container}>
-      {lottieScreen
-        ? (
-          <LottieView
-            style={styles.lottie}
-            // eslint-disable-next-line global-require
-            source={require('../../../../lotties/202-setting.json')}
-            autoPlay
-            loop={false}
-            speed={0.8}
-            onAnimationFinish={() => { toggleScreen(); }}
-          />
-        )
-        : <Setting /> }
-    </View>
-  );
-};
-
-export default LogoutScreen;
+export default SettingRoute;
