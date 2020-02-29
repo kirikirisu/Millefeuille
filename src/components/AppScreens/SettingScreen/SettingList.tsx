@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { AntDesign } from '@expo/vector-icons';
+import NavigationService from '../../../utils/NavigationService';
 
 const listItem = ['お問い合わせ', '利用規約', 'プライバシー・ポリシー', 'ログアウト'];
 
@@ -27,8 +28,28 @@ const styles = StyleSheet.create({
   },
 });
 
+const navigateOptions = (title) => {
+  let navigateRouteName = '';
+  switch (title) {
+    case 'お問い合わせ':
+      navigateRouteName = 'Contact';
+      break;
+    case '利用規約':
+      navigateRouteName = 'Rule';
+      break;
+    case 'プライバシー・ポリシー':
+      navigateRouteName = 'PrivacyPolicy';
+      break;
+    default:
+  }
+  NavigationService.navigate(navigateRouteName, {});
+};
+
 const Item = ({ title, index }) => (
-  <TouchableOpacity style={{ ...styles.itemContainer, borderTopWidth: index === 0 ? 1 : 0 }}>
+  <TouchableOpacity
+    style={{ ...styles.itemContainer, borderTopWidth: index === 0 ? 1 : 0 }}
+    onPress={() => navigateOptions(title)}
+  >
     <Text style={styles.title}>{title}</Text>
     <AntDesign name="right" color="#a9a9a9" size={24} />
   </TouchableOpacity>

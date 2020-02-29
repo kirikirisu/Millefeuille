@@ -29,6 +29,7 @@ const Setting: React.FC = () => {
             // eslint-disable-next-line global-require
             source={require('../../../../lotties/202-setting.json')}
             autoPlay
+            speed={1.5}
             loop={false}
             onAnimationFinish={() => { toggleScreen(); }}
           />

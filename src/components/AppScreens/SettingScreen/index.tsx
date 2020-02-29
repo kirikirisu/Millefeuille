@@ -1,9 +1,16 @@
 import { createStackNavigator } from 'react-navigation-stack';
+
 import Option from './Setting';
+import Contact from './Contact';
+import Rule from './Rule';
+import PrivacyPolicy from './PrivacyPolicy';
 
 const SettingRoute = createStackNavigator(
   {
     Options: { screen: Option },
+    Contact: { screen: Contact },
+    Rule: { screen: Rule },
+    PrivacyPolicy: { screen: PrivacyPolicy },
   },
   {
     initialRouteName: 'Options',
