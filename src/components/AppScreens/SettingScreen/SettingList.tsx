@@ -26,6 +26,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'rgb(57, 62, 70)',
   },
+  signOut: {
+    position: 'absolute',
+    right: 0,
+    bottom: 60,
+    height: 50,
+    width: 160,
+    backgroundColor: 'red',
+    borderTopLeftRadius: 24,
+    borderBottomLeftRadius: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  signOutTitle: {
+    fontSize: 19,
+    color: 'white',
+  },
 });
 
 const navigateOptions = (title) => {
@@ -62,6 +78,9 @@ const SettingList: NavigationStackScreenComponent = () => (
       renderItem={({ item, index }) => <Item title={item} index={index} />}
       keyExtractor={(item) => item}
     />
+    <TouchableOpacity style={styles.signOut}>
+      <Text style={styles.signOutTitle}>Sign Out</Text>
+    </TouchableOpacity>
   </View>
 );
 
