@@ -5,8 +5,9 @@ import {
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { AntDesign } from '@expo/vector-icons';
 import NavigationService from '../../../utils/NavigationService';
+import { logout } from '../../../utils/methodFactory';
 
-const listItem = ['お問い合わせ', '利用規約', 'プライバシー・ポリシー', 'ログアウト'];
+const listItem = ['お問い合わせ', '利用規約', 'プライバシー・ポリシー'];
 
 const styles = StyleSheet.create({
   container: {
@@ -31,12 +32,12 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 60,
     height: 50,
-    width: 160,
-    backgroundColor: 'red',
+    backgroundColor: 'tomato',
     borderTopLeftRadius: 24,
     borderBottomLeftRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 20,
   },
   signOutTitle: {
     fontSize: 19,
@@ -78,7 +79,7 @@ const SettingList: NavigationStackScreenComponent = () => (
       renderItem={({ item, index }) => <Item title={item} index={index} />}
       keyExtractor={(item) => item}
     />
-    <TouchableOpacity style={styles.signOut}>
+    <TouchableOpacity style={styles.signOut} onPress={() => logout()}>
       <Text style={styles.signOutTitle}>Sign Out</Text>
     </TouchableOpacity>
   </View>

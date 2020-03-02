@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import SettingList from './SettingList';
-import { logout } from '../../../utils/methodFactory';
 
 const styles = StyleSheet.create({
   container: {
