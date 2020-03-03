@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity,
+  View, Text, StyleSheet, TouchableOpacity, Linking,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -37,6 +37,11 @@ const styles = StyleSheet.create({
   },
 });
 
+const linkToTwitter = () => {
+  const url = 'https://twitter.com/s6rmcuA3qqOMM4m';
+  Linking.openURL(url).catch((err) => console.error('An error occured', err));
+};
+
 const Contact: React.FC = () => (
   <View style={styles.container}>
     <Text style={styles.firstText}>
@@ -45,7 +50,7 @@ const Contact: React.FC = () => (
     <Text style={styles.secondText}>
       頂いたご意見やご要望には目を通しておりますが、全てのお問い合わせにお返事できないことをご了承ください。
     </Text>
-    <TouchableOpacity style={styles.button} onPress={() => console.log('go twitter')}>
+    <TouchableOpacity style={styles.button} onPress={() => linkToTwitter()}>
       <Text style={styles.buttonTitle}>Twitterで問い合わせ</Text>
     </TouchableOpacity>
   </View>
