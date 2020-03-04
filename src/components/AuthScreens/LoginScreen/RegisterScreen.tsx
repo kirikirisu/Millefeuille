@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View, Text, StyleSheet, Dimensions, TouchableOpacity, KeyboardAvoidingView,
 } from 'react-native';
-import Constants from 'expo-constants';
 import { Input, Button } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 import firebase from '../../../utils/initializeFirebase';

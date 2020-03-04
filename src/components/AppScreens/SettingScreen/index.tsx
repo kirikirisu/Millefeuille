@@ -1,27 +1,30 @@
-import React from 'react';
-import { Button } from 'react-native-elements';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
-import { logout } from '../../../utils/methodFactory';
+import { createStackNavigator } from 'react-navigation-stack';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+import Option from './Setting';
+import Contact from './Contact';
+import Rule from './Rule';
+import PrivacyPolicy from './PrivacyPolicy';
+
+const SettingRoute = createStackNavigator(
+  {
+    Options: { screen: Option },
+    Contact: { screen: Contact },
+    Rule: { screen: Rule },
+    PrivacyPolicy: { screen: PrivacyPolicy },
   },
-});
-
-const LogoutScreen: React.FC = () => (
-  <View style={styles.container}>
-    <Button
-      title="Logout"
-      type="outline"
-      onPress={() => logout()}
-    />
-  </View>
+  {
+    initialRouteName: 'Options',
+    defaultNavigationOptions: {
+      title: '設定',
+      headerStyle: {
+        backgroundColor: 'white',
+      },
+      headerTintColor: 'rgb(57, 62, 70)',
+      headerTitleStyle: {
+        fontSize: 23,
+      },
+    },
+  },
 );
 
-export default LogoutScreen;
+export default SettingRoute;

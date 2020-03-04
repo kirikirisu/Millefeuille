@@ -57,6 +57,7 @@ const DoneScreen: NavigationStackScreenComponent = ({ navigation }) => {
         style={styles.lottie}
         autoPlay
         loop={false}
+        speed={0.6}
       />
       <View style={styles.displayContainer}>
         <AntDesign name="checkcircleo" size={width / 3} color="rgb(126, 237, 150)" />

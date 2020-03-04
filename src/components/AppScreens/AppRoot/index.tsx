@@ -10,7 +10,7 @@ import SettingScreen from '../SettingScreen/index';
 const TabContainer = createBottomTabNavigator(
   {
     Calendar: { screen: CalendarScreen },
-    Camera: { screen: RecordScreen },
+    Add: { screen: RecordScreen },
     Comparison: { screen: ComparisonScreen },
     Setting: { screen: SettingScreen },
   },
@@ -21,7 +21,7 @@ const TabContainer = createBottomTabNavigator(
         let iconName;
         if (routeName === 'Calendar') {
           iconName = 'calendar';
-        } else if (routeName === 'Camera') {
+        } else if (routeName === 'Add') {
           iconName = 'addfile';
         } else if (routeName === 'Comparison') {
           iconName = `${focused ? 'eye' : 'eyeo'}`;

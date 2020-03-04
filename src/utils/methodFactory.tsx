@@ -3,7 +3,16 @@ import * as ImagePicker from 'expo-image-picker';
 import { Dimensions } from 'react-native';
 import firebase from './initializeFirebase';
 import store from '../../store';
-import { setUri } from '../actions/index';
+import { setUri, setRecordThunk } from '../actions/index';
+
+const reload = () => {
+  console.log('load');
+  const { uid } = store.getState().user.user;
+  const recordRef = firebase.database().ref(`users/${uid}`);
+  recordRef.on('value', (snapshot) => {
+    setRecordThunk(snapshot.val());
+  });
+};
 
 const logout = () => {
   firebase.auth().signOut().then(() => {
@@ -107,5 +116,5 @@ const formatDate = (objDate): string => {
 };
 
 export {
-  logout, takePhoto, pickPhoto, getPhotoDimentions, formatDate,
+  logout, takePhoto, pickPhoto, getPhotoDimentions, formatDate, reload,
 };

@@ -20,7 +20,7 @@ type Props = {
 
 const Prompt: React.FC<Props> = ({ navigation }) => (
   <View style={styles.container}>
-    <Text>Please Permission on your phone setting</Text>
+    <Text>お使いのデバイスの設定より、カメラまたはカメラロールへのアクセスを許可してください。</Text>
     <Button
       title="GO HOME"
       onPress={() => { navigation.navigate('Home'); }}
