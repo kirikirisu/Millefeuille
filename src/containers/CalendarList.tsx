@@ -1,8 +1,9 @@
-
 import { connect } from 'react-redux';
 import CalenderList from '../components/AppScreens/CalendarScreen/CalendarList';
 
-const mapStateToProps = ({ recordThunk }) => ({
+import { setRecordThunk } from '../actions/index';
+
+const mapStateToProps = ({ recordThunk, user }) => ({
   recordThunk: recordThunk.recordThunk,
 });
 
