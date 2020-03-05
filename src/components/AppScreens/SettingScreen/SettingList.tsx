@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { AntDesign } from '@expo/vector-icons';
+import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
 import NavigationService from '../../../utils/NavigationService';
 import { logout } from '../../../utils/methodFactory';
 
@@ -31,8 +32,8 @@ const styles = StyleSheet.create({
   signOut: {
     position: 'absolute',
     right: 0,
-    bottom: 60,
-    height: 50,
+    bottom: h(10),
+    height: h(7),
     backgroundColor: 'tomato',
     borderTopLeftRadius: 24,
     borderBottomLeftRadius: 24,
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   signOutTitle: {
-    fontSize: 19,
+    fontSize: h(2.8),
     color: 'white',
   },
 });

@@ -3,6 +3,7 @@ import LottieView from 'lottie-react-native';
 import {
   Text, View, StyleSheet, Dimensions, TouchableOpacity,
 } from 'react-native';
+import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { withNavigation } from 'react-navigation';
 import { AntDesign } from '@expo/vector-icons';
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
     ...filler,
   },
   displayContainer: {
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     height,
     width,
@@ -26,18 +27,19 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'center',
     paddingHorizontal: 25,
+    flexWrap: 'wrap',
   },
   title: {
-    fontSize: 24,
+    fontSize: h(3.7),
     fontWeight: '700',
     marginBottom: 10,
   },
   subTitle: {
-    fontSize: 20,
+    fontSize: h(2.5),
   },
   arrowRight: {
-    height: 50,
-    width: 50,
+    height: h(8),
+    width: h(8),
     backgroundColor: 'rgb(126, 237, 150)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -60,12 +62,12 @@ const DoneScreen: NavigationStackScreenComponent = ({ navigation }) => {
         speed={0.6}
       />
       <View style={styles.displayContainer}>
-        <AntDesign name="checkcircleo" size={width / 3} color="rgb(126, 237, 150)" />
+        <AntDesign name="checkcircleo" size={w(34)} color="rgb(126, 237, 150)" />
         <View style={styles.textContainer}>
           <Text style={styles.title}>Success!!</Text>
-          <Text style={styles.subTitle}>おめでとうございます。追加されました！</Text>
+          <Text style={styles.subTitle}>追加されました！</Text>
         </View>
-        <TouchableOpacity style={styles.arrowRight} onPress={() => goBack()}><AntDesign name="arrowright" size={35} color="white" /></TouchableOpacity>
+        <TouchableOpacity style={styles.arrowRight} onPress={() => goBack()}><AntDesign name="arrowright" size={h(5)} color="white" /></TouchableOpacity>
       </View>
     </View>
   );

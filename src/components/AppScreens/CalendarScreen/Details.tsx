@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 type UrlToUri = {
   uri?: string;
   date?: string;
-  text?: string;
+  coment?: string;
 };
 
 const DetailScreen = ({ record, navigation }) => {
@@ -27,7 +27,7 @@ const DetailScreen = ({ record, navigation }) => {
     const { date, coment, url } = record;
     urlToUri.uri = url;
     urlToUri.date = date;
-    urlToUri.text = coment;
+    urlToUri.coment = coment;
   }
   return (
     <View>

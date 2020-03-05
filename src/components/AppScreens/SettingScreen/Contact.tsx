@@ -3,6 +3,7 @@ import {
   View, Text, StyleSheet, TouchableOpacity, Linking,
 } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
+import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,18 +14,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
     marginVertical: 30,
     color: 'rgb(57, 62, 70)',
-    fontSize: 16,
+    fontSize: h(2.2),
   },
   secondText: {
     marginHorizontal: 25,
     color: 'rgb(57, 62, 70)',
-    fontSize: 16,
+    fontSize: h(2.2),
   },
   button: {
     position: 'absolute',
     right: 0,
-    bottom: 60,
-    height: 50,
+    bottom: h(10),
+    height: h(7),
     backgroundColor: 'tomato',
     borderTopLeftRadius: 24,
     borderBottomLeftRadius: 24,
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   buttonTitle: {
-    fontSize: 19,
+    fontSize: h(2.8),
     color: 'white',
   },
 });
