@@ -5,9 +5,8 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-// import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import * as Facebook from 'expo-facebook';
-import firebase from '../../../utils/initializeFirebase';
+import { heightPercentageToDP as h } from 'react-native-responsive-screen';
 
 const FacebookLoginScreen: React.FC = () => {
   const loginWithFaceBook = async () => {
@@ -38,10 +37,13 @@ const FacebookLoginScreen: React.FC = () => {
     <View>
       <TouchableOpacity onPress={() => loginWithFaceBook()}>
         <Text style={{
-          color: 'rgb(57, 62, 70)', fontSize: 16, fontWeight: '600', textDecorationLine: 'underline',
+          color: 'rgb(57, 62, 70)',
+          fontSize: h(2.2),
+          fontWeight: '600',
+          textDecorationLine: 'underline',
         }}
         >
-Login With Facebook
+          Login With Facebook
         </Text>
       </TouchableOpacity>
     </View>

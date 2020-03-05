@@ -1,14 +1,13 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, Dimensions, TouchableOpacity, KeyboardAvoidingView,
+  View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView,
 } from 'react-native';
-import { Input, Button } from 'react-native-elements';
+import { Input } from 'react-native-elements';
+import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
 import { MaterialIcons } from '@expo/vector-icons';
 import firebase from '../../../utils/initializeFirebase';
 import useForm from '../../../utils/formHooks/useForm';
 import validate from '../../../utils/formHooks/validationRules';
-
-const { height, width } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   container: {
@@ -20,40 +19,40 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   titleContainer: {
-    height: height / 2,
-    paddingRight: 35,
-    paddingLeft: 35,
-    width,
+    height: h(50),
+    paddingHorizontal: h(5),
+    width: w(100),
   },
   title: {
     color: 'rgb(251, 250, 245)',
-    fontSize: 40,
+    fontSize: h(6),
     fontWeight: 'bold',
   },
   form: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: h(3),
   },
   inputContainer: {
-    width: width * 0.85,
+    width: w(85),
   },
   formBottom: {
-    width,
-    marginTop: 30,
+    width: w(100),
+    marginTop: h(4.5),
     justifyContent: 'space-around',
     flexDirection: 'row',
     alignItems: 'center',
   },
   bottomText: {
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: h(3.7),
     color: 'rgb(255,255,255)',
   },
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 70,
-    width: 70,
+    height: h(10.2),
+    width: h(10.2),
     backgroundColor: 'rgb(255,255,255)',
     borderColor: 'rgb(255,255,255)',
     borderRadius: 40,
@@ -80,10 +79,10 @@ const RegisterScreen: React.FC = () => {
   const email = 'email';
   const password = 'password';
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} enabled behavior="position" keyboardVerticalOffset={-height / 7}>
+    <KeyboardAvoidingView style={{ flex: 1 }} enabled behavior="position" keyboardVerticalOffset={-h(1)}>
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text style={{ ...styles.title, paddingTop: height / 7 }}>Create</Text>
+          <Text style={{ ...styles.title, paddingTop: h(13) }}>Create</Text>
           <Text style={{ ...styles.title }}>Account</Text>
         </View>
         <View style={styles.form}>
@@ -93,17 +92,17 @@ const RegisterScreen: React.FC = () => {
               inputStyle={{ color: 'rgb(251, 250, 245)' }}
               placeholder="e-mail"
               placeholderTextColor="gray"
-              onChangeText={(t) => handleChange(email, t)}
+              onChangeText={(t): void => handleChange(email, t)}
               value={values.email}
             />
             {errors.email
               ? <Text style={styles.validateText}>{errors.email}</Text>
               : null}
             <Input
-              containerStyle={{ ...styles.inputContainer, marginTop: 25 }}
+              containerStyle={{ ...styles.inputContainer, marginTop: h(4.5) }}
               placeholder="password"
               placeholderTextColor="gray"
-              onChangeText={(t) => handleChange(password, t)}
+              onChangeText={(t): void => handleChange(password, t)}
               value={values.password}
             />
             {errors.password
@@ -112,8 +111,8 @@ const RegisterScreen: React.FC = () => {
           </View>
           <View style={styles.formBottom}>
             <Text style={styles.bottomText}>Sign up</Text>
-            <TouchableOpacity style={styles.button} onPress={(e) => handleSubmit(e)}>
-              <MaterialIcons name="done" size={25} color="rgb(52, 55, 63)" />
+            <TouchableOpacity style={styles.button} onPress={(e): void => handleSubmit(e)}>
+              <MaterialIcons name="done" size={h(3.7)} color="rgb(52, 55, 63)" />
             </TouchableOpacity>
           </View>
         </View>
