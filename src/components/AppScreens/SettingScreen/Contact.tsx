@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, Linking,
 } from 'react-native';
+import { NavigationStackScreenComponent } from 'react-navigation-stack';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,7 +43,7 @@ const linkToTwitter = () => {
   Linking.openURL(url).catch((err) => console.error('An error occured', err));
 };
 
-const Contact: React.FC = () => (
+const Contact: NavigationStackScreenComponent = () => (
   <View style={styles.container}>
     <Text style={styles.firstText}>
       ご意見・ご要望がありましたら製作者のTwitterアカウントまでお問い合わせください。
@@ -55,5 +56,9 @@ const Contact: React.FC = () => (
     </TouchableOpacity>
   </View>
 );
+
+Contact.navigationOptions = {
+  title: 'お問い合わせ',
+};
 
 export default Contact;

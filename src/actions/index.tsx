@@ -15,9 +15,9 @@ export const setDate = (date) => ({
   date,
 });
 
-export const setText = (text) => ({
+export const setText = (coment) => ({
   type: actionTypes.SET_TEXT,
-  text,
+  coment,
 });
 
 export const setRecordThunk = (thunk) => ({

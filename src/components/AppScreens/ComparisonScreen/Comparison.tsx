@@ -3,7 +3,6 @@ import { NavigationBottomTabScreenComponent } from 'react-navigation-tabs';
 import {
   Text, View, StyleSheet, ScrollView, Dimensions, ImageBackground, Platform, Image,
 } from 'react-native';
-import Header from '../Header';
 
 const { height, width } = Dimensions.get('screen');
 
@@ -60,6 +59,15 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     paddingBottom: 5,
   },
+  noData: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noDataTitle: {
+    fontSize: 20,
+    color: '#a9a9a9',
+  },
 });
 
 const Item = ({ date, coment, url }) => (
@@ -102,7 +110,11 @@ const ComparisonScreen: React.FC<Props> = ({ recordThunk }) => {
             </ScrollView>
           </View>
         )
-        : <View />}
+        : (
+          <View style={styles.noData}>
+            <Text style={styles.noDataTitle}>記録はありません</Text>
+          </View>
+        )}
     </View>
   );
 };

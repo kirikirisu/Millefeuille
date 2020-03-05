@@ -1,29 +1,31 @@
 /* eslint-disable global-require */
 import React from 'react';
-import { withNavigation } from 'react-navigation';
 import LottieView from 'lottie-react-native';
 import Constants from 'expo-constants';
 import {
   Text, View, StyleSheet, Dimensions, TouchableOpacity,
 } from 'react-native';
+import NavigationService from '../../../utils/NavigationService';
 
 const { height, width } = Dimensions.get('screen');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgb(255, 255, 255)',
+    backgroundColor: 'rgb(252, 251, 255)',
   },
   lottieContainer: {
-    height: height / 1.5,
+    flex: 3,
     width,
     marginTop: Constants.statusBarHeight,
+    alignSelf: 'center',
   },
   buttonContainer: {
+    flex: 1,
     marginVertical: 15,
     alignItems: 'center',
   },
   button: {
-    height: 60,
+    flex: 0.5,
     marginTop: 10,
     width: width * 0.75,
     borderRadius: 35,
@@ -32,6 +34,16 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 25,
+  },
+  warning: {
+    flex: 0.5,
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  warningText: {
+    fontSize: 13,
   },
 });
 
@@ -60,6 +72,11 @@ const LoginTopScreen: React.FC<Props> = ({ swipe }) => (
       <TouchableOpacity style={{ ...styles.button, backgroundColor: 'rgb(249, 66, 50)' }} onPress={() => swipe(1)}>
         <Text style={{ ...styles.text, color: 'rgb(255, 255, 255)' }}>Sign in</Text>
       </TouchableOpacity>
+    </View>
+    <View style={styles.warning}>
+      <Text style={styles.warningText}>登録は</Text>
+      <Text style={{ ...styles.warningText, color: 'red' }} onPress={() => NavigationService.navigate('LoginPrivacyPolicy', {})}>プライバシーポリシー</Text>
+      <Text style={styles.warningText}>に同意したものとします。</Text>
     </View>
   </View>
 );

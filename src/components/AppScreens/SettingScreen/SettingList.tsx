@@ -7,7 +7,8 @@ import { AntDesign } from '@expo/vector-icons';
 import NavigationService from '../../../utils/NavigationService';
 import { logout } from '../../../utils/methodFactory';
 
-const listItem = ['お問い合わせ', '利用規約', 'プライバシー・ポリシー'];
+const APP_VERSION = '1.0.0';
+const listItem = ['お問い合わせ', 'プライバシー・ポリシー', 'バーション'];
 
 const styles = StyleSheet.create({
   container: {
@@ -51,9 +52,6 @@ const navigateOptions = (title) => {
     case 'お問い合わせ':
       navigateRouteName = 'Contact';
       break;
-    case '利用規約':
-      navigateRouteName = 'Rule';
-      break;
     case 'プライバシー・ポリシー':
       navigateRouteName = 'PrivacyPolicy';
       break;
@@ -63,13 +61,24 @@ const navigateOptions = (title) => {
 };
 
 const Item = ({ title, index }) => (
-  <TouchableOpacity
-    style={{ ...styles.itemContainer, borderTopWidth: index === 0 ? 1 : 0 }}
-    onPress={() => navigateOptions(title)}
-  >
-    <Text style={styles.title}>{title}</Text>
-    <AntDesign name="right" color="#a9a9a9" size={24} />
-  </TouchableOpacity>
+  <View>
+    {index !== 2
+      ? (
+        <TouchableOpacity
+          style={{ ...styles.itemContainer, borderTopWidth: index === 0 ? 1 : 0 }}
+          onPress={() => navigateOptions(title)}
+        >
+          <Text style={styles.title}>{title}</Text>
+          <AntDesign name="right" color="#a9a9a9" size={24} />
+        </TouchableOpacity>
+      )
+      : (
+        <View style={{ ...styles.itemContainer, justifyContent: 'flex-start' }}>
+          <Text style={styles.title}>{`${title}:`}</Text>
+          <Text style={{ ...styles.title, paddingLeft: 10 }}>{`${APP_VERSION}`}</Text>
+        </View>
+      )}
+  </View>
 );
 
 const SettingList: NavigationStackScreenComponent = () => (

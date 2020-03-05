@@ -135,7 +135,7 @@ const renderProgress = (width) => (
 );
 
 export const RecordCard = ({ recordState }) => {
-  const { uri, date, text: coment } = recordState;
+  const { uri, date, coment } = recordState;
   return (
     <View style={styles.cardButtonContainer}>
       <Card
@@ -189,14 +189,14 @@ const renderConfirmation = (recordState, done) => (
 type FormatedState = {
   uri?: string;
   date?: string;
-  text?: string;
+  coment?: string;
 };
 
 const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({
   uid,
   recordState,
 }) => {
-  const { uri, date, text } = recordState;
+  const { uri, date, coment } = recordState;
   const formatedDate = formatDate(date);
 
   const formatedState: FormatedState = { ...recordState, date: formatedDate };

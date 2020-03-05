@@ -102,12 +102,12 @@ export const renderPhoto = (uri): React.ReactElement => (
   </View>
 );
 
-const renderComentArea = (setText, text): React.ReactElement => (
+const renderComentArea = (setText, coment): React.ReactElement => (
   <View style={styles.comentContainer}>
     <Input
       inputContainerStyle={styles.input}
       placeholder="トレーニングメニューなど"
-      value={text}
+      value={coment}
       onChangeText={(txt): void => setText(txt)}
       editable
       maxLength={200}
@@ -121,7 +121,7 @@ const Record = ({
   recordState, setDate, setText,
 }): React.ReactElement => {
   const { cameraPermission } = usePermission();
-  const { uri, date, text } = recordState;
+  const { uri, date, coment } = recordState;
 
   return (
     <KeyboardAvoidingView
@@ -134,7 +134,7 @@ const Record = ({
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         {renderPhoto(uri)}
         {renderPhotoicons(cameraPermission)}
-        {renderComentArea(setText, text)}
+        {renderComentArea(setText, coment)}
         {Platform.OS === 'ios'
           ? <IosDatePicker date={date} setDate={setDate} />
           : <AndroidDatePicker date={date} setDate={setDate} />}
