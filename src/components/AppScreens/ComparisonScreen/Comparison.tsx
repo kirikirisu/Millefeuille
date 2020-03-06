@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { NavigationBottomTabScreenComponent } from 'react-navigation-tabs';
 import {
   Text, View, StyleSheet, ScrollView, Dimensions, ImageBackground, Platform, Image,
 } from 'react-native';
 import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
+import { RecordState } from '../../../types/index';
 
 const { width } = Dimensions.get('screen');
 
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Item = ({ date, coment, url }) => (
+const Item = React.memo(({ coment, date, url }: RecordState) => (
   <View>
     <ImageBackground
       style={[styles.imgContainer, styles.shadow]}
@@ -102,7 +103,7 @@ const Item = ({ date, coment, url }) => (
       </ScrollView>
     </View>
   </View>
-);
+));
 
 const ComparisonScreen: React.FC<Props> = ({ recordThunk }) => {
   console.log('mount');

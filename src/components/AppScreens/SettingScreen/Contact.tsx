@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     bottom: h(10),
     height: h(7),
     backgroundColor: 'tomato',
-    borderTopLeftRadius: 24,
-    borderBottomLeftRadius: 24,
+    borderTopLeftRadius: h(5),
+    borderBottomLeftRadius: h(5),
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
@@ -52,7 +52,7 @@ const Contact: NavigationStackScreenComponent = () => (
     <Text style={styles.secondText}>
       頂いたご意見やご要望には目を通しておりますが、全てのお問い合わせにお返事できないことをご了承ください。
     </Text>
-    <TouchableOpacity style={styles.button} onPress={() => linkToTwitter()}>
+    <TouchableOpacity style={styles.button} onPress={(): void => linkToTwitter()}>
       <Text style={styles.buttonTitle}>Twitterで問い合わせ</Text>
     </TouchableOpacity>
   </View>

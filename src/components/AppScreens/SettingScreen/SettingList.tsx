@@ -11,12 +11,17 @@ import { logout } from '../../../utils/methodFactory';
 const APP_VERSION = '1.0.0';
 const listItem = ['お問い合わせ', 'プライバシー・ポリシー', 'バーション'];
 
+type ItemElement = {
+  title: string;
+  index: number;
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   itemContainer: {
-    height: 50,
+    height: h(6.5),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -35,8 +40,8 @@ const styles = StyleSheet.create({
     bottom: h(10),
     height: h(7),
     backgroundColor: 'tomato',
-    borderTopLeftRadius: 24,
-    borderBottomLeftRadius: 24,
+    borderTopLeftRadius: h(5),
+    borderBottomLeftRadius: h(5),
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
@@ -61,7 +66,7 @@ const navigateOptions = (title) => {
   NavigationService.navigate(navigateRouteName, {});
 };
 
-const Item = ({ title, index }) => (
+const Item = React.memo(({ title, index }: ItemElement) => (
   <View>
     {index !== 2
       ? (
@@ -80,7 +85,7 @@ const Item = ({ title, index }) => (
         </View>
       )}
   </View>
-);
+));
 
 const SettingList: NavigationStackScreenComponent = () => (
   <View style={styles.container}>

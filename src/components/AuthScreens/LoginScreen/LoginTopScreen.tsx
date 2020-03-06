@@ -25,15 +25,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    height: h(8),
+    height: h(7),
     marginTop: h(1.5),
-    width: w(75),
+    width: w(70),
     borderRadius: 35,
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
-    fontSize: h(3.5),
+    fontSize: h(3.3),
   },
   warning: {
     flexWrap: 'wrap',

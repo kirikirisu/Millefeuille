@@ -11,6 +11,7 @@ import {
   InputAccessoryView,
 } from 'react-native';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
 import { Input } from 'react-native-elements';
 import { takePhoto, pickPhoto, getPhotoDimentions } from '../../../utils/methodFactory';
 import usePermission from '../../../utils/usePermission';
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: 20,
+    fontSize: h(3),
     color: '#a9a9a9',
   },
   comentContainer: {
@@ -63,26 +64,21 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderRightWidth: 1,
     borderColor: '#a9a9a9',
-    height: screenHeight / 5.5,
+    height: h(17),
     padding: 5,
   },
   headerRight: {
     marginRight: 25,
-  },
-  headerRightText: {
-    fontSize: 20,
-    color: '#fff',
-    fontWeight: '700',
   },
 });
 
 const renderPhotoicons = (cameraPermission): React.ReactElement => (
   <View style={styles.iconButtonContainer}>
     <TouchableOpacity style={styles.iconButton}>
-      <MaterialIcons onPress={(): Promise<void> => takePhoto(cameraPermission)} name="photo-camera" size={40} color="#a9a9a9" />
+      <MaterialIcons onPress={(): Promise<void> => takePhoto(cameraPermission)} name="photo-camera" size={h(5.5)} color="#a9a9a9" />
     </TouchableOpacity>
     <TouchableOpacity style={styles.iconButton}>
-      <FontAwesome onPress={(): Promise<void> => pickPhoto(cameraPermission)} name="photo" size={40} color="#a9a9a9" />
+      <FontAwesome onPress={(): Promise<void> => pickPhoto(cameraPermission)} name="photo" size={h(5.5)} color="#a9a9a9" />
     </TouchableOpacity>
   </View>
 );
@@ -106,7 +102,7 @@ const renderComentArea = (setText, coment): React.ReactElement => (
   <View style={styles.comentContainer}>
     <Input
       inputContainerStyle={styles.input}
-      placeholder="トレーニングメニューなど"
+      placeholder="メモ"
       value={coment}
       onChangeText={(txt): void => setText(txt)}
       editable
@@ -145,7 +141,7 @@ const Record = ({
 
 Record.navigationOptions = ({ navigation }) => ({
   headerTitle: '追加',
-  headerRight: () => (
+  headerRight: (): React.ReactElement => (
     <View style={{ paddingRight: 20 }}>
       <CheckIcon navigation={navigation} />
     </View>
