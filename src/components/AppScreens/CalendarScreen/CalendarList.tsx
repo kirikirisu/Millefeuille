@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { CalendarList } from 'react-native-calendars';
 import { NavigationStackProp, NavigationStackScreenComponent } from 'react-navigation-stack';
 import { AntDesign } from '@expo/vector-icons';
+import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
 import { View } from 'react-native';
 import { RecordState } from '../../../types/index';
-import firebase from '../../../utils/initializeFirebase';
-import { reload } from '../../../utils/methodFactory';
+// import { reload } from '../../../utils/methodFactory';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -37,26 +37,35 @@ const transitionDetails = (navigation, day) => {
   navigation.navigate('Details', { pressedDay: day });
 };
 
-export const Reload = () => (
-  <AntDesign size={25} name="reload1" color="white" onPress={() => reload()} style={{ marginRight: 20 }} />
+let reloadDate;
+let thunk;
+
+const mappingDot = (recordThunk) => {
+  conversionForCalender(recordThunk).then((shaping) => {
+    console.log('touch!!');
+    reloadDate(shaping);
+  });
+};
+
+const Reload = () => (
+  <AntDesign size={h(3.5)} name="reload1" color="white" onPress={() => mappingDot(thunk)} style={{ marginRight: 20 }} />
 );
 
 const Calendar: NavigationStackScreenComponent<Props> = ({ navigation, recordThunk }) => {
   const [data, setData] = useState({});
+  reloadDate = setData;
+  thunk = recordThunk;
 
   useEffect(() => {
     if (recordThunk) {
-      conversionForCalender(recordThunk).then((shaping) => {
-      // console.log(shaping);
-        setData(shaping);
-      });
+      mappingDot(recordThunk);
     }
   }, []);
 
   return (
     <View>
       <CalendarList
-        onDayPress={(day) => transitionDetails(navigation, day)}
+        onDayPress={(day): void => transitionDetails(navigation, day)}
         markedDates={data}
       />
     </View>
@@ -65,6 +74,9 @@ const Calendar: NavigationStackScreenComponent<Props> = ({ navigation, recordThu
 
 Calendar.navigationOptions = {
   title: 'ホーム',
+  headerRight: () => (
+    <Reload />
+  ),
 };
 
 export default Calendar;
