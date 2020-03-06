@@ -3,7 +3,7 @@ import { NavigationBottomTabScreenComponent } from 'react-navigation-tabs';
 import {
   Text, View, StyleSheet, ScrollView, Dimensions, ImageBackground, Platform, Image,
 } from 'react-native';
-import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
+import { heightPercentageToDP as h } from 'react-native-responsive-screen';
 import { RecordState } from '../../../types/index';
 
 const { width } = Dimensions.get('screen');

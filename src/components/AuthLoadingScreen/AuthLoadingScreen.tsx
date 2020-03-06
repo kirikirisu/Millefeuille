@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { NavigationSwitchScreenComponent, NavigationSwitchProp } from 'react-navigation';
 import LottieView from 'lottie-react-native';
+import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
 import firebase from '../../utils/initializeFirebase';
 
 const styles = StyleSheet.create({
@@ -12,6 +13,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  lottie: {
+    width: w(40),
+    height: h(40),
   },
 });
 
@@ -45,8 +50,9 @@ const AuthLoadingScreen: React.FC<Props> = ({ navigation, setUser, setRecordThun
   return (
     <View style={styles.container}>
       <LottieView
-        source={require('../../../lotties/6288-dino-loading.json')}
+        source={require('../../../lotties/193-material-loading.json')}
         autoPlay
+        style={styles.lottie}
         loop
       />
       <StatusBar barStyle="default" />
