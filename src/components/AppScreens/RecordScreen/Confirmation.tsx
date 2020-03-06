@@ -6,6 +6,7 @@ import {
 import LottieView from 'lottie-react-native';
 import { Card } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
+import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { formatDate, getPhotoDimentions } from '../../../utils/methodFactory';
 import useUploadPhoto from '../../../utils/useUploadPhoto';
@@ -35,7 +36,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(252, 251, 255)',
   },
   cardButtonContainer: {
-    marginBottom: 0,
   },
   photoContainer: {
     alignSelf: 'center',
@@ -49,10 +49,10 @@ const styles = StyleSheet.create({
   },
   comentLabel: {
     color: '#141823',
-    fontSize: 19,
+    fontSize: h(2.5),
   },
   coment: {
-    fontSize: 18,
+    fontSize: h(2.4),
     color: '#4E5665',
     marginLeft: 10,
   },
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   button: {
-    height: 50,
-    width: screenWidth * 0.75,
+    height: h(7),
+    width: w(75),
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: h(2.8),
     color: 'rgb(255, 255, 255)',
   },
   progressContainer: {
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(252, 251, 255)',
   },
   circleLoader: {
-    height: screenWidth - 240,
-    width: screenWidth - 240,
+    height: h(30),
+    width: h(30),
   },
   progressBar: {
     height: 5,
@@ -98,18 +98,22 @@ const styles = StyleSheet.create({
   },
   backIconContainer: {
     alignItems: 'flex-end',
-    width: screenWidth,
-    paddingRight: 30,
+    width: w(100),
   },
   backIcon: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 50,
-    width: 50,
+    height: h(11),
+    width: h(11),
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     borderWidth: 1,
     borderRadius: 35,
+    paddingTop: h(4),
+    paddingRight: h(3),
+  },
+  titleStyle: {
+    fontSize: h(2.6),
   },
 });
 
@@ -135,11 +139,12 @@ const renderProgress = (width) => (
 );
 
 export const RecordCard = ({ recordState }) => {
-  const { uri, date, text: coment } = recordState;
+  const { uri, date, coment } = recordState;
   return (
     <View style={styles.cardButtonContainer}>
       <Card
         title={date}
+        titleStyle={styles.titleStyle}
         containerStyle={{
           shadowColor: '#000',
           shadowOffset: {
@@ -189,14 +194,14 @@ const renderConfirmation = (recordState, done) => (
 type FormatedState = {
   uri?: string;
   date?: string;
-  text?: string;
+  coment?: string;
 };
 
 const ConfirmationScreen: NavigationStackScreenComponent<Props> = ({
   uid,
   recordState,
 }) => {
-  const { uri, date, text } = recordState;
+  const { uri, date, coment } = recordState;
   const formatedDate = formatDate(date);
 
   const formatedState: FormatedState = { ...recordState, date: formatedDate };

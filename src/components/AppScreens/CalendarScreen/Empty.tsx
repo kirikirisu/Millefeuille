@@ -3,6 +3,7 @@ import LottieView from 'lottie-react-native';
 import {
   View, Text, StyleSheet, Dimensions,
 } from 'react-native';
+import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
 
 const { height, width } = Dimensions.get('screen');
 
@@ -16,20 +17,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   lottie: {
-    width,
-    height: height / 3,
+    width: w(100),
+    height: h(33),
+    alignSelf: 'center',
   },
   textContainer: {
-    padding: 36,
+    padding: h(6),
     alignItems: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: h(4),
     fontWeight: '600',
     marginBottom: 10,
   },
   subTitle: {
-    fontSize: 20,
+    fontSize: h(2.7),
   },
 });
 

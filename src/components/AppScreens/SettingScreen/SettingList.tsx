@@ -4,17 +4,24 @@ import {
 } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { AntDesign } from '@expo/vector-icons';
+import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
 import NavigationService from '../../../utils/NavigationService';
 import { logout } from '../../../utils/methodFactory';
 
-const listItem = ['お問い合わせ', '利用規約', 'プライバシー・ポリシー'];
+const APP_VERSION = '1.0.0';
+const listItem = ['お問い合わせ', 'プライバシー・ポリシー', 'バーション'];
+
+type ItemElement = {
+  title: string;
+  index: number;
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   itemContainer: {
-    height: 50,
+    height: h(6.5),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -30,17 +37,17 @@ const styles = StyleSheet.create({
   signOut: {
     position: 'absolute',
     right: 0,
-    bottom: 60,
-    height: 50,
+    bottom: h(10),
+    height: h(7),
     backgroundColor: 'tomato',
-    borderTopLeftRadius: 24,
-    borderBottomLeftRadius: 24,
+    borderTopLeftRadius: h(5),
+    borderBottomLeftRadius: h(5),
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
   },
   signOutTitle: {
-    fontSize: 19,
+    fontSize: h(2.8),
     color: 'white',
   },
 });
@@ -51,9 +58,6 @@ const navigateOptions = (title) => {
     case 'お問い合わせ':
       navigateRouteName = 'Contact';
       break;
-    case '利用規約':
-      navigateRouteName = 'Rule';
-      break;
     case 'プライバシー・ポリシー':
       navigateRouteName = 'PrivacyPolicy';
       break;
@@ -62,15 +66,26 @@ const navigateOptions = (title) => {
   NavigationService.navigate(navigateRouteName, {});
 };
 
-const Item = ({ title, index }) => (
-  <TouchableOpacity
-    style={{ ...styles.itemContainer, borderTopWidth: index === 0 ? 1 : 0 }}
-    onPress={() => navigateOptions(title)}
-  >
-    <Text style={styles.title}>{title}</Text>
-    <AntDesign name="right" color="#a9a9a9" size={24} />
-  </TouchableOpacity>
-);
+const Item = React.memo(({ title, index }: ItemElement) => (
+  <View>
+    {index !== 2
+      ? (
+        <TouchableOpacity
+          style={{ ...styles.itemContainer, borderTopWidth: index === 0 ? 1 : 0 }}
+          onPress={() => navigateOptions(title)}
+        >
+          <Text style={styles.title}>{title}</Text>
+          <AntDesign name="right" color="#a9a9a9" size={24} />
+        </TouchableOpacity>
+      )
+      : (
+        <View style={{ ...styles.itemContainer, justifyContent: 'flex-start' }}>
+          <Text style={styles.title}>{`${title}:`}</Text>
+          <Text style={{ ...styles.title, paddingLeft: 10 }}>{`${APP_VERSION}`}</Text>
+        </View>
+      )}
+  </View>
+));
 
 const SettingList: NavigationStackScreenComponent = () => (
   <View style={styles.container}>

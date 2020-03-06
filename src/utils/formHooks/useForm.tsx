@@ -17,7 +17,7 @@ const useForm = (callback, validate) => {
     setIsSubmitting(true);
   };
 
-  const handleChange = (keyName, text) => {
+  const handleChange = (keyName, text): void => {
     // https://ja.reactjs.org/docs/events.html#event-pooling
     // event.persist();
     // https://ja.reactjs.org/docs/hooks-reference.html#functional-updates

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { NavigationBottomTabScreenComponent } from 'react-navigation-tabs';
 import {
   Text, View, StyleSheet, ScrollView, Dimensions, ImageBackground, Platform, Image,
 } from 'react-native';
-import Header from '../Header';
+import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
+import { RecordState } from '../../../types/index';
 
-const { height, width } = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
 type Props = {
   recordThunk: Record;
@@ -36,11 +37,21 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 6,
+      height: 1,
     },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    elevation: 5,
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  strongShadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
   },
   infor: {
     flexDirection: 'column',
@@ -50,37 +61,49 @@ const styles = StyleSheet.create({
     paddingHorizontal: 36,
     paddingVertical: 10,
     bottom: 20,
-    backgroundColor: '#a9a9a9',
+    backgroundColor: 'rgb(255, 255, 255)',
     width: width - (36 * 4),
     height: (width * 0.6) * 0.35,
-    elevation: 10,
+    elevation: 7,
   },
   title: {
-    fontSize: 14 * 1.25,
+    fontSize: h(2.5),
     fontWeight: '500',
-    paddingBottom: 5,
+    paddingBottom: h(0.7),
+  },
+  subTitle: {
+    fontSize: h(2),
+  },
+  noData: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noDataTitle: {
+    fontSize: 20,
+    color: '#a9a9a9',
   },
 });
 
-const Item = ({ date, coment, url }) => (
+const Item = React.memo(({ coment, date, url }: RecordState) => (
   <View>
     <ImageBackground
       style={[styles.imgContainer, styles.shadow]}
       imageStyle={{ borderRadius: 12 }}
       source={{ uri: url }}
     />
-    <View style={styles.infor}>
+    <View style={[styles.infor, styles.strongShadow]}>
       <ScrollView>
         <Text style={styles.title}>
           {date}
         </Text>
-        <Text>
+        <Text style={styles.subTitle}>
           {coment}
         </Text>
       </ScrollView>
     </View>
   </View>
-);
+));
 
 const ComparisonScreen: React.FC<Props> = ({ recordThunk }) => {
   console.log('mount');
@@ -102,7 +125,11 @@ const ComparisonScreen: React.FC<Props> = ({ recordThunk }) => {
             </ScrollView>
           </View>
         )
-        : <View />}
+        : (
+          <View style={styles.noData}>
+            <Text style={styles.noDataTitle}>記録はありません</Text>
+          </View>
+        )}
     </View>
   );
 };

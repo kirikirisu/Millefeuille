@@ -1,25 +1,21 @@
 import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, Dimensions,
+  View, Text, StyleSheet,
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import DatePicker from '@react-native-community/datetimepicker';
+import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
 import { formatDate } from '../../../utils/methodFactory';
-
-const { width } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    marginTop: h(3),
   },
   button: {
-    width: width * 0.7,
-    height: 50,
-  },
-  text: {
-    fontSize: 24,
+    width: w(70),
+    height: h(6),
   },
 });
 

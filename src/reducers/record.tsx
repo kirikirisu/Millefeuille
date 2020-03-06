@@ -5,7 +5,7 @@ import {
 const initialState = {
   uri: '',
   date: new Date(),
-  text: '',
+  coment: '',
 };
 
 const recordReducer = (state = initialState, action) => {
@@ -23,7 +23,7 @@ const recordReducer = (state = initialState, action) => {
     case SET_TEXT:
       return {
         ...state,
-        text: action.text,
+        coment: action.coment,
       };
     case INITIALIZE_RECORD:
       return initialState;
