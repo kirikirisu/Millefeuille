@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   lottie: {
-    width: w(40),
-    height: h(40),
+    width: w(30),
+    height: h(30),
   },
 });
 

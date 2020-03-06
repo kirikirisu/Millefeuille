@@ -18,7 +18,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.smartphoneAppsProject.arakappa.millefeuille"
     },
     "android": {
       "icon": "./assets/Icon-1024.png",

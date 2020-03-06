@@ -11,13 +11,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   firstText: {
-    marginHorizontal: 25,
-    marginVertical: 30,
+    marginHorizontal: h(3.5),
+    marginVertical: h(3.5),
     color: 'rgb(57, 62, 70)',
     fontSize: h(2.2),
   },
   secondText: {
-    marginHorizontal: 25,
+    marginHorizontal: h(3.5),
     color: 'rgb(57, 62, 70)',
     fontSize: h(2.2),
   },
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: h(5),
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: h(4),
   },
   buttonTitle: {
     fontSize: h(2.8),

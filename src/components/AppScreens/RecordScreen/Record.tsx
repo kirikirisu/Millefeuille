@@ -68,7 +68,10 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   headerRight: {
-    marginRight: 25,
+    marginRight: h(3.5),
+  },
+  picker: {
+    marginBottom: h(4),
   },
 });
 
@@ -131,9 +134,11 @@ const Record = ({
         {renderPhoto(uri)}
         {renderPhotoicons(cameraPermission)}
         {renderComentArea(setText, coment)}
-        {Platform.OS === 'ios'
-          ? <IosDatePicker date={date} setDate={setDate} />
-          : <AndroidDatePicker date={date} setDate={setDate} />}
+        <View style={styles.picker}>
+          {Platform.OS === 'ios'
+            ? <IosDatePicker date={date} setDate={setDate} />
+            : <AndroidDatePicker date={date} setDate={setDate} />}
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );

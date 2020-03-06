@@ -9,7 +9,7 @@ import { withNavigation } from 'react-navigation';
 import { AntDesign } from '@expo/vector-icons';
 
 const { height, width } = Dimensions.get('screen');
-const filler = { ...StyleSheet.absoluteFillObject, top: 100 }; // 最後に残るやつを消すために１００プラス
+const filler = { ...StyleSheet.absoluteFillObject, top: h(8) }; // 最後に残るやつを消すために１００プラス
 
 const styles = StyleSheet.create({
   container: {
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(126, 237, 150)',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 40,
+    borderRadius: h(10),
   },
 });
 
