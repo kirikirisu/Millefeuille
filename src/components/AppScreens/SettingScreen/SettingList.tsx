@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: h(5),
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: h(4),
   },
   signOutTitle: {
     fontSize: h(2.8),

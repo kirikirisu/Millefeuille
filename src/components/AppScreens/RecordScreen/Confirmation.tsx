@@ -178,7 +178,7 @@ const renderConfirmation = (recordState, done) => (
     <View style={styles.container}>
       <View style={styles.backIconContainer}>
         <TouchableOpacity style={styles.backIcon} onPress={() => NavigationService.navigate('Record', {})}>
-          <AntDesign name="close" size={35} />
+          <AntDesign name="close" size={h(5.5)} />
         </TouchableOpacity>
       </View>
       <RecordCard recordState={recordState} />
