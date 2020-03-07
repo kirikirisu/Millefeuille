@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView,
 } from 'react-native';
 import { Input } from 'react-native-elements';
 import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
+import Toast from 'react-native-easy-toast';
 import { MaterialIcons } from '@expo/vector-icons';
 import firebase from '../../../utils/initializeFirebase';
 import useForm from '../../../utils/formHooks/useForm';
@@ -57,15 +58,26 @@ const styles = StyleSheet.create({
     borderColor: 'rgb(255,255,255)',
     borderRadius: 40,
   },
+  toast: {
+    marginHorizontal: h(3),
+    paddingHorizontal: h(2),
+    backgroundColor: 'tomato',
+  },
 });
 
 const RegisterScreen: React.FC = () => {
+  const toastRef = useRef(null);
+
   const createUser = () => {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     const { email, password } = values;
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((credentials) => { console.log('create user success'); })
-      .catch((error) => { console.log(error); });
+      .then((credentials) => {
+        if (toastRef) toastRef.current.show('登録完了', 3000);
+      })
+      .catch((error) => {
+        if (toastRef) toastRef.current.show('失敗しました', 3000);
+      });
   };
 
   const {
@@ -79,7 +91,7 @@ const RegisterScreen: React.FC = () => {
   const email = 'email';
   const password = 'password';
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} enabled behavior="position" keyboardVerticalOffset={-h(1)}>
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: 'rgb(57, 62, 70)' }} enabled behavior="position" keyboardVerticalOffset={-h(1)}>
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <Text style={{ ...styles.title, paddingTop: h(13) }}>Create</Text>
@@ -116,8 +128,11 @@ const RegisterScreen: React.FC = () => {
             </TouchableOpacity>
           </View>
         </View>
-
       </View>
+      <Toast
+        ref={toastRef}
+        style={styles.toast}
+      />
     </KeyboardAvoidingView>
   );
 };
