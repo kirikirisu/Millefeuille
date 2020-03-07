@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView,
 } from 'react-native';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Input } from 'react-native-elements';
 import { widthPercentageToDP as w, heightPercentageToDP as h } from 'react-native-responsive-screen';
+import Toast from 'react-native-easy-toast';
 import firebase from '../../../utils/initializeFirebase';
 import useForm from '../../../utils/formHooks/useForm';
 import validate from '../../../utils/formHooks/validationRules';
@@ -63,20 +64,30 @@ const styles = StyleSheet.create({
     paddingTop: h(4.5),
     alignItems: 'center',
   },
+  toast: {
+    marginHorizontal: h(3),
+    paddingHorizontal: h(2),
+    backgroundColor: 'tomato',
+  },
 });
 
 const EmailPasswordLoginScreen: React.FC = () => {
+  const toastRef = useRef(null);
+
   const loginWithEmailAndPassword = (): void => {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     const { email, password } = values;
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
         console.log('login with email and password success');
+        if (toastRef) toastRef.current.show('ログイン！', 3000);
       })
       .catch((error) => {
+        if (toastRef) toastRef.current.show('ログインに失敗しました。もう一度、パスワードとメールアドレスを確認してください', 3000);
         console.log(error);
       });
   };
+
   const {
     values,
     errors,
@@ -126,6 +137,10 @@ const EmailPasswordLoginScreen: React.FC = () => {
           <FacebookLogin />
         </View>
       </View>
+      <Toast
+        ref={toastRef}
+        style={styles.toast}
+      />
     </KeyboardAvoidingView>
   );
 };
